@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 
-import * as Progress from 'react-native-progress';
 import AnimatedProgressWheel from 'react-native-progress-wheel';
 
 const HomeScreen = ({ route, navigation }) => {
