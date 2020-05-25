@@ -11,12 +11,17 @@ import {
 import styled from 'styled-components';
 
 import MainTabNavigator from 'src/screens/MainTabNavigator';
+import UserContextProvider from 'src/contexts/UserContext';
 
 const App = () => {
+  const [user, setUser] = useState({ isStudent: true });
+
   return (
-    <SafeAreaViewWrapper>
-      <MainTabNavigator />
-    </SafeAreaViewWrapper>
+    <UserContextProvider>
+      <SafeAreaViewWrapper>
+        <MainTabNavigator />
+      </SafeAreaViewWrapper>
+    </UserContextProvider>
   );
 };
 
