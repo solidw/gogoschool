@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import palette from 'src/lib/palette';
 
 import * as Progress from 'react-native-progress';
+import AnimatedProgressWheel from 'react-native-progress-wheel';
 
 const HomeScreen = ({ route, navigation }) => {
   const [userProgress, setUserProgress] = useState(0.2);
+  const [wheelProgress, setWheelProgress] = useState(20);
+
   const { isStudent } = route.params;
   const animate = () => {
     let progress = userProgress;
@@ -30,17 +33,28 @@ const HomeScreen = ({ route, navigation }) => {
         </UserInfoView>
         <ProgressView>
           <Progress.Circle
-            style={{ marginVertical: 20 }}
             progress={userProgress}
-            color={palette.white}
+            color={palette.green}
             showsText={true}
             size={120}
             formatText={() => Math.round(userProgress * 100, 2) + '%'}
           />
+          <View style={{ transform: [{ rotate: '-90deg' }] }}>
+            <AnimatedProgressWheel
+              size={120}
+              width={15}
+              color={palette.hakgyoPurple}
+              progress={wheelProgress}
+              backgroundColor={palette.green}
+              animateFromValue={0}
+              duration={3000}
+            />
+          </View>
           <TouchableOpacity
-            onPress={() =>
-              setUserProgress(userProgress < 1 ? userProgress + 0.1 : 1)
-            }
+            onPress={() => {
+              setUserProgress(userProgress < 1 ? userProgress + 0.1 : 1);
+              setWheelProgress(wheelProgress < 100 ? wheelProgress + 10 : 100);
+            }}
             style={{ backgroundColor: 'white' }}
             activeOpacity={0.3}>
             <Text>Click</Text>

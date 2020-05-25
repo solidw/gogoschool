@@ -5175,6 +5175,11 @@ react-native-iphone-x-helper@^1.2.1:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
 
+react-native-progress-wheel@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-progress-wheel/-/react-native-progress-wheel-1.0.4.tgz#d9197e5f5f76ea4d16ab1a23e7ddc4472d18da64"
+  integrity sha512-uGL9yoFAeXKzFb/zc6uLsEnIrFyoyaVKPZS9/Y8CQyYC3vydOym0486+ULV9WUi6XY3e40kOZBcpHNvQSjhboQ==
+
 react-native-progress@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/react-native-progress/-/react-native-progress-4.1.2.tgz#ffb2264ddfeba409c730e36a9791bb7bbe07a00d"
