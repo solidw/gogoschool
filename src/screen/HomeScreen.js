@@ -1,37 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text } from 'react-native';
+import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
-import { createStackNavigator } from '@react-navigation/stack';
 import palette from 'src/lib/palette';
 
 import * as Progress from 'react-native-progress';
 
-const Stack = createStackNavigator();
-const HomeScreen = () => {
-  const [userProgress, setUserProgress] = useState(0);
-
+const HomeScreen = ({ route, navigation }) => {
+  const [userProgress, setUserProgress] = useState(0.2);
+  const { isStudent } = route.params;
   const animate = () => {
-    let progress = 0.1;
-    setUserProgress({ progress });
-    setTimeout(() => {
-      setInterval(() => {
-        progress += Math.random() / 5;
-        if (progress > 1) {
-          progress = 1;
-        }
-        setUserProgress({ progress });
-      }, 500);
-    }, 1500);
+    let progress = userProgress;
+    progress += Math.round(Math.random() / 5, 1);
+    if (progress > 1) {
+      progress = 1;
+    }
+    setUserProgress(progress);
   };
-
-  useEffect(() => {
-    animate();
-  }, []);
 
   return (
     <HomeScreenWrapper>
       <HeaderView>
-        <WhiteText>학교가자</WhiteText>
+        <WhiteText>학교가자_{isStudent ? '학생' : '교사'}</WhiteText>
       </HeaderView>
       <BodyView>
         <UserInfoView>
@@ -42,13 +31,20 @@ const HomeScreen = () => {
         <ProgressView>
           <Progress.Circle
             style={{ marginVertical: 20 }}
-            progress={0.25}
-            animated={true}
+            progress={userProgress}
             color={palette.white}
             showsText={true}
             size={120}
-            formatText={progress => progress * 100 + '%'}
+            formatText={() => Math.round(userProgress * 100, 2) + '%'}
           />
+          <TouchableOpacity
+            onPress={() =>
+              setUserProgress(userProgress < 1 ? userProgress + 0.1 : 1)
+            }
+            style={{ backgroundColor: 'white' }}
+            activeOpacity={0.3}>
+            <Text>Click</Text>
+          </TouchableOpacity>
         </ProgressView>
         <FooterView>
           <Text>QR</Text>
