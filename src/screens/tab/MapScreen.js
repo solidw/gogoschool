@@ -1,11 +1,17 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import styled from 'styled-components';
-
+import AnimatedProgressWheel from 'react-native-progress-wheel';
 const MapScreen = () => {
   return (
     <MapScreenWrapper>
-      <Text>Map Screen</Text>
+      <AnimatedProgressWheel
+        size={120}
+        width={20}
+        color={'yellow'}
+        progress={40}
+        backgroundColor={'orange'}
+      />
     </MapScreenWrapper>
   );
 };

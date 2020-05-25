@@ -6,9 +6,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import MapScreen from 'src/screens/tab/MapScreen';
 import CalendarScreen from 'src/screens/tab/CalendarScreen';
-import HomeScreen from 'src/screens/tab/HomeScreen';
 import SNSScreen from 'src/screens/tab/SNSScreen';
 import NoticeScreen from 'src/screens/tab/NoticeScreen';
+import HomeStackNavigator from 'src/screens/tab/HomeStackNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +42,7 @@ const MainTabNavigator = () => {
         />
         <Tab.Screen
           name="홈"
-          component={HomeScreen}
+          component={HomeStackNavigator}
           initialParams={{ isStudent: true }}
         />
         <Tab.Screen name="인스타그램" component={SNSScreen} />
