@@ -6,22 +6,22 @@ import styled from 'styled-components';
 const HakgyoScreen = () => {
   const [visible, setVisible] = useState(true);
   return (
-    <SNSView>
+    <HakgyoView>
       <WebView
         source={{ uri: 'https://daily.gegdaegu.org/' }}
         onLoadStart={() => setVisible(true)}
         onLoad={() => setVisible(false)}
       />
-      {visible && <SNSActivityIndicator size="large" />}
-    </SNSView>
+      {visible && <HakgyoActivityIndicator size="large" />}
+    </HakgyoView>
   );
 };
 
-const SNSView = styled.View`
+const HakgyoView = styled.View`
   flex: 1;
 `;
 
-const SNSActivityIndicator = styled.ActivityIndicator`
+const HakgyoActivityIndicator = styled.ActivityIndicator`
   flex: 1;
   left: 0;
   right: 0;
