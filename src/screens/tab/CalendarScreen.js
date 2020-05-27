@@ -1,13 +1,28 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, DatePickerAndroid } from 'react-native';
 import styled from 'styled-components';
+import {
+  Calendar,
+  CalendarList,
+  Agenda,
+  LocaleConfig,
+} from 'react-native-calendars';
+import { getFormatDate } from 'src/lib/Date.js';
 
 const CalendarScreen = () => {
-  return (
-    <CalendarScreenWrapper>
-      <Text>CalendarScreen</Text>
-    </CalendarScreenWrapper>
+  const now = new Date();
+  const dates = [getFormatDate(now), '2020-05-29', '2020-06-01'];
+  const objForProps = {};
+  dates.forEach(
+    item =>
+      (objForProps[item] = {
+        startingDay: true,
+        endingDay: true,
+        color: 'green',
+        textColor: 'white',
+      }),
   );
+  return <Calendar markedDates={objForProps} markingType={'period'} />;
 };
-const CalendarScreenWrapper = styled.View``;
+
 export default CalendarScreen;
