@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 
 import AnimatedProgressWheel from 'react-native-progress-wheel';
+import { UserContext } from 'src/contexts/UserContext';
 
 const HomeScreen = ({ route, navigation }) => {
-  const [userProgress, setUserProgress] = useState(0.2);
   const [wheelProgress, setWheelProgress] = useState(20);
+  const user = useContext(UserContext);
 
-  const { isStudent } = route.params;
-
+  const { isStudent } = user;
   return (
     <HomeScreenWrapper>
       <HeaderView>
         <WhiteText>학교가자_{isStudent ? '학생' : '교사'}</WhiteText>
+        <TouchableOpacity
+          onPress={() => {
+            user.toggleUser();
+          }}>
+          <Text>학생-교사 전환</Text>
+        </TouchableOpacity>
       </HeaderView>
       <BodyView>
         <UserInfoView>
@@ -37,7 +43,6 @@ const HomeScreen = ({ route, navigation }) => {
           <ProgressText>{wheelProgress + '%'}</ProgressText>
           <TouchableOpacity
             onPress={() => {
-              setUserProgress(userProgress < 1 ? userProgress + 0.1 : 1);
               setWheelProgress(wheelProgress < 100 ? wheelProgress + 10 : 0);
             }}
             style={{ backgroundColor: 'white' }}
@@ -96,7 +101,8 @@ const HomeScreenWrapper = styled.SafeAreaView`
   flex: 1;
 `;
 const HeaderView = styled.View`
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   height: 36px;
 
