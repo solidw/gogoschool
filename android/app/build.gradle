@@ -130,10 +130,12 @@ android {
 
     defaultConfig {
         applicationId "com.gogohakgyo"
-        minSdkVersion rootProject.ext.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        missingDimensionStrategy 'react-native-camera', 'general'
+        multiDexEnabled true
     }
     splits {
         abi {
