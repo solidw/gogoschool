@@ -10,14 +10,6 @@ const HomeScreen = ({ route, navigation }) => {
   const [wheelProgress, setWheelProgress] = useState(20);
 
   const { isStudent } = route.params;
-  const animate = () => {
-    let progress = userProgress;
-    progress += Math.round(Math.random() / 5, 1);
-    if (progress > 1) {
-      progress = 1;
-    }
-    setUserProgress(progress);
-  };
 
   return (
     <HomeScreenWrapper>
@@ -30,6 +22,7 @@ const HomeScreen = ({ route, navigation }) => {
           <WhiteText>이미지</WhiteText>
           <WhiteText>레벨</WhiteText>
         </UserInfoView>
+
         <ProgressView>
           <View style={{ transform: [{ rotate: '-90deg' }] }}>
             <AnimatedProgressWheel
@@ -52,25 +45,53 @@ const HomeScreen = ({ route, navigation }) => {
             <Text>Test</Text>
           </TouchableOpacity>
         </ProgressView>
-        <FooterView>
-          <TouchableOpacity onPress={() => navigation.push('QRCode')}>
-            <Text>QR코드</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.push('Hakgyo')}>
-            <Text>학교가자</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.push('Manual')}>
-            <Text>메뉴얼</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.push('Quiz')}>
-            <Text>퀴즈</Text>
-          </TouchableOpacity>
-        </FooterView>
+        {isStudent ? (
+          <StudentFooterView navigation={navigation} />
+        ) : (
+          <TeacherFooterView navigation={navigation} />
+        )}
       </BodyView>
     </HomeScreenWrapper>
   );
 };
 
+const StudentFooterView = ({ navigation }) => {
+  return (
+    <FooterView>
+      <TouchableOpacity onPress={() => navigation.push('QRCode')}>
+        <Text>QR코드</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push('Hakgyo')}>
+        <Text>학교가자</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push('Manual')}>
+        <Text>메뉴얼</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push('Quiz')}>
+        <Text>퀴즈</Text>
+      </TouchableOpacity>
+    </FooterView>
+  );
+};
+
+const TeacherFooterView = ({ navigation }) => {
+  return (
+    <FooterView>
+      <TouchableOpacity onPress={() => navigation.push('QRCode')}>
+        <Text>QR코드</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push('Hakgyo')}>
+        <Text>학교가자</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push('Manual')}>
+        <Text>비상 메뉴얼</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push('Quiz')}>
+        <Text>안전 관리 메뉴얼</Text>
+      </TouchableOpacity>
+    </FooterView>
+  );
+};
 const HomeScreenWrapper = styled.SafeAreaView`
   flex: 1;
 `;
