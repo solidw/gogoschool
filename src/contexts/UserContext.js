@@ -5,16 +5,18 @@ export const UserContext = createContext();
 const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState({
     name: '고태완',
-    login: false,
     isStudent: true,
   });
 
-  const loginUser = () => {
-    setUser({ ...user, name: '고태완_로그인', login: true });
+  const toggleUser = () => {
+    setUser({ ...user, isStudent: !user.isStudent });
+    console.log(user.isStudent);
   };
 
   return (
-    <UserContext.Provider value={{ ...user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ ...user, toggleUser }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

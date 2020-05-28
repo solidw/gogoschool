@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.gogohakgyo"
+        applicationId "com.gogoschool"
         minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

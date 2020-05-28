@@ -44,8 +44,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'gogohakgyo' do
-  # Pods for gogohakgyo
+target 'gogoschool' do
+  # Pods for gogoschool
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -83,7 +83,7 @@ target 'gogohakgyo' do
 
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
-  target 'gogohakgyoTests' do
+  target 'gogoschoolTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -100,10 +100,10 @@ target 'gogohakgyo' do
   end
 end
 
-target 'gogohakgyo-tvOS' do
-  # Pods for gogohakgyo-tvOS
+target 'gogoschool-tvOS' do
+  # Pods for gogoschool-tvOS
 
-  target 'gogohakgyo-tvOSTests' do
+  target 'gogoschool-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

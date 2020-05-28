@@ -63,14 +63,15 @@ const HomeScreen = ({ route, navigation }) => {
 const StudentFooterView = ({ navigation }) => {
   return (
     <FooterView>
-      <TouchableOpacity onPress={() => navigation.push('QRCode')}>
+      <TouchableOpacity
+        onPress={() => navigation.push('QRCode', { isStudent: true })}>
         <Text>QR코드</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.push('Hakgyo')}>
         <Text>학교가자</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Manual')}>
-        <Text>메뉴얼</Text>
+      <TouchableOpacity onPress={() => navigation.push('SelfCheck')}>
+        <Text>자가진단</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.push('Quiz')}>
         <Text>퀴즈</Text>
@@ -82,17 +83,18 @@ const StudentFooterView = ({ navigation }) => {
 const TeacherFooterView = ({ navigation }) => {
   return (
     <FooterView>
-      <TouchableOpacity onPress={() => navigation.push('QRCode')}>
+      <TouchableOpacity
+        onPress={() => navigation.push('QRCode', { isStudent: false })}>
         <Text>QR코드</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.push('Hakgyo')}>
         <Text>학교가자</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.push('Manual')}>
-        <Text>비상 메뉴얼</Text>
+        <Text>Emergency</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Quiz')}>
-        <Text>안전 관리 메뉴얼</Text>
+      <TouchableOpacity onPress={() => navigation.push('Safety')}>
+        <Text>Safety</Text>
       </TouchableOpacity>
     </FooterView>
   );

@@ -11,6 +11,7 @@ import QuizScreen from 'src/screens/tab/HomeStack/QuizScreen';
 import SafetyScreen from 'src/screens/tab/HomeStack/SafetyScreen';
 
 import { UserContext } from 'src/contexts/UserContext';
+import EmergencyScreen from 'src/screens/tab/HomeStack/EmergencyScreen';
 
 const Stack = createStackNavigator();
 
@@ -35,7 +36,11 @@ const StudentStackNavigator = ({ user }) => {
         component={HomeScreen}
         initialParams={{ isStudent: true, user: user }}
       />
-      <Stack.Screen name="QRCode" component={QRScreen} />
+      <Stack.Screen
+        name="QRCode"
+        component={QRScreen}
+        initialParams={{ isStudent: true, user: user }}
+      />
       <Stack.Screen name="Hakgyo" component={HakgyoScreen} />
       <Stack.Screen name="SelfCheck" component={SelfCheckScreen} />
       <Stack.Screen name="Quiz" component={QuizScreen} />
@@ -53,9 +58,13 @@ const TeacherStackNavigator = ({ user }) => {
         component={HomeScreen}
         initialParams={{ isStudent: false, user: user }}
       />
-      <Stack.Screen name="QRCode" component={QRScreen} />
+      <Stack.Screen
+        name="QRCode"
+        component={QRScreen}
+        initialParams={{ isStudent: false, user: user }}
+      />
       <Stack.Screen name="Hakgyo" component={HakgyoScreen} />
-      <Stack.Screen name="SelfCheck" component={SelfCheckScreen} />
+      <Stack.Screen name="Emergency" component={EmergencyScreen} />
       <Stack.Screen name="Safety" component={SafetyScreen} />
     </Stack.Navigator>
   );
