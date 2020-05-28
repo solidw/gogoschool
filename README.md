@@ -4,8 +4,9 @@
 2. set Android Virtual Device or Actual Device
 3. How to set Android Virtual Device: [Here](https://recipes4dev.tistory.com/145)
 4. Run Android Virtual Device
-5. Type `npx react-native run-android` in git-bash or something shell (vscode .. )
-6. Done !
+5. `npm install`
+6. Type `npx react-native run-android` in git-bash or something shell (vscode .. )
+7. Done !
 
 
 
