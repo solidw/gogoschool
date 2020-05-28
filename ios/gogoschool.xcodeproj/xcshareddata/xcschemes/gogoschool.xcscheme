@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "gogohakgyo.app"
-               BlueprintName = "gogohakgyo"
-               ReferencedContainer = "container:gogohakgyo.xcodeproj">
+               BuildableName = "gogoschool.app"
+               BlueprintName = "gogoschool"
+               ReferencedContainer = "container:gogoschool.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "gogohakgyoTests.xctest"
-               BlueprintName = "gogohakgyoTests"
-               ReferencedContainer = "container:gogohakgyo.xcodeproj">
+               BuildableName = "gogoschoolTests.xctest"
+               BlueprintName = "gogoschoolTests"
+               ReferencedContainer = "container:gogoschool.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "gogohakgyo.app"
-            BlueprintName = "gogohakgyo"
-            ReferencedContainer = "container:gogohakgyo.xcodeproj">
+            BuildableName = "gogoschool.app"
+            BlueprintName = "gogoschool"
+            ReferencedContainer = "container:gogoschool.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "gogohakgyo.app"
-            BlueprintName = "gogohakgyo"
-            ReferencedContainer = "container:gogohakgyo.xcodeproj">
+            BuildableName = "gogoschool.app"
+            BlueprintName = "gogoschool"
+            ReferencedContainer = "container:gogoschool.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

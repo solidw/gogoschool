@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "gogohakgyo-tvOS.app"
-               BlueprintName = "gogohakgyo-tvOS"
-               ReferencedContainer = "container:gogohakgyo.xcodeproj">
+               BuildableName = "gogoschool-tvOS.app"
+               BlueprintName = "gogoschool-tvOS"
+               ReferencedContainer = "container:gogoschool.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "gogohakgyo-tvOSTests.xctest"
-               BlueprintName = "gogohakgyo-tvOSTests"
-               ReferencedContainer = "container:gogohakgyo.xcodeproj">
+               BuildableName = "gogoschool-tvOSTests.xctest"
+               BlueprintName = "gogoschool-tvOSTests"
+               ReferencedContainer = "container:gogoschool.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "gogohakgyo-tvOS.app"
-            BlueprintName = "gogohakgyo-tvOS"
-            ReferencedContainer = "container:gogohakgyo.xcodeproj">
+            BuildableName = "gogoschool-tvOS.app"
+            BlueprintName = "gogoschool-tvOS"
+            ReferencedContainer = "container:gogoschool.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "gogohakgyo-tvOS.app"
-            BlueprintName = "gogohakgyo-tvOS"
-            ReferencedContainer = "container:gogohakgyo.xcodeproj">
+            BuildableName = "gogoschool-tvOS.app"
+            BlueprintName = "gogoschool-tvOS"
+            ReferencedContainer = "container:gogoschool.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

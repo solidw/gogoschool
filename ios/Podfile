@@ -77,9 +77,9 @@ target 'gogoschool' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
-
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
