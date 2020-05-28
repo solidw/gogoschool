@@ -15,7 +15,6 @@ import UserContextProvider from 'src/contexts/UserContext';
 
 const App = () => {
   const [user, setUser] = useState({ isStudent: true });
-
   return (
     <UserContextProvider>
       <SafeAreaViewWrapper>
