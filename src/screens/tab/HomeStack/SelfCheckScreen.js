@@ -1,15 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import styled from 'styled-components';
-import palette from 'src/lib/palette';
+import CustomWebView from 'src/components/CustomWebView';
 
 const SelfCheckScreen = () => {
-  return (
-    <SelfCheckScreenWrapper>
-      <Text>SelfCheck</Text>
-    </SelfCheckScreenWrapper>
-  );
+  return <CustomWebView uri={'https://eduro.dge.go.kr/hcheck/index.jsp'} />;
 };
-const SelfCheckScreenWrapper = styled.View``;
 
 export default SelfCheckScreen;
