@@ -18,7 +18,6 @@ const Stack = createStackNavigator();
 const HomeStackNavigator = () => {
   const { user } = useContext(UserContext);
   const { isStudent } = user;
-  console.log(user);
   return isStudent ? (
     <StudentStackNavigator user={user} />
   ) : (
@@ -27,7 +26,6 @@ const HomeStackNavigator = () => {
 };
 
 const StudentStackNavigator = ({ user }) => {
-  console.log('student stack');
   return (
     <Stack.Navigator
       initialRouteName={'홈'}
