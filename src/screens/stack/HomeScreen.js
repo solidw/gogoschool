@@ -8,23 +8,22 @@ import { UserContext } from 'src/contexts/UserContext';
 
 const HomeScreen = ({ route, navigation }) => {
   const [wheelProgress, setWheelProgress] = useState(20);
-  const user = useContext(UserContext);
-
-  const { isStudent } = user;
+  const { user, toggleUser } = useContext(UserContext);
+  console.log(user);
   return (
     <HomeScreenWrapper>
       <HeaderView>
-        <WhiteText>학교가자_{isStudent ? '학생' : '교사'}</WhiteText>
+        <WhiteText>학교가자_{user.isStudent ? '학생' : '교사'}</WhiteText>
         <TouchableOpacity
           onPress={() => {
-            user.toggleUser();
+            toggleUser();
           }}>
           <Text>학생-교사 전환</Text>
         </TouchableOpacity>
       </HeaderView>
       <BodyView>
         <UserInfoView>
-          <WhiteText>고태완</WhiteText>
+          <WhiteText>{user.name}</WhiteText>
           <WhiteText>이미지</WhiteText>
           <WhiteText>레벨</WhiteText>
         </UserInfoView>
@@ -50,7 +49,7 @@ const HomeScreen = ({ route, navigation }) => {
             <Text>Test</Text>
           </TouchableOpacity>
         </ProgressView>
-        {isStudent ? (
+        {user.isStudent ? (
           <StudentFooterView navigation={navigation} />
         ) : (
           <TeacherFooterView navigation={navigation} />
@@ -61,6 +60,7 @@ const HomeScreen = ({ route, navigation }) => {
 };
 
 const StudentFooterView = ({ navigation }) => {
+  console.log('Student Footer');
   return (
     <FooterView>
       <TouchableOpacity
@@ -70,10 +70,10 @@ const StudentFooterView = ({ navigation }) => {
       <TouchableOpacity onPress={() => navigation.push('Hakgyo')}>
         <Text>학교가자</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('SelfCheck')}>
+      <TouchableOpacity onPress={() => navigation.push('Third')}>
         <Text>자가진단</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Quiz')}>
+      <TouchableOpacity onPress={() => navigation.push('Fourth')}>
         <Text>퀴즈</Text>
       </TouchableOpacity>
     </FooterView>
@@ -90,10 +90,10 @@ const TeacherFooterView = ({ navigation }) => {
       <TouchableOpacity onPress={() => navigation.push('Hakgyo')}>
         <Text>학교가자</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Manual')}>
+      <TouchableOpacity onPress={() => navigation.push('Third')}>
         <Text>Emergency</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Safety')}>
+      <TouchableOpacity onPress={() => navigation.push('Fourth')}>
         <Text>Safety</Text>
       </TouchableOpacity>
     </FooterView>
@@ -102,6 +102,7 @@ const TeacherFooterView = ({ navigation }) => {
 const HomeScreenWrapper = styled.SafeAreaView`
   flex: 1;
 `;
+
 const HeaderView = styled.View`
   flex-direction: row;
   justify-content: space-around;

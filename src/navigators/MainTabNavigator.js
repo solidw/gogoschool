@@ -8,7 +8,7 @@ import MapScreen from 'src/screens/tab/MapScreen';
 import CalendarScreen from 'src/screens/tab/CalendarScreen';
 import SNSScreen from 'src/screens/tab/SNSScreen';
 import NoticeScreen from 'src/screens/tab/NoticeScreen';
-import HomeStackNavigator from 'src/screens/tab/HomeStackNavigator';
+import HomeStackNavigator from 'src/navigators/HomeStackNavigator';
 
 const Tab = createBottomTabNavigator();
 
