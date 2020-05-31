@@ -5,11 +5,12 @@ import palette from 'src/lib/palette';
 
 import AnimatedProgressWheel from 'react-native-progress-wheel';
 import { UserContext } from 'src/contexts/UserContext';
+import HomeFooterView from 'src/components/Home/HomeFooterView';
 
 const HomeScreen = ({ route, navigation }) => {
   const [wheelProgress, setWheelProgress] = useState(20);
   const { user, toggleUser } = useContext(UserContext);
-  console.log(user);
+
   return (
     <HomeScreenWrapper>
       <HeaderView>
@@ -49,56 +50,12 @@ const HomeScreen = ({ route, navigation }) => {
             <Text>Test</Text>
           </TouchableOpacity>
         </ProgressView>
-        {user.isStudent ? (
-          <StudentFooterView navigation={navigation} />
-        ) : (
-          <TeacherFooterView navigation={navigation} />
-        )}
+        <HomeFooterView isStudent={user.isStudent} navigation={navigation} />
       </BodyView>
     </HomeScreenWrapper>
   );
 };
 
-const StudentFooterView = ({ navigation }) => {
-  console.log('Student Footer');
-  return (
-    <FooterView>
-      <TouchableOpacity
-        onPress={() => navigation.push('QRCode', { isStudent: true })}>
-        <Text>QR코드</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Hakgyo')}>
-        <Text>학교가자</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Third')}>
-        <Text>자가진단</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Fourth')}>
-        <Text>퀴즈</Text>
-      </TouchableOpacity>
-    </FooterView>
-  );
-};
-
-const TeacherFooterView = ({ navigation }) => {
-  return (
-    <FooterView>
-      <TouchableOpacity
-        onPress={() => navigation.push('QRCode', { isStudent: false })}>
-        <Text>QR코드</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Hakgyo')}>
-        <Text>학교가자</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Third')}>
-        <Text>Emergency</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Fourth')}>
-        <Text>Safety</Text>
-      </TouchableOpacity>
-    </FooterView>
-  );
-};
 const HomeScreenWrapper = styled.SafeAreaView`
   flex: 1;
 `;
@@ -125,12 +82,6 @@ const BodyView = styled.View`
 const UserInfoView = styled.View`
   flex-direction: row;
   justify-content: space-around;
-`;
-
-const FooterView = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 0px 10px;
 `;
 
 const ProgressView = styled.View`
