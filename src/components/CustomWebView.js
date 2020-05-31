@@ -9,7 +9,7 @@ const CustomWebView = ({ uri }) => {
   return (
     <CustomWebViewWrapper>
       <WebView
-        source={{ uri: uri }}
+        source={{ uri }}
         onLoadStart={() => setVisible(true)}
         onLoad={() => setVisible(false)}
       />
