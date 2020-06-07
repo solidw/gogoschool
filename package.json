@@ -23,6 +23,7 @@
     "react-native-camera": "^3.26.0",
     "react-native-eject": "^0.1.2",
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-maps": "git+https://github.com/react-native-community/react-native-maps.git",
     "react-native-permissions": "^2.1.5",
     "react-native-progress": "^4.1.2",
     "react-native-progress-wheel": "1.0.4",
