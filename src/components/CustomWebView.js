@@ -4,7 +4,7 @@ import { WebView } from 'react-native-webview';
 import styled from 'styled-components';
 import AbsoluteIndicator from 'src/components/AbsoluteIndicator';
 
-const CustomWebView = ({ uri }) => {
+const CustomWebView = ({ uri, injectedJavaScript }) => {
   const [visible, setVisible] = useState(true);
   return (
     <CustomWebViewWrapper>
@@ -12,6 +12,8 @@ const CustomWebView = ({ uri }) => {
         source={{ uri }}
         onLoadStart={() => setVisible(true)}
         onLoad={() => setVisible(false)}
+        injectedJavaScript={injectedJavaScript}
+        javaScriptEnabledAndroid={true}
       />
       {visible && <AbsoluteIndicator size="large" />}
     </CustomWebViewWrapper>
