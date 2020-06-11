@@ -53,7 +53,8 @@ const palette = {
   hakgyoPurple: hexToRgb('#655caf'),
   hakgyoBlue: hexToRgb('#124794'),
   white: hexToRgb('#ffffff'),
-  green: hexToRgb('#3af120'),
+  green: hexToRgb('#00B050'),
+  lightGreen: hexToRgb('#AEDC7D'),
 };
 
 export default palette;
