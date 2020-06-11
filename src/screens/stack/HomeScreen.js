@@ -6,11 +6,16 @@ import palette from 'src/lib/palette';
 import AnimatedProgressWheel from 'react-native-progress-wheel';
 import { UserContext } from 'src/contexts/UserContext';
 import HomeFooterView from 'src/components/Home/HomeFooterView';
+import TodoItem from 'src/components/Home/TodoItem';
 
 const HomeScreen = ({ route, navigation }) => {
   const [wheelProgress, setWheelProgress] = useState(20);
   const { user, toggleUser } = useContext(UserContext);
+  const today = new Date().getDate();
 
+  const addTenProgress = () => {
+    setWheelProgress(wheelProgress < 100 ? wheelProgress + 10 : 0);
+  };
   return (
     <HomeScreenWrapper>
       <HeaderView>
@@ -25,31 +30,37 @@ const HomeScreen = ({ route, navigation }) => {
       <BodyView>
         <UserInfoView>
           <WhiteText>{user.name}</WhiteText>
-          <WhiteText>이미지</WhiteText>
-          <WhiteText>레벨</WhiteText>
+          <WhiteText>
+            {today % 2 === 0 ? `${today}일은 짝수날` : `${today}일은 홀수날`}
+          </WhiteText>
         </UserInfoView>
-
         <ProgressView>
+          <View>
+            <Text>Barcode</Text>
+          </View>
           <View style={{ transform: [{ rotate: '-90deg' }] }}>
             <AnimatedProgressWheel
               size={120}
               width={10}
-              color={'red'}
+              color={palette.hakgyoBlue}
               progress={wheelProgress}
               animateFromValue={0}
               duration={3000}
             />
           </View>
-          <ProgressText>{wheelProgress + '%'}</ProgressText>
-          <TouchableOpacity
-            onPress={() => {
-              setWheelProgress(wheelProgress < 100 ? wheelProgress + 10 : 0);
-            }}
+          {/* <TouchableOpacity
+            onPress={addTenProgress}
             style={{ backgroundColor: 'white' }}
             activeOpacity={0.3}>
             <Text>Test</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <ProgressText>{wheelProgress + '%'}</ProgressText>
         </ProgressView>
+        <TodoView>
+          <TodoItem item={'자가검진'} addTenProgress={addTenProgress} />
+          <TodoItem item={'손씻기'} addTenProgress={addTenProgress} />
+          <TodoItem item={'테스트'} addTenProgress={addTenProgress} />
+        </TodoView>
         <HomeFooterView isStudent={user.isStudent} navigation={navigation} />
       </BodyView>
     </HomeScreenWrapper>
@@ -76,7 +87,7 @@ const WhiteText = styled.Text`
 const BodyView = styled.View`
   padding: 20px 10px;
   flex-grow: 1;
-  background-color: ${palette.hakgyoBlue};
+  background-color: ${palette.green};
 `;
 
 const UserInfoView = styled.View`
@@ -85,15 +96,26 @@ const UserInfoView = styled.View`
 `;
 
 const ProgressView = styled.View`
-  justify-content: center;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  flex-grow: 1;
+  margin-horizontal: 20px;
 `;
 
 const ProgressText = styled.Text`
   position: absolute;
-  top: 40%;
+  right: 20%;
   font-size: 24px;
   color: white;
 `;
+
+const TodoView = styled.View`
+  margin-horizontal: 10px;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding-vertical: 10px;
+`;
+
 export default HomeScreen;
