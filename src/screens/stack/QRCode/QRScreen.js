@@ -30,13 +30,7 @@ const QRScreen = ({ route, navigation }) => {
   ) : (
     <QRCodeScanner
       onRead={code => navigation.push('AfterScan', { userCode: code })}
-      flashMode={RNCamera.Constants.FlashMode.torch}
-      topContent={
-        <Text style={styles.centerText}>
-          Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text>{' '}
-          on your computer and scan the QR code.
-        </Text>
-      }
+      topContent={<Text>gogoschool QRCode</Text>}
       bottomContent={
         <TouchableOpacity style={styles.buttonTouchable}>
           <Text style={styles.buttonText}>OK. Got it!</Text>
