@@ -52,9 +52,14 @@ function hexToRgb(hexType) {
 const palette = {
   hakgyoPurple: hexToRgb('#655caf'),
   hakgyoBlue: hexToRgb('#124794'),
+  hakgyoYellow: hexToRgb('#F5E82F'),
+  hakgyoGreen: hexToRgb('#CCE70B'),
+  blackBoard: hexToRgb('#56E433'),
   white: hexToRgb('#ffffff'),
+  black: hexToRgb('#000000'),
   green: hexToRgb('#00B050'),
   lightGreen: hexToRgb('#AEDC7D'),
+  lightGray: hexToRgb('#d3d3d3'),
 };
 
 export default palette;
