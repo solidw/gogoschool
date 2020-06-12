@@ -4,7 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import HakgyoScreen from 'src/screens/stack/HakgyoScreen';
 import HomeScreen from 'src/screens/stack/HomeScreen';
-import QRScreen from 'src/screens/stack/QRScreen';
+import QRScreen from 'src/screens/stack/QRCode/QRScreen';
+import AfterScan from 'src/screens/stack/QRCode/AfterScan';
 import SelfCheckScreen from 'src/screens/stack/SelfCheckScreen';
 import QuizScreen from 'src/screens/stack/QuizScreen';
 
@@ -43,6 +44,7 @@ const StudentStackNavigator = ({ user }) => {
       <Stack.Screen name="Hakgyo" component={HakgyoScreen} />
       <Stack.Screen name="Third" component={SelfCheckScreen} />
       <Stack.Screen name="Fourth" component={QuizScreen} />
+      <Stack.Screen name="AfterScan" component={AfterScan} />
     </Stack.Navigator>
   );
 };
