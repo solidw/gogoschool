@@ -23,7 +23,7 @@ const FullRowTouchableOpacityWrapper = styled.TouchableOpacity`
 `;
 
 const ColoredText = styled.Text`
-  color: ${props => (props.color ? props.color : palette.white)};
+  color: ${props => (props.color ? props.color : palette.black)};
 `;
 
 export default FullRowTouchableOpacity;
