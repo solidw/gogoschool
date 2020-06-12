@@ -8,11 +8,9 @@
 6. Type `npx react-native run-android` in git-bash or something shell (vscode .. )
 7. Done !
 
+### Commit Style : refer to [Udacity Commit Guide](https://udacity.github.io/git-styleguide/)
 
-
-### Commit Style : refer to [Udacity Commit Guide](https://udacity.github.io/git-styleguide/) 
-
-- Form of commit : `label : (verb) (title)` 
+- Form of commit : `label : (verb) (title)`
 - Type of `label` 
 	- `feat` : a new feature
 	- `fix` : a bug fix
@@ -21,7 +19,12 @@
 	- `refactor` : refactoring production code
 	- `test` : adding tests, refactoring test; no production code change
 	- `chore` : updating build tasks, package manager configs, etc; no production code change
+
 - Example
   - `docs : Add foo.md`
   - `docs : Change README.md that somebody can read this`
   - `fix : Fix bugs image's directory in bar.md`
+
+### build
+
+> npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
