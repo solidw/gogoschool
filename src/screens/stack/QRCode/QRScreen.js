@@ -13,9 +13,10 @@ import QRCode from 'react-native-qrcode-generator';
 import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
-const QRScreen = ({ route }) => {
+const QRScreen = ({ route, navigation }) => {
   const { isStudent } = route.params;
   const [userInput, setUserInput] = useState('');
+  const onReadEvent = () => {};
   return isStudent ? (
     <QRScreenWrapper>
       <TextInput
@@ -28,7 +29,7 @@ const QRScreen = ({ route }) => {
     </QRScreenWrapper>
   ) : (
     <QRCodeScanner
-      onRead={() => console.log('read!')}
+      onRead={code => navigation.push('AfterScan', { userCode: code })}
       flashMode={RNCamera.Constants.FlashMode.torch}
       topContent={
         <Text style={styles.centerText}>
