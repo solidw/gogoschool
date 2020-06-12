@@ -23,19 +23,19 @@ const StudentFooterView = ({ navigation }) => {
     <FooterView>
       <MenuButton
         onPress={() => navigation.push('QRCode', { isStudent: true })}>
-        <Icon source={QRCode} />
-        <ButtonText>QR 코드</ButtonText>
+        <Icon size={70} source={QRCode} />
+        <ButtonText>QR코드</ButtonText>
       </MenuButton>
       <MenuButton onPress={() => navigation.push('Hakgyo')}>
-        <Icon source={BlackBoard} />
+        <Icon size={70} source={BlackBoard} />
         <ButtonText>학교가자</ButtonText>
       </MenuButton>
       <MenuButton onPress={() => navigation.push('Third')}>
-        <Icon source={Check} />
+        <Icon size={70} source={Check} />
         <ButtonText>자가진단</ButtonText>
       </MenuButton>
       <MenuButton onPress={() => navigation.push('Fourth')}>
-        <Icon source={Quiz} />
+        <Icon size={70} source={Quiz} />
         <ButtonText>안전상식</ButtonText>
       </MenuButton>
     </FooterView>
@@ -47,20 +47,20 @@ const TeacherFooterView = ({ navigation }) => {
     <FooterView>
       <MenuButton
         onPress={() => navigation.push('QRCode', { isStudent: false })}>
-        <Icon source={QRCode} />
+        <Icon size={70} source={QRCode} />
         <ButtonText>QR코드</ButtonText>
       </MenuButton>
       <MenuButton onPress={() => navigation.push('Hakgyo')}>
-        <Icon source={BlackBoard} />
+        <Icon size={70} source={BlackBoard} />
         <ButtonText>학교가자</ButtonText>
       </MenuButton>
       <MenuButton onPress={() => navigation.push('Third')}>
-        <Icon source={Alert} />
-        <ButtonText>비상메뉴얼</ButtonText>
+        <Icon size={70} source={Check} />
+        <ButtonText>진단확인</ButtonText>
       </MenuButton>
       <MenuButton onPress={() => navigation.push('Fourth')}>
-        <Icon source={Check} />
-        <ButtonText>안전관리수칙</ButtonText>
+        <Icon size={70} source={Alert} />
+        <ButtonText>비상메뉴얼</ButtonText>
       </MenuButton>
     </FooterView>
   );
@@ -78,6 +78,7 @@ const MenuButton = styled.TouchableOpacity`
 `;
 
 const ButtonText = styled.Text`
-  font-size: 10px;
+  font-size: 15px;
+  margin-vertical: 5px;
 `;
 export default HomeFooterView;
