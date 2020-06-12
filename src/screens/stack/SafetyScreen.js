@@ -1,15 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import styled from 'styled-components';
-import palette from 'src/lib/palette';
+import CustomWebView from 'src/components/CustomWebView';
 
 const SafetyScreen = () => {
   return (
-    <SafetyScreenWrapper>
-      <Text>SafetyScreen</Text>
-    </SafetyScreenWrapper>
+    <CustomWebView
+      uri={'https://sites.google.com/gtrainerdemo.edulabtv.com/gogoschool/safe'}
+    />
   );
 };
-const SafetyScreenWrapper = styled.View``;
 
 export default SafetyScreen;

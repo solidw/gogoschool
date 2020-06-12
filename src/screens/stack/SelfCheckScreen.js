@@ -23,7 +23,7 @@ const SelfCheckScreen = () => {
     <CustomWebView
       uri={'https://eduro.dge.go.kr/stv_cvd_co00_010.do'}
       javaScriptEnabledAndroid={true}
-      injectedJavaScript={studentJsCode}
+      injectedJavaScript={teacherJsCode}
       scalesPageToFit={false}
       scrollEnabled
     />
