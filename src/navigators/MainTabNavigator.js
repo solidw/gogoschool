@@ -8,7 +8,16 @@ import MapScreen from 'src/screens/tab/MapScreen';
 import CalendarScreen from 'src/screens/tab/CalendarScreen';
 import SNSScreen from 'src/screens/tab/SNSScreen';
 import NoticeScreen from 'src/screens/tab/NoticeScreen';
+import ChatbotScreen from 'src/screens/tab/ChatbotScreen';
 import HomeStackNavigator from 'src/navigators/HomeStackNavigator';
+import Icon from 'src/components/Home/Icon';
+import TabIcon from 'src/components/Home/TabIcon';
+
+import GPS from 'src/lib/assets/gps.png';
+import Calendar from 'src/lib/assets/calendar.png';
+import Home from 'src/lib/assets/home.png';
+import Chatbot from 'src/lib/assets/chatbot.png';
+import Notice from 'src/lib/assets/notice.png';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,16 +26,20 @@ const MainTabNavigator = () => {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ focused, color }) => {
             let iconName;
-            if (route.name === 'Home') {
-              iconName = focused
-                ? 'android-information-circle'
-                : 'android-information-circle-outline';
-            } else if (route.name === 'MyInfo') {
-              iconName = focused ? 'android-list-box' : 'android-list';
+            if (route.name === '홈') {
+              iconName = Home;
+            } else if (route.name === '동선') {
+              iconName = GPS;
+            } else if (route.name === '등교일') {
+              iconName = Calendar;
+            } else if (route.name === '알림장') {
+              iconName = Notice;
+            } else if (route.name === '챗봇') {
+              iconName = Chatbot;
             }
-            return <Image name={iconName} size={size} color={color} />; // ionIcon
+            return <TabIcon source={iconName} />; // ionIcon
           },
         })}
         tabBarOptions={{
@@ -34,9 +47,9 @@ const MainTabNavigator = () => {
           inactiveTintColor: 'gray',
         }}
         initialRouteName={'홈'}>
-        <Tab.Screen name="지도" component={MapScreen} />
+        <Tab.Screen name="동선" component={MapScreen} />
         <Tab.Screen
-          name="달력"
+          name="등교일"
           component={CalendarScreen}
           initialParams={{ isStudent: true }}
         />
@@ -45,8 +58,8 @@ const MainTabNavigator = () => {
           component={HomeStackNavigator}
           initialParams={{ isStudent: true }}
         />
-        <Tab.Screen name="인스타그램" component={SNSScreen} />
-        <Tab.Screen name="공지사항" component={NoticeScreen} />
+        <Tab.Screen name="알림장" component={SNSScreen} />
+        <Tab.Screen name="챗봇" component={ChatbotScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

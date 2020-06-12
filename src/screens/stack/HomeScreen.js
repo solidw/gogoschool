@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 
@@ -7,6 +7,15 @@ import AnimatedProgressWheel from 'react-native-progress-wheel';
 import { UserContext } from 'src/contexts/UserContext';
 import HomeFooterView from 'src/components/Home/HomeFooterView';
 import TodoItem from 'src/components/Home/TodoItem';
+import Icon from 'src/components/Home/Icon';
+
+import User from 'src/lib/assets/user.png';
+import MainBackground from 'src/lib/assets/background.png';
+
+import Check from 'src/lib/assets/check.png';
+import Mask from 'src/lib/assets/mask.png';
+import Wash from 'src/lib/assets/wash.png';
+import Water from 'src/lib/assets/water.png';
 
 const HomeScreen = ({ route, navigation }) => {
   const [wheelProgress, setWheelProgress] = useState(20);
@@ -28,6 +37,9 @@ const HomeScreen = ({ route, navigation }) => {
         </TouchableOpacity>
       </HeaderView>
       <BodyView>
+        {/* <ImageBackground
+          style={{ width: '100%', height: '100%' }}
+          source={MainBackground}> */}
         <UserInfoView>
           <WhiteText>{user.name}</WhiteText>
           <WhiteText>
@@ -35,9 +47,7 @@ const HomeScreen = ({ route, navigation }) => {
           </WhiteText>
         </UserInfoView>
         <ProgressView>
-          <View>
-            <Text>Barcode</Text>
-          </View>
+          <Profile source={User} />
           <View style={{ transform: [{ rotate: '-90deg' }] }}>
             <AnimatedProgressWheel
               size={120}
@@ -57,11 +67,29 @@ const HomeScreen = ({ route, navigation }) => {
           <ProgressText>{wheelProgress + '%'}</ProgressText>
         </ProgressView>
         <TodoView>
-          <TodoItem item={'자가검진'} addTenProgress={addTenProgress} />
-          <TodoItem item={'손씻기'} addTenProgress={addTenProgress} />
-          <TodoItem item={'테스트'} addTenProgress={addTenProgress} />
+          <TodoItem
+            item={'자가진단'}
+            addTenProgress={addTenProgress}
+            iconSource={Check}
+          />
+          <TodoItem
+            item={'손씻기'}
+            addTenProgress={addTenProgress}
+            iconSource={Wash}
+          />
+          <TodoItem
+            item={'마스크'}
+            addTenProgress={addTenProgress}
+            iconSource={Mask}
+          />
+          <TodoItem
+            item={'물/수저'}
+            addTenProgress={addTenProgress}
+            iconSource={Water}
+          />
         </TodoView>
         <HomeFooterView isStudent={user.isStudent} navigation={navigation} />
+        {/* </ImageBackground> */}
       </BodyView>
     </HomeScreenWrapper>
   );
@@ -118,4 +146,8 @@ const TodoView = styled.View`
   padding-vertical: 10px;
 `;
 
+const Profile = styled(Icon)`
+  width: 70px;
+  height: 70px;
+`;
 export default HomeScreen;
