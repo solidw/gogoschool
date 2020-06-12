@@ -19,8 +19,8 @@ const AuthScreen = () => {
         onPress={() => {
           auth.dispatch({ type: SIGN_IN, token: 'dummy' });
           user.loginWith('student');
-          console.log(auth, user);
         }}
+        background={palette.hakgyoYellow}
       />
       <FullRowTouchableOpacity
         text="교사 로그인"
@@ -28,6 +28,7 @@ const AuthScreen = () => {
           auth.dispatch({ type: SIGN_IN, token: 'dummy' });
           user.loginWith('teacher');
         }}
+        background={palette.blackBoard}
       />
     </AuthScreenWrapper>
   );
