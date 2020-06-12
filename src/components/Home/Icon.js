@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Image } from 'react-native';
 
 const Icon = styled.Image`
-  width: 50px;
-  height: 50px;
+  width: ${props => (props.size ? props.size + 'px' : '50px')};
+  height: ${props => (props.size ? props.size + 'px' : '50px')};
   resize-mode: contain;
 `;
 
