@@ -60,3 +60,7 @@ buck-out/
 
 # vscode snippet
 /.vscode
+
+# android build
+/android/app/src/main/assets/
+/android/app/src/main/res/
