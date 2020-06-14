@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import styled from 'styled-components';
-import Icon from 'src/components/Home/Icon';
+import Icon from 'src/components/Icon';
 import StyledText from 'src/components/StyledText';
 
 import QRCode from 'src/lib/assets/qrcode.png';

@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import palette from 'src/lib/palette';
 import StyledText from 'src/components/StyledText';
 
-import TodoItem from 'src/components/Home/TodoItem';
-import Icon from 'src/components/Home/Icon';
+import TodoItem from 'src/components/home/TodoItem';
+import Icon from 'src/components/Icon';
 
 import Check from 'src/lib/assets/check.png';
 import Mask from 'src/lib/assets/mask.png';

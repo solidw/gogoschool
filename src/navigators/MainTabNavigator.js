@@ -10,7 +10,7 @@ import SNSScreen from 'src/screens/tab/SNSScreen';
 import HomeStackNavigator from 'src/navigators/HomeStackNavigator';
 import MyPageScreen from 'src/screens/tab/MyPageScreen';
 
-import Icon from 'src/components/Home/Icon';
+import Icon from 'src/components/Icon';
 
 import GPS from 'src/lib/assets/gps.png';
 import Calendar from 'src/lib/assets/calendar.png';

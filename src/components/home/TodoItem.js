@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
-import Icon from 'src/components/Home/Icon';
+import Icon from 'src/components/Icon';
 import StyledText from 'src/components/StyledText';
 import CheckedBox from 'src/lib/assets/checked_box.png';
 import UnCheckedBox from 'src/lib/assets/unchecked_box.png';
