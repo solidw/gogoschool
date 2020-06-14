@@ -8,15 +8,17 @@ import {
 } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
+import StyledText from 'src/components/StyledText';
 
 import QRCode from 'react-native-qrcode-generator';
-import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
 const QRScreen = ({ route, navigation }) => {
   const { isStudent } = route.params;
   const [userInput, setUserInput] = useState('');
-  const onReadEvent = () => {};
+  const onReadEvent = ({ data }) => {
+    navigation.push('AfterScan', { userCode: data });
+  };
   return isStudent ? (
     <QRScreenWrapper>
       <TextInput
@@ -28,39 +30,25 @@ const QRScreen = ({ route, navigation }) => {
       <QRCode value={userInput} />
     </QRScreenWrapper>
   ) : (
-    <QRCodeScanner
-      onRead={code => navigation.push('AfterScan', { userCode: code })}
-      topContent={<Text>gogoschool QRCode</Text>}
-      bottomContent={
-        <TouchableOpacity style={styles.buttonTouchable}>
-          <Text style={styles.buttonText}>OK. Got it!</Text>
-        </TouchableOpacity>
-      }
-    />
+    <QRScreenWrapper>
+      <QRCodeScanner
+        onRead={onReadEvent}
+        cameraStyle={{ width: '100%', height: '50%' }}
+        bottomContent={
+          <TouchableOpacity>
+            <StyledText>만약, 스캔이 잘 되지 않는다면</StyledText>
+            <StyledText>
+              하단의 홈을 누르고 다시 QR코드를 스캔해주세요.
+            </StyledText>
+          </TouchableOpacity>
+        }
+      />
+    </QRScreenWrapper>
   );
 };
 const QRScreenWrapper = styled.View`
   flex: 1;
+  background-color: ${palette.white};
 `;
 
-const QRScreenUserInput = styled.TextInput``;
-const styles = StyleSheet.create({
-  centerText: {
-    flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: '#777',
-  },
-  textBold: {
-    fontWeight: '500',
-    color: '#000',
-  },
-  buttonText: {
-    fontSize: 21,
-    color: 'rgb(0,122,255)',
-  },
-  buttonTouchable: {
-    padding: 16,
-  },
-});
 export default QRScreen;
