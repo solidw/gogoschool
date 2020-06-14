@@ -60,6 +60,8 @@ const palette = {
   green: hexToRgb('#00B050'),
   lightGreen: hexToRgb('#AEDC7D'),
   lightGray: hexToRgb('#d3d3d3'),
+  pastelRed: hexToRgb('#CD5C5C'),
+  pastelBlue: hexToRgb('#779ECB'),
 };
 
 export default palette;
