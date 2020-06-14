@@ -8,7 +8,7 @@ const FullRowTouchableOpacity = styled.TouchableOpacity`
   padding: 15px;
   margin: 10px;
   border-radius: 8px;
-  height: 10%;
+
   background-color: ${({ background }) =>
     background ? background : palette.hakgyoPurple};
 `;
