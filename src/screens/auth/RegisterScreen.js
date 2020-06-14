@@ -24,12 +24,12 @@ const RegisterScreen = () => {
         isLogin={false}
       />
       <FullRowTouchableOpacity
-        text="회원가입"
         onPress={() => {
           // axios.post(serverUrl).then(() => {});
         }}
-        background={palette.hakgyoYellow}
-      />
+        background={palette.hakgyoYellow}>
+        <StyledText size={20}>회원가입</StyledText>
+      </FullRowTouchableOpacity>
     </RegisterScreenWrapper>
   );
 };

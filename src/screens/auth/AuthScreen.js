@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 import Icon from 'src/components/Home/Icon';
+import StyledText from 'src/components/StyledText';
 
 import { AuthContext } from 'src/contexts/AuthContext';
 import { UserContext } from 'src/contexts/UserContext';
@@ -20,19 +21,20 @@ const AuthScreen = ({ navigation }) => {
         <Icon size={200} source={LongLongLong} />
       </IconView>
       <FullRowTouchableOpacity
-        text="로그인"
         onPress={() => {
           navigation.push('Login');
         }}
-        background={palette.blackBoard}
-      />
+        background={palette.blackBoard}>
+        <StyledText size={20}>로그인</StyledText>
+      </FullRowTouchableOpacity>
       <FullRowTouchableOpacity
         text="회원가입"
         onPress={() => {
           navigation.push('Register');
         }}
-        background={palette.hakgyoYellow}
-      />
+        background={palette.hakgyoYellow}>
+        <StyledText size={20}>회원가입</StyledText>
+      </FullRowTouchableOpacity>
     </AuthScreenWrapper>
   );
 };

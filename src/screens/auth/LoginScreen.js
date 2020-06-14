@@ -26,15 +26,15 @@ const LoginScreen = () => {
       {/* <SomeView /> */}
       <FormData setValue={setCode} value={code} isLogin={true} />
       <FullRowTouchableOpacity
-        text="로그인"
         onPress={() => {
           // axios.get(serverUrl).then(() => {
           auth.dispatch({ type: SIGN_IN, token: 'dummy' });
           user.loginWith('teacher');
           // });
         }}
-        background={palette.blackBoard}
-      />
+        background={palette.blackBoard}>
+        <StyledText size={20}>로그인</StyledText>
+      </FullRowTouchableOpacity>
     </LoginScreenWrapper>
   );
 };
