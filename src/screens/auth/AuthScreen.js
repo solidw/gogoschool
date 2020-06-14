@@ -2,33 +2,36 @@ import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
+import Icon from 'src/components/Home/Icon';
 
 import { AuthContext } from 'src/contexts/AuthContext';
 import { UserContext } from 'src/contexts/UserContext';
 import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
+import LongLongLong from 'src/lib/assets/logo_long_long.png';
 import { SIGN_IN } from '../../contexts/reducers';
 
-const AuthScreen = () => {
+const AuthScreen = ({ navigation }) => {
   const auth = useContext(AuthContext);
   const user = useContext(UserContext);
 
   return (
     <AuthScreenWrapper>
+      <IconView>
+        <Icon size={200} source={LongLongLong} />
+      </IconView>
       <FullRowTouchableOpacity
-        text="학생 로그인"
+        text="로그인"
         onPress={() => {
-          auth.dispatch({ type: SIGN_IN, token: 'dummy' });
-          user.loginWith('student');
-        }}
-        background={palette.hakgyoYellow}
-      />
-      <FullRowTouchableOpacity
-        text="교사 로그인"
-        onPress={() => {
-          auth.dispatch({ type: SIGN_IN, token: 'dummy' });
-          user.loginWith('teacher');
+          navigation.push('Login');
         }}
         background={palette.blackBoard}
+      />
+      <FullRowTouchableOpacity
+        text="회원가입"
+        onPress={() => {
+          navigation.push('Register');
+        }}
+        background={palette.hakgyoYellow}
       />
     </AuthScreenWrapper>
   );
@@ -38,4 +41,9 @@ const AuthScreenWrapper = styled.View`
   justify-content: center;
 `;
 
+const IconView = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
 export default AuthScreen;
