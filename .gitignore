@@ -62,5 +62,5 @@ buck-out/
 /.vscode
 
 # android build
-/android/app/src/main/assets/
+/android/app/src/main/assets/index.android.bundle
 /android/app/src/main/res/
