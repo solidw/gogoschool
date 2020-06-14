@@ -2,15 +2,16 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
-import User from 'src/lib/assets/user.png';
 import Icon from 'src/components/Home/Icon';
 import StyledText from 'src/components/StyledText';
+
+import ProfileIcon from 'src/lib/assets/profile-icon.png';
 
 const MyPageScreen = () => {
   return (
     <MyPageScreenWrapper>
       <HeaderInfoView>
-        <Icon source={User} />
+        <Icon source={ProfileIcon} />
         <HeaderInfoText>고태완</HeaderInfoText>
       </HeaderInfoView>
       <DetailInfoView>
