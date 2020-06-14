@@ -42,7 +42,7 @@ const HomeScreen = ({ route, navigation }) => {
             size={60}
             source={user.isStudent ? StudentLogin : TeacherLogin}
           />
-          <Text>{user.isStudent ? '학생' : '교사'}</Text>
+          <StyledText>{user.isStudent ? '학생' : '교사'}</StyledText>
         </TouchableOpacity>
         <Icon size={120} source={LogoLongLong} />
         <TouchableOpacity onPress={() => navigation.push('Chatbot')}>
@@ -124,19 +124,10 @@ const ProgressView = styled.View`
   margin-horizontal: 20px;
 `;
 
-const ProgressText = styled.Text`
+const ProgressText = styled(StyledText)`
   position: absolute;
   right: 10%;
   font-size: 20px;
-`;
-
-const TodoView = styled.View`
-  flex: 1;
-  margin-horizontal: 10px;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding-vertical: 10px;
 `;
 
 const Profile = styled(Icon)`

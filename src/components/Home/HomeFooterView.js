@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import styled from 'styled-components';
 import Icon from 'src/components/Home/Icon';
+import StyledText from 'src/components/StyledText';
 
-import Logo from 'src/lib/assets/logo.png';
 import QRCode from 'src/lib/assets/qrcode.png';
 import BlackBoard from 'src/lib/assets/blackboard.png';
 import Check from 'src/lib/assets/check.png';
@@ -77,7 +77,7 @@ const MenuButton = styled.TouchableOpacity`
   align-items: center;
 `;
 
-const ButtonText = styled.Text`
+const ButtonText = styled(StyledText)`
   font-size: 15px;
   margin-vertical: 5px;
 `;

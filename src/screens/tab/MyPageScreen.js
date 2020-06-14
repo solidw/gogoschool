@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import palette from 'src/lib/palette';
 import User from 'src/lib/assets/user.png';
 import Icon from 'src/components/Home/Icon';
+import StyledText from 'src/components/StyledText';
+
 const MyPageScreen = () => {
   return (
     <MyPageScreenWrapper>
@@ -54,7 +56,7 @@ const HeaderInfoView = styled.View`
   background-color: ${palette.hakgyoYellow};
 `;
 
-const HeaderInfoText = styled.Text`
+const HeaderInfoText = styled(StyledText)`
   font-size: 20px;
   padding-horizontal: 20px;
 `;
@@ -73,7 +75,7 @@ const RowView = styled.View`
   border-bottom-color: gray;
 `;
 
-const RowText = styled.Text`
+const RowText = styled(StyledText)`
   flex-basis: ${props => (props.way === 'left' ? '30%' : '50%')};
   text-align: ${props => (props.way === 'left' ? 'right' : 'center')};
   ${'' /* background-color: ${props =>

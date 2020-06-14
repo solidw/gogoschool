@@ -44,7 +44,12 @@ const MainTabNavigator = () => {
         tabBarOptions={{
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
-          style: { height: '10%' },
+          style: {
+            height: '10%',
+          },
+          labelStyle: {
+            fontFamily: 'baskin-robbins-R',
+          },
         }}
         initialRouteName={'홈'}>
         <Tab.Screen name="동선" component={MapScreen} />

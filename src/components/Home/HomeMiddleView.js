@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
+import StyledText from 'src/components/StyledText';
+
 import TodoItem from 'src/components/Home/TodoItem';
 import Icon from 'src/components/Home/Icon';
 
@@ -58,15 +60,15 @@ const TeacherMiddleView = ({ studentList }) => {
               size={40}
               source={student.self_check ? CheckDoneStudent : CheckNotStudent}
             />
-            <Text style={{ textAlign: 'center' }}>{student.id}</Text>
+            <StyledText style={{ textAlign: 'center' }}>
+              {student.id}
+            </StyledText>
           </View>
         ))}
       </CheckTouchableOpacity>
     </CheckView>
   );
 };
-
-const HomeMiddleViewWrapper = styled.View``;
 
 const TodoView = styled.View`
   flex: 1;
