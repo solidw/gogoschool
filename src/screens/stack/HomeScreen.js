@@ -1,49 +1,47 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
-
 import AnimatedProgressWheel from 'react-native-progress-wheel';
-import { UserContext } from 'src/contexts/UserContext';
-import HomeMiddleView from 'src/components/Home/HomeMiddleView';
-import HomeFooterView from 'src/components/Home/HomeFooterView';
-import dummyStudentExample from 'src/lib/dummyStudentExample';
 
-import Icon from 'src/components/Home/Icon';
+import { UserContext } from 'src/contexts/UserContext';
+
+import HomeMiddleView from 'src/components/home/HomeMiddleView';
+import HomeFooterView from 'src/components/home/HomeFooterView';
+import Icon from 'src/components/Icon';
 import StyledText from 'src/components/StyledText';
 
+import dummyStudentExample from 'src/lib/dummyStudentExample';
 import TeacherLogin from 'src/lib/assets/teacher_login.png';
 import StudentLogin from 'src/lib/assets/student_login.png';
 import LogoLongLong from 'src/lib/assets/logo_long_long.png';
 import Chatbot from 'src/lib/assets/chatbot.png';
 
-import User from 'src/lib/assets/user.png';
+// import User from 'src/lib/assets/user.png';
 
 const HomeScreen = ({ route, navigation }) => {
+  const { total, checked, student_list } = dummyStudentExample;
   const { user, toggleUser } = useContext(UserContext);
-  const [wheelProgress, setWheelProgress] = useState(user.isStudent ? 0 : 19);
+  const [wheelProgress, setWheelProgress] = useState(
+    user.isStudent ? 0 : checked,
+  );
   const today = new Date();
   const todayDate = today.getDate();
   const todayMonth = today.getMonth() + 1;
   const addPercentage = () => {
     setWheelProgress(wheelProgress < 100 ? wheelProgress + 25 : 0);
   };
-  const { total, checked, student_list } = dummyStudentExample;
+  useEffect(() => {}, []);
   return (
     <HomeScreenWrapper>
       <HeaderView>
-        <TouchableOpacity
-          onPress={() => toggleUser()}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
+        <RowTouchableOpacity onPress={() => toggleUser()}>
           <Icon
             size={60}
             source={user.isStudent ? StudentLogin : TeacherLogin}
           />
           <StyledText>{user.isStudent ? '학생' : '교사'}</StyledText>
-        </TouchableOpacity>
+        </RowTouchableOpacity>
         <Icon size={120} source={LogoLongLong} />
         <TouchableOpacity onPress={() => navigation.push('Chatbot')}>
           <Icon size={60} source={Chatbot} />
@@ -61,11 +59,12 @@ const HomeScreen = ({ route, navigation }) => {
           </StyledText>
         </UserInfoView>
         <ProgressView>
-          <Profile source={User} />
+          {/* <Profile source={User} /> */}
+
           <View style={{ transform: [{ rotate: '-90deg' }] }}>
             <AnimatedProgressWheel
               size={100}
-              width={10}
+              width={15}
               color={palette.hakgyoYellow}
               backgroundColor={palette.lightGray}
               progress={
@@ -75,9 +74,15 @@ const HomeScreen = ({ route, navigation }) => {
               duration={3000}
             />
           </View>
-          <ProgressText>
+          <StyledText size={30}>
             {user.isStudent ? wheelProgress + '%' : `${checked} / ${total}`}
-          </ProgressText>
+          </StyledText>
+          {/* <StyledText size={30}>
+            {user.isStudent ? wheelProgress + '%' : `${checked} / ${total}`}
+          </StyledText> */}
+          {/* <ProgressText>
+            {user.isStudent ? wheelProgress + '%' : `${checked} / ${total}`}
+          </ProgressText> */}
         </ProgressView>
         <HomeMiddleView
           isStudent={user.isStudent}
@@ -118,12 +123,17 @@ const UserInfoView = styled.View`
 
 const ProgressView = styled.View`
   flex: 1;
-  flex-direction: row;
+  ${'' /* flex-direction: row; */}
   justify-content: space-around;
   align-items: center;
   margin-horizontal: 20px;
+  margin-vertical: 10px;
 `;
 
+const RowTouchableOpacity = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+`;
 const ProgressText = styled(StyledText)`
   position: absolute;
   right: 10%;
