@@ -10,8 +10,6 @@ import MainTabNavigator from 'src/navigators/MainTabNavigator';
 import { AuthContext } from 'src/contexts/AuthContext';
 import AuthStackNavigator from './navigators/AuthStackNavigator';
 
-const Stack = createStackNavigator();
-
 const AppWrapper = () => {
   const auth = useContext(AuthContext);
   return (
