@@ -92,6 +92,7 @@ const HomeScreen = ({ route, navigation }) => {
 
 const HomeScreenWrapper = styled.SafeAreaView`
   flex: 1;
+  background-color: ${palette.white};
 `;
 
 const HeaderView = styled.View`
