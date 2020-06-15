@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import AsyncStorage from '@react-native-community/async-storage';

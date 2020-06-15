@@ -1,6 +1,6 @@
 // 임시
 import React, { useState, createContext, useReducer } from 'react';
-import { authReducer, SIGN_IN, SIGN_OUT, RESTORE_TOKEN } from './reducers';
+import { authReducer } from './reducers';
 
 export const AuthContext = createContext();
 

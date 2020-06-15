@@ -17,9 +17,7 @@ import StudentLogin from 'src/lib/assets/student_login.png';
 import LogoLongLong from 'src/lib/assets/logo_long_long.png';
 import Chatbot from 'src/lib/assets/chatbot.png';
 
-// import User from 'src/lib/assets/user.png';
-
-const HomeScreen = ({ route, navigation }) => {
+const HomeScreen = ({ navigation }) => {
   const { total, checked, student_list } = dummyStudentExample;
   const { user, toggleUser } = useContext(UserContext);
   const [wheelProgress, setWheelProgress] = useState(
@@ -77,12 +75,6 @@ const HomeScreen = ({ route, navigation }) => {
           <StyledText size={30}>
             {user.isStudent ? wheelProgress + '%' : `${checked} / ${total}`}
           </StyledText>
-          {/* <StyledText size={30}>
-            {user.isStudent ? wheelProgress + '%' : `${checked} / ${total}`}
-          </StyledText> */}
-          {/* <ProgressText>
-            {user.isStudent ? wheelProgress + '%' : `${checked} / ${total}`}
-          </ProgressText> */}
         </ProgressView>
         <HomeMiddleView
           isStudent={user.isStudent}
