@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { Text, Alert } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 import StyledText from 'src/components/StyledText';
 import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
+import { UserContext } from 'src/contexts/UserContext';
+import Axios from 'axios';
+import serverURL from 'src/lib/serverURL';
+import { getUserInfoByCode } from 'src/apis/user';
+import { PostStudentTemperature } from '../../../apis/user';
 
 const ParsefixedTemperature = value => {
   return parseFloat(parseFloat(value).toFixed(1));
@@ -11,18 +16,56 @@ const ParsefixedTemperature = value => {
 
 const AfterScan = ({ route, navigation }) => {
   const { userCode } = route.params;
+  const { user } = useContext(UserContext);
+  const [isLoading, setLoading] = useState(true);
   const [temperature, setTemperature] = useState(36.5);
-  const onSubmitTemperature = () => {
+  const [studentInfo, setStudentInfo] = useState({
+    school: '',
+    grade: '',
+    classNo: '',
+    number: '',
+    name: '',
+  });
+
+  useEffect(() => {
+    const asyncGetUserInfoByCode = async () => {
+      const [status, _data] = await getUserInfoByCode(userCode);
+      if (status === 200) {
+        setStudentInfo(_data);
+      } else {
+        console.log(status);
+      }
+    };
+    asyncGetUserInfoByCode();
+    setLoading(false);
+  }, [userCode]);
+
+  const onSubmitTemperature = async () => {
+    const [status, _data] = await PostStudentTemperature({
+      code: 111111,
+      student: 1,
+      temperature: temperature,
+    });
+    console.log(status);
+  };
+
+  const onTriggerAlert = () => {
     Alert.alert(
       '체온 기록 확인',
-      `${'고태완'} 학생의 체온이 ${temperature}도가 맞습니까?`,
+      `${studentInfo.name} 학생의 체온이 ${temperature}도가 맞습니까?`,
       [
         {
           text: '취소',
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        { text: '제출', onPress: () => console.log('OK Pressed') },
+        {
+          text: '제출',
+          onPress: () => {
+            onSubmitTemperature();
+            navigation.push('Home');
+          },
+        },
       ],
       { cancelable: false },
     );
@@ -30,12 +73,16 @@ const AfterScan = ({ route, navigation }) => {
   return (
     <AfterScanWrapper>
       <TopView>
-        <CenteredText>학생 정보</CenteredText>
+        <CenteredText size={30}>
+          학생 정보 {isLoading && '를 불러오는 중입니다.'}
+        </CenteredText>
       </TopView>
       <StudentInfoView>
-        <CenteredText size={30}>{`${'송일초등학교'}`}</CenteredText>
-        <CenteredText size={30}>{`${'3'}학년 ${'1'}반 ${'2'}번`}</CenteredText>
-        <CenteredText size={30}>{`${'고태완'}`}</CenteredText>
+        <CenteredText size={30}>{`${studentInfo.school}`}</CenteredText>
+        <CenteredText size={30}>{`${studentInfo.grade}학년 ${
+          studentInfo.classNo
+        }반 ${studentInfo.number}번`}</CenteredText>
+        <CenteredText size={30}>{`${studentInfo.name}`}</CenteredText>
       </StudentInfoView>
       <CenteredText size={40}>체온 기록</CenteredText>
       <TemperatureView>
@@ -56,7 +103,7 @@ const AfterScan = ({ route, navigation }) => {
         </FullRowTouchableOpacity>
       </TemperatureView>
       <FullRowTouchableOpacity
-        onPress={onSubmitTemperature}
+        onPress={onTriggerAlert}
         background={palette.blackBoard}>
         <StyledText size={30}>제출</StyledText>
       </FullRowTouchableOpacity>
