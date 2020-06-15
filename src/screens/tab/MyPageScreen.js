@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 import Icon from 'src/components/Icon';
@@ -12,8 +12,29 @@ import { SIGN_OUT } from '../../contexts/reducers';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const MyPageScreen = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const { dispatch } = useContext(AuthContext);
+
+  const alertLogout = () => {
+    Alert.alert(
+      '로그아웃 확인',
+      '정말 로그아웃 하시겠습니까?',
+      [
+        {
+          text: '취소',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: '제출',
+          onPress: () => {
+            dispatch({ type: SIGN_OUT });
+          },
+        },
+      ],
+      { cancelable: false },
+    );
+  };
 
   return (
     <MyPageScreenWrapper>
@@ -48,7 +69,7 @@ const MyPageScreen = () => {
         </RowView>
       </DetailInfoView>
       <FullRowTouchableOpacity
-        onPress={() => dispatch({ type: SIGN_OUT })}
+        onPress={alertLogout}
         background={palette.hakgyoYellow}>
         <StyledText>로그아웃</StyledText>
       </FullRowTouchableOpacity>
@@ -92,6 +113,14 @@ const RowView = styled.View`
 const RowText = styled(StyledText)`
   flex-basis: ${props => (props.way === 'left' ? '30%' : '50%')};
   text-align: ${props => (props.way === 'left' ? 'right' : 'center')};
+  ${'' /* background-color: ${props =>
+    props.way === 'left' ? palette.hakgyoGreen : 'transparent'}; */}
+`;
+
+const RowButton = styled.TouchableOpacity`
+  flex-basis: ${props => (props.way === 'left' ? '30%' : '50%')};
+  text-align: ${props => (props.way === 'left' ? 'right' : 'center')};
+
   ${'' /* background-color: ${props =>
     props.way === 'left' ? palette.hakgyoGreen : 'transparent'}; */}
 `;
