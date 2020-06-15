@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import styled from 'styled-components';
+import palette from 'src/lib/palette';
+
 import Icon from 'src/components/Icon';
 import StyledText from 'src/components/StyledText';
 
@@ -9,7 +11,6 @@ import BlackBoard from 'src/lib/assets/blackboard.png';
 import Check from 'src/lib/assets/check.png';
 import Alert from 'src/lib/assets/alert.png';
 import Quiz from 'src/lib/assets/quiz.png';
-// import Logo from 'src/lib/assets/logo.png';
 const HomeFooterView = ({ isStudent, navigation }) => {
   return isStudent ? (
     <StudentFooterView navigation={navigation} />
@@ -60,7 +61,7 @@ const TeacherFooterView = ({ navigation }) => {
       </MenuButton>
       <MenuButton onPress={() => navigation.push('Fourth')}>
         <Icon size={70} source={Alert} />
-        <ButtonText>비상메뉴얼</ButtonText>
+        <ButtonText color={palette.warningRed}>비상메뉴얼</ButtonText>
       </MenuButton>
     </FooterView>
   );
@@ -80,5 +81,6 @@ const MenuButton = styled.TouchableOpacity`
 const ButtonText = styled(StyledText)`
   font-size: 15px;
   margin-vertical: 5px;
+  ${({ color }) => color && `color: ${color}`};
 `;
 export default HomeFooterView;
