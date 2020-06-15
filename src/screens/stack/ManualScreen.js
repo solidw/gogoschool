@@ -1,15 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import styled from 'styled-components';
-import palette from 'src/lib/palette';
+import CustomWebView from 'src/components/CustomWebView';
 
 const ManualScreen = () => {
   return (
-    <ManualScreenWrapper>
-      <Text>ManualScreen</Text>
-    </ManualScreenWrapper>
+    <CustomWebView
+      uri={'https://sites.google.com/gtrainerdemo.edulabtv.com/gogoschool/safe'}
+    />
   );
 };
-const ManualScreenWrapper = styled.View``;
 
 export default ManualScreen;
