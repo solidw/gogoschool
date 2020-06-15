@@ -26,20 +26,20 @@ const HomeStackNavigator = () => {
   );
 };
 
-const StudentStackNavigator = ({ user }) => {
+const StudentStackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName={'홈'}
+      initialRouteName={'Home'}
       screenOptions={{ headerShown: false }}>
       <Stack.Screen
-        name="홈"
+        name="Home"
         component={HomeScreen}
-        initialParams={{ isStudent: true, user: user }}
+        initialParams={{ isStudent: true }}
       />
       <Stack.Screen
         name="QRCode"
         component={QRScreen}
-        initialParams={{ isStudent: true, user: user }}
+        initialParams={{ isStudent: true }}
       />
       <Stack.Screen name="Hakgyo" component={HakgyoScreen} />
       <Stack.Screen name="Third" component={SelfCheckScreen} />
@@ -49,20 +49,20 @@ const StudentStackNavigator = ({ user }) => {
   );
 };
 
-const TeacherStackNavigator = ({ user }) => {
+const TeacherStackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName={'홈'}
+      initialRouteName={'Home'}
       screenOptions={{ headerShown: false }}>
       <Stack.Screen
-        name="홈"
+        name="Home"
         component={HomeScreen}
-        initialParams={{ isStudent: false, user: user }}
+        initialParams={{ isStudent: false }}
       />
       <Stack.Screen
         name="QRCode"
         component={QRScreen}
-        initialParams={{ isStudent: false, user: user }}
+        initialParams={{ isStudent: false }}
       />
       <Stack.Screen name="Hakgyo" component={HakgyoScreen} />
       <Stack.Screen name="Third" component={SelfCheckScreen} />
