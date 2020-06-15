@@ -1,24 +1,43 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect } from 'react';
-import { SafeAreaView, View, Text } from 'react-native';
 import styled from 'styled-components';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { createStackNavigator } from '@react-navigation/stack';
+import { AuthContext } from 'src/contexts/AuthContext';
+import { UserContext } from 'src/contexts/UserContext';
 
 import MainTabNavigator from 'src/navigators/MainTabNavigator';
-import { AuthContext } from 'src/contexts/AuthContext';
 import AuthStackNavigator from './navigators/AuthStackNavigator';
+import LoadingView from 'src/components/LoadingView';
+import { RESTORE_TOKEN } from 'src/contexts/reducers';
 
 const AppWrapper = () => {
-  const auth = useContext(AuthContext);
+  const { authState, dispatch } = useContext(AuthContext);
+  const { setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const asyncGetUserInfo = async () => {
+      AsyncStorage.getItem('userInfo').then((value, err) => {
+        if (err === undefined) {
+          if (value !== null) {
+            dispatch({ type: RESTORE_TOKEN, token: 'something' });
+            setUser(JSON.parse(value));
+          }
+        } else {
+          console.log(err);
+        }
+      });
+    };
+    asyncGetUserInfo();
+  }, [dispatch, setUser]);
+
+  if (authState.isLoading) {
+    return <LoadingView />;
+  }
+
   return (
     <SafeAreaViewWrapper>
-      {auth.authState.userToken === null ? (
-        <AuthStackNavigator />
-      ) : (
-        <MainTabNavigator />
-      )}
+      {authState.isLoggedIn ? <MainTabNavigator /> : <AuthStackNavigator />}
     </SafeAreaViewWrapper>
   );
 };

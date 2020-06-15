@@ -17,18 +17,20 @@ export const authReducer = (state, action) => {
       return {
         ...state,
         userToken: action.token,
+        isLoggedIn: true,
         isLoading: false,
       };
     case SIGN_IN:
+      console.log(`${SIGN_IN}, ${JSON.stringify(state)}`);
       return {
         ...state,
-        isSignout: false,
+        isLoggedIn: true,
         userToken: action.token,
       };
     case SIGN_OUT:
       return {
         ...state,
-        isSignout: true,
+        isLoggedIn: false,
         userToken: null,
       };
     default:

@@ -4,14 +4,14 @@ import { authReducer, SIGN_IN, SIGN_OUT, RESTORE_TOKEN } from './reducers';
 
 export const AuthContext = createContext();
 
-const authExample = {
+const authDefaultValue = {
   isLoading: true,
-  isSignout: false,
+  isLoggedIn: false,
   userToken: null,
 };
 
 const AuthContextProvider = ({ children }) => {
-  const [authState, dispatch] = useReducer(authReducer, authExample);
+  const [authState, dispatch] = useReducer(authReducer, authDefaultValue);
 
   return (
     <AuthContext.Provider value={{ authState, dispatch }}>
