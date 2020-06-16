@@ -45,7 +45,7 @@ export const matchInitialEachOffices = {
   경북: 'gbe',
   광주: 'gen',
   대구: 'dge',
-  대전: 'use',
+  대전: 'dje',
   부산: 'pen',
   서울: 'sen',
   세종: 'sje',
@@ -56,4 +56,24 @@ export const matchInitialEachOffices = {
   제주: 'jje',
   충남: 'cne',
   충북: 'cbe',
+};
+
+export const reverseMatchInitialEachOffices = {
+  kwe: '강원도교육청',
+  goe: '경기도교육청',
+  gne: '경상남도교육청',
+  gbe: '경상북도교육청',
+  gen: '광주광역시교육청',
+  dge: '대구광역시교육청',
+  dje: '대전광역시교육청',
+  pen: '부산광역시교육청',
+  sen: '서울특별시교육청',
+  sje: '세종특별자치시교육청',
+  use: '울산광역시교육청',
+  ice: '인천광역시교육청',
+  jne: '전라남도교육청',
+  jbe: '전라북도교육청',
+  jje: '제주특별자치도교육청',
+  cne: '충청남도교육청',
+  cbe: '충청북도교육청',
 };
