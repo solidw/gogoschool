@@ -1,29 +1,28 @@
-import React from 'react';
-import { Platform } from 'react-native';
+import React, { useContext } from 'react';
 import CustomWebView from 'src/components/CustomWebView';
+import { UserContext } from 'src/contexts/UserContext';
 
-const SelfCheckScreen = () => {
-  const isAndroid = Platform.OS === 'android';
-  const studentJsCode = `
-    document.getElementById('pName').value="강경준";
-    document.getElementById('qstnCrtfcNo').value="THNR28";
+const SelfCheckScreen = ({ route }) => {
+  const { isStudent, name, code } = route.params;
+
+  const JsCode = `
+    document.getElementById('pName').value="${name}";
+    document.getElementById('qstnCrtfcNo').value="${code}";
     document.getElementById('btnConfirm').click();
   `;
-  const teacherJsCode = `
-      document.getElementById('pName').value="신민철";
-      document.getElementById('qstnCrtfcNo').value="ANGX8U";
-      document.getElementById('btnConfirm').click();
 
+  const teacherJsCode = `
       document.getElementById('srchGrade').value = 4;
       const classCode = document.getElementById('srchClassCode');
       classCode.value = classCode[1].value;
       document.getElementById('btnDtlSearch').click();
     `;
+
   return (
     <CustomWebView
       uri={'https://eduro.dge.go.kr/stv_cvd_co00_010.do'}
       javaScriptEnabledAndroid={true}
-      injectedJavaScript={teacherJsCode}
+      injectedJavaScript={JsCode}
       scalesPageToFit={false}
       scrollEnabled
     />

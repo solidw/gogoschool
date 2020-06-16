@@ -39,7 +39,11 @@ const HomeStackNavigator = () => {
       <Stack.Screen
         name="Third"
         component={SelfCheckScreen}
-        initialParams={{ isStudent: isStudent }}
+        initialParams={{
+          isStudent: isStudent,
+          name: user.name,
+          code: user.code,
+        }}
       />
       <Stack.Screen
         name="Fourth"
