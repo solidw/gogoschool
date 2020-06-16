@@ -30,7 +30,7 @@ const TodoItemWrapper = styled.TouchableOpacity`
   justify-content: space-between;
   align-items: center;
   border: 2px solid black;
-  margin: 2px;
+  margin: 6px;
   border-radius: 5px;
   padding-horizontal: 7px;
   padding-vertical: 5px;
