@@ -9,6 +9,7 @@ import Axios from 'axios';
 import serverURL from 'src/lib/serverURL';
 import { getUserInfoByCode } from 'src/apis/user';
 import { PostStudentTemperature } from '../../../apis/user';
+import UserInfoFromAPI from '../../../components/UserInfoFromAPI';
 
 const ParsefixedTemperature = value => {
   return parseFloat(parseFloat(value).toFixed(1));
@@ -30,6 +31,7 @@ const AfterScan = ({ route, navigation }) => {
   useEffect(() => {
     const asyncGetUserInfoByCode = async () => {
       const [status, _data] = await getUserInfoByCode(userCode);
+      console.log(status, _data);
       if (status === 200) {
         setStudentInfo(_data);
       } else {
@@ -77,14 +79,10 @@ const AfterScan = ({ route, navigation }) => {
           학생 정보 {isLoading && '를 불러오는 중입니다.'}
         </CenteredText>
       </TopView>
-      <StudentInfoView>
-        <CenteredText size={30}>{`${studentInfo.school}`}</CenteredText>
-        <CenteredText size={30}>{`${studentInfo.grade}학년 ${
-          studentInfo.classNo
-        }반 ${studentInfo.number}번`}</CenteredText>
-        <CenteredText size={30}>{`${studentInfo.name}`}</CenteredText>
-      </StudentInfoView>
-      <CenteredText size={40}>체온 기록</CenteredText>
+      <UserInfoFromAPI userInfo={studentInfo} />
+      <TemperatureViewWrapper>
+        <CenteredText size={35}>체온 기록하기</CenteredText>
+      </TemperatureViewWrapper>
       <TemperatureView>
         <FullRowTouchableOpacity
           onPress={() =>
@@ -122,7 +120,7 @@ const TopView = styled.View`
   justify-content: center;
 `;
 
-const StudentInfoView = styled.View`
+const TemperatureViewWrapper = styled.View`
   flex: 1;
   justify-content: center;
   padding-vertical: 10px;
