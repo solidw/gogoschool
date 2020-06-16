@@ -12,14 +12,18 @@ import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 import Locals from 'src/components/Locals';
 
 import StyledText from 'src/components/StyledText';
+import StyledTextInput from 'src/components/StyledTextInput';
 
 import { hcheckMatchURL } from 'src/lib/offices';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const auth = useContext(AuthContext);
   const user = useContext(UserContext);
-  const [data, setData] = useState({ local: '', name: '', code: '' });
-  useEffect(() => {});
+  const [data, setData] = useState({
+    local: '대구',
+    name: '고태완',
+    code: '111111',
+  });
   const hcheckURL = `${hcheckMatchURL[data.local]}/stv_cvd_co00_011.do?pName=${
     data.name
   }&qstnCrtfcNo=${data.code}`;
@@ -58,9 +62,14 @@ const LoginScreen = () => {
       </BodyView>
       <FullRowTouchableOpacity
         onPress={() => {
-          auth.dispatch({ type: SIGN_IN, token: 'dummy' });
-          user.loginWith('teacher');
-
+          // auth.dispatch({ type: SIGN_IN, token: 'dummy' });
+          // user.loginWith('teacher');
+          navigation.push('Register', {
+            isStudent: false,
+            local: data.local,
+            name: data.name,
+            code: data.code,
+          });
           // axios
           //   .post(hcheckURL)
           //   .then(res => {
@@ -124,7 +133,7 @@ const RowText = styled(StyledText)`
   ${({ size }) => size && `font-size: ${size}px`}
 `;
 
-const RowTextInput = styled.TextInput`
+const RowTextInput = styled(StyledTextInput)`
   flex: 2;
   text-align: ${({ way }) => (way === 'left' ? 'right' : 'center')};
   font-size: 15px;
