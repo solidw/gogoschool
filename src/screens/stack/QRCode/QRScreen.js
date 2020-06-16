@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Text, TextInput, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
@@ -6,22 +6,30 @@ import StyledText from 'src/components/StyledText';
 
 import QRCode from 'react-native-qrcode-generator';
 import QRCodeScanner from 'react-native-qrcode-scanner';
+import { UserContext } from 'src/contexts/UserContext';
+import UserInfoFromAPI from 'src/components/UserInfoFromAPI';
+import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 
-const QRScreen = ({ route, navigation }) => {
-  const { isStudent } = route.params;
+const QRScreen = ({ navigation }) => {
+  const { user } = useContext(UserContext);
+  const { isStudent } = user;
   const [userInput, setUserInput] = useState('');
+
   const onReadEvent = ({ data }) => {
     navigation.push('AfterScan', { userCode: data });
   };
+
   return isStudent ? (
     <QRScreenWrapper>
-      <TextInput
-        defaultValue={userInput}
-        placeholder={'Type String'}
-        onChangeText={text => setUserInput(text)}
-      />
-      <Text>{userInput}</Text>
-      <QRCode value={userInput} />
+      <UserInfoFromAPI userInfo={user} />
+      <QRView>
+        <QRCode size={256} value={userInput} />
+      </QRView>
+      <FullRowTouchableOpacity
+        onPress={() => navigation.push('Home')}
+        background={palette.hakgyoYellow}>
+        <StyledText>뒤로가기</StyledText>
+      </FullRowTouchableOpacity>
     </QRScreenWrapper>
   ) : (
     <QRScreenWrapper>
@@ -37,12 +45,23 @@ const QRScreen = ({ route, navigation }) => {
           </TouchableOpacity>
         }
       />
+      <FullRowTouchableOpacity
+        onPress={() => navigation.push('Home')}
+        background={palette.blackBoard}>
+        <StyledText>뒤로가기</StyledText>
+      </FullRowTouchableOpacity>
     </QRScreenWrapper>
   );
 };
 const QRScreenWrapper = styled.View`
   flex: 1;
   background-color: ${palette.white};
+  justify-content: center;
 `;
 
+const QRView = styled.View`
+  flex: 1;
+  align-items: center;
+  margin-vertical: 20px;
+`;
 export default QRScreen;
