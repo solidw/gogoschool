@@ -6,3 +6,9 @@ export const getFormatDate = date => {
   day = day >= 10 ? day : '0' + day; //day 두자리로 저장
   return year + '-' + month + '-' + day;
 };
+
+export const getMaxDate = month => {
+  const realMonth = month - 1;
+  var nMonthDay = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  return nMonthDay[realMonth];
+};
