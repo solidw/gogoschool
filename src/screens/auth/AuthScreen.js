@@ -26,6 +26,7 @@ const AuthScreen = ({ navigation }) => {
 const AuthScreenWrapper = styled.View`
   flex: 1;
   justify-content: center;
+  background-color: white;
 `;
 
 const IconView = styled.View`
