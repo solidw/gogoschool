@@ -9,11 +9,10 @@ import ProfileIcon from 'src/lib/assets/profile-icon.png';
 import { UserContext } from 'src/contexts/UserContext';
 import { AuthContext } from 'src/contexts/AuthContext';
 import { SIGN_OUT } from '../../contexts/reducers';
-import AsyncStorage from '@react-native-community/async-storage';
 
 const MyPageScreen = () => {
-  const { user, setUser } = useContext(UserContext);
-  const { dispatch } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
+  const { authState, dispatch } = useContext(AuthContext);
 
   const alertLogout = () => {
     Alert.alert(
@@ -26,7 +25,7 @@ const MyPageScreen = () => {
           style: 'cancel',
         },
         {
-          text: '제출',
+          text: '확인',
           onPress: () => {
             dispatch({ type: SIGN_OUT });
           },
@@ -38,7 +37,7 @@ const MyPageScreen = () => {
 
   return (
     <MyPageScreenWrapper>
-      <HeaderInfoView>
+      <HeaderInfoView isStudent={user.isStudent}>
         <Icon source={ProfileIcon} />
         <HeaderInfoText>{user.name}</HeaderInfoText>
       </HeaderInfoView>
@@ -68,9 +67,12 @@ const MyPageScreen = () => {
           <RowText way={'right'}>{user.code}</RowText>
         </RowView>
       </DetailInfoView>
+      <StyledText size={20} margin={20}>
+        잘못된 정보를 입력했을 경우 로그아웃을 통해 다시 로그인해주세요.
+      </StyledText>
       <FullRowTouchableOpacity
         onPress={alertLogout}
-        background={palette.hakgyoYellow}>
+        background={user.isStudent ? palette.hakgyoYellow : palette.blackBoard}>
         <StyledText>로그아웃</StyledText>
       </FullRowTouchableOpacity>
     </MyPageScreenWrapper>
@@ -87,7 +89,8 @@ const HeaderInfoView = styled.View`
   align-items: center;
   padding-vertical: 15px;
   padding-horizontal: 20px;
-  background-color: ${palette.hakgyoYellow};
+  background-color: ${({ isStudent }) =>
+    isStudent ? palette.hakgyoYellow : palette.blackBoard};
 `;
 
 const HeaderInfoText = styled(StyledText)`
