@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
@@ -18,21 +18,25 @@ import LogoLongLong from 'src/lib/assets/logo_long_long.png';
 import Chatbot from 'src/lib/assets/chatbot.png';
 
 const HomeScreen = ({ navigation }) => {
-  const { total, checked, student_list } = dummyStudentExample;
   const { user, toggleUser } = useContext(UserContext);
-  const [wheelProgress, setWheelProgress] = useState(
-    user.isStudent ? 0 : checked,
-  );
+  const { total, checked, student_list } = dummyStudentExample;
+  const [wheelProgress, setWheelProgress] = useState(0);
+
   const today = new Date();
   const todayDate = today.getDate();
   const todayMonth = today.getMonth() + 1;
+
   const addPercentage = () => {
     setWheelProgress(wheelProgress < 100 ? wheelProgress + 25 : 0);
   };
-  useEffect(() => {}, []);
+
+  useEffect(() => {
+    setWheelProgress(user.isStudent ? 0 : checked);
+  }, [checked, user.isStudent]);
+
   return (
     <HomeScreenWrapper>
-      <HeaderView>
+      <HeaderView isStudent={user.isStudent}>
         <RowTouchableOpacity onPress={() => toggleUser()}>
           <Icon
             size={60}
@@ -63,10 +67,10 @@ const HomeScreen = ({ navigation }) => {
             <AnimatedProgressWheel
               size={100}
               width={15}
-              color={palette.hakgyoYellow}
+              color={user.isStudent ? palette.hakgyoYellow : palette.blackBoard}
               backgroundColor={palette.lightGray}
               progress={
-                user.isStudent ? wheelProgress : (wheelProgress * 100) / total
+                user.isStudent ? wheelProgress : wheelProgress * (100 / total)
               }
               animateFromValue={0}
               duration={3000}
@@ -98,7 +102,8 @@ const HeaderView = styled.View`
   align-items: center;
   height: 10%;
   padding-horizontal: 10px;
-  background-color: ${palette.hakgyoYellow};
+  background-color: ${({ isStudent }) =>
+    isStudent ? palette.hakgyoYellow : palette.blackBoard};
 `;
 
 const BodyView = styled.View`
