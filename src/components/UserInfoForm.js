@@ -6,7 +6,7 @@ import palette from 'src/lib/palette';
 import StyledText from 'src/components/StyledText';
 import StyledTextInput from 'src/components/StyledTextInput';
 
-const UserInfoForm = ({ value, setValue }) => {
+const UserInfoForm = ({ isStudent, value, setValue }) => {
   return (
     <UserInfoFormWrapper>
       <RowView>
@@ -39,16 +39,18 @@ const UserInfoForm = ({ value, setValue }) => {
           onChangeText={text => setValue({ ...value, classNo: text })}
         />
       </RowView>
-      <RowView>
-        <RowText size={20} way="left">
-          학급 번호
-        </RowText>
-        <RowTextInput
-          way="right"
-          value={value.number}
-          onChangeText={text => setValue({ ...value, number: text })}
-        />
-      </RowView>
+      {isStudent ? (
+        <RowView>
+          <RowText size={20} way="left">
+            학급 번호
+          </RowText>
+          <RowTextInput
+            way="right"
+            value={value.number}
+            onChangeText={text => setValue({ ...value, number: text })}
+          />
+        </RowView>
+      ) : null}
     </UserInfoFormWrapper>
   );
 };
