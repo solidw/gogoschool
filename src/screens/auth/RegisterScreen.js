@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Text } from 'react-native';
 import styled from 'styled-components';
-import palette from 'src/lib/palette';
-import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
 
+import AsyncStorage from '@react-native-community/async-storage';
+import messaging from '@react-native-firebase/messaging';
+
+import palette from 'src/lib/palette';
 import { AuthContext } from 'src/contexts/AuthContext';
 import { UserContext } from 'src/contexts/UserContext';
 import { SIGN_IN } from '../../contexts/reducers';
@@ -17,7 +18,6 @@ import UserInfoForm from 'src/components/UserInfoForm';
 const RegisterScreen = ({ route }) => {
   const auth = useContext(AuthContext);
   const user = useContext(UserContext);
-
   const { isStudent, local, name, code } = route.params;
   const [registerData, setRegisterData] = useState({
     isStudent: isStudent,
@@ -28,23 +28,33 @@ const RegisterScreen = ({ route }) => {
     local: local,
     name: name,
     code: code,
+    token: '',
   });
+
   const [schoolList, setSchoolList] = useState([]);
   useEffect(() => {
-    console.log(local, name, code);
+    console.log(registerData);
+
     const asyncGetSchoolList = async () => {
       const [status, data] = await getSchoolList();
       setSchoolList(data);
     };
     // asyncGetSchoolList();
-  }, [code, local, name]);
+  }, [registerData]);
 
-  const onPressStart = () => {
-    auth.dispatch({ type: SIGN_IN, token: isStudent ? 'student' : 'teacher' });
+  const onPressStart = async () => {
+    const token = await messaging().getToken();
+    setRegisterData({ ...registerData, token: token });
+
+    auth.dispatch({
+      type: SIGN_IN,
+      token: isStudent ? 'student' : 'teacher',
+    });
     user.setUser(registerData);
+
     AsyncStorage.setItem('userInfo', JSON.stringify(registerData));
-    console.log(user.user);
   };
+
   return (
     <RegisterScreenWrapper>
       <HeaderView isStudent={isStudent}>
@@ -58,7 +68,11 @@ const RegisterScreen = ({ route }) => {
           <StyledText>{name}</StyledText>
           <StyledText>{code}</StyledText>
         </SimpleInfoView>
-        <UserInfoForm value={registerData} setValue={setRegisterData} />
+        <UserInfoForm
+          isStudent={isStudent}
+          value={registerData}
+          setValue={setRegisterData}
+        />
       </BodyView>
       <FullRowTouchableOpacity
         onPress={() => onPressStart()}
