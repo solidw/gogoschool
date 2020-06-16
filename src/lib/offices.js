@@ -37,3 +37,23 @@ export const hcheckMatchURL = {
   충남: 'https://eduro.cne.go.kr/',
   충북: 'https://eduro.cbe.go.kr/',
 };
+
+export const matchInitialEachOffices = {
+  강원: 'kwe',
+  경기: 'goe',
+  경남: 'gne',
+  경북: 'gbe',
+  광주: 'gen',
+  대구: 'dge',
+  대전: 'use',
+  부산: 'pen',
+  서울: 'sen',
+  세종: 'sje',
+  울산: 'use',
+  인천: 'ice',
+  전남: 'jne',
+  전북: 'jbe',
+  제주: 'jje',
+  충남: 'cne',
+  충북: 'cbe',
+};
