@@ -32,6 +32,14 @@ const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(userDefaultValue);
 
   const toggleUser = () => {
+    AsyncStorage.setItem(
+      'userInfo',
+      JSON.stringify(
+        user.isStudent
+          ? userExample.teacherExample
+          : userExample.studentExample,
+      ),
+    );
     setUser(
       user.isStudent ? userExample.teacherExample : userExample.studentExample,
     );
