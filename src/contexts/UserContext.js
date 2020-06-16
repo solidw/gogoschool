@@ -2,7 +2,9 @@ import React, { useState, createContext } from 'react';
 
 export const UserContext = createContext();
 import AsyncStorage from '@react-native-community/async-storage';
-
+const userDefaultValue = {
+  isStudent: true,
+};
 const UserContextProvider = ({ children }) => {
   const userExample = {
     studentExample: {
@@ -27,7 +29,7 @@ const UserContextProvider = ({ children }) => {
     },
   };
 
-  const [user, setUser] = useState(userExample.studentExample);
+  const [user, setUser] = useState(userDefaultValue);
 
   const toggleUser = () => {
     setUser(

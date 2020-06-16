@@ -16,16 +16,16 @@ const AppWrapper = () => {
 
   useEffect(() => {
     const asyncGetUserInfo = async () => {
-      AsyncStorage.getItem('userInfo').then((value, err) => {
-        if (err === undefined) {
+      await AsyncStorage.getItem('userInfo')
+        .then(value => {
           if (value !== null) {
-            dispatch({ type: RESTORE_TOKEN, token: 'something' });
             setUser(JSON.parse(value));
+            dispatch({ type: RESTORE_TOKEN, isLoggedIn: true, token: '' });
+          } else {
+            dispatch({ type: RESTORE_TOKEN, isLoggedIn: false, token: '' });
           }
-        } else {
-          console.log(err);
-        }
-      });
+        })
+        .catch(e => console.log(e));
     };
     asyncGetUserInfo();
   }, [dispatch, setUser]);
