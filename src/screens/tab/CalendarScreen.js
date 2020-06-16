@@ -1,44 +1,94 @@
-import React from 'react';
-import { View, Text, DatePickerAndroid } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import {
-  Calendar,
-  CalendarList,
-  Agenda,
-  LocaleConfig,
-} from 'react-native-calendars';
-import { getFormatDate } from 'src/lib/Date.js';
+import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { getMaxDate } from 'src/lib/Date.js';
 import palette from 'src/lib/palette';
+import { localeKR } from '../../lib/calendarLocale';
+
+import StyledText from 'src/components/StyledText';
+import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
+import AsyncStorage from '@react-native-community/async-storage';
+
+LocaleConfig.locales.kr = localeKR;
+LocaleConfig.defaultLocale = 'kr';
+
+const now = new Date();
+
+const generateFullDate = () => {
+  const maxDate = getMaxDate(now.getMonth() + 1);
+  const templateDate =
+    now.getFullYear() + '-' + (now.getMonth() + 1 + '').padStart(2, '0') + '-';
+  let arrays = [];
+  for (let i = 1; i <= maxDate; i++) {
+    arrays.push(templateDate + (i + '').padStart(2, '0'));
+  }
+
+  return arrays;
+};
+const fullDate = generateFullDate();
 
 const CalendarScreen = () => {
-  const now = new Date();
-  const dates = [
-    getFormatDate(now),
-    '2020-06-01',
-    '2020-06-03',
-    '2020-06-05',
-    '2020-06-09',
-    '2020-06-11',
-    '2020-06-15',
-    '2020-06-17',
-    '2020-06-19',
-    '2020-06-23',
-    '2020-06-25',
-    '2020-06-29',
-  ];
-  const objForProps = {};
-  dates.forEach(
-    item =>
-      (objForProps[item] = {
-        startingDay: true,
-        endingDay: true,
-        color: 'green',
-        textColor: 'white',
-      }),
-  );
+  const [dates, setDates] = useState([]);
+  const [datesObj, setDatesObj] = useState([]);
+
+  const onClickOdd = () => {
+    const filtered = fullDate.filter(
+      date => (date[date.length - 1] * 1) % 2 === 1,
+    );
+    setDates(filtered);
+  };
+
+  const onClickEven = () => {
+    const filtered = fullDate.filter(
+      date => (date[date.length - 1] * 1) % 2 === 0,
+    );
+    setDates(filtered);
+  };
+
+  useEffect(() => {
+    setDatesObj(
+      dates.reduce((acc, cur) => {
+        return {
+          ...acc,
+          [cur]: {
+            startingDay: true,
+            endingDay: true,
+            color: 'green',
+            textColor: 'white',
+          },
+        };
+      }, {}),
+    );
+    AsyncStorage.setItem('calendarDate');
+  }, [dates]);
   return (
     <CalendarScreenWrapper>
-      <Calendar markedDates={objForProps} markingType={'period'} />
+      <Calendar
+        theme={{
+          textDayFontFamily: 'baskin-robbins-R',
+          textMonthFontFamily: 'baskin-robbins-R',
+          textDayFontSize: 18,
+          textMonthFontSize: 20,
+        }}
+        monthFormat={'yyyy년 MM월'}
+        markedDates={datesObj}
+        markingType={'period'}
+        onDayPress={day => {
+          setDates([...dates, day.dateString]);
+        }}
+      />
+      <ButtonView>
+        <FullRowTouchableOpacity
+          background={palette.green}
+          onPress={() => onClickOdd()}>
+          <StyledText>홀수 등교 (1, 3, 5, 7, 9)</StyledText>
+        </FullRowTouchableOpacity>
+        <FullRowTouchableOpacity
+          background={palette.hakgyoYellow}
+          onPress={() => onClickEven()}>
+          <StyledText>짝수 등교 (0, 2, 4, 6, 8)</StyledText>
+        </FullRowTouchableOpacity>
+      </ButtonView>
     </CalendarScreenWrapper>
   );
 };
@@ -46,5 +96,11 @@ const CalendarScreen = () => {
 const CalendarScreenWrapper = styled.View`
   flex: 1;
   background-color: ${palette.white};
+`;
+
+const ButtonView = styled.View`
+  padding-vertical: 20px;
+  flex-direction: row;
+  justify-content: center;
 `;
 export default CalendarScreen;
