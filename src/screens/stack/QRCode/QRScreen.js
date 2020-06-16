@@ -3,12 +3,12 @@ import { Text, TextInput, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 import StyledText from 'src/components/StyledText';
+import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 
 import QRCode from 'react-native-qrcode-generator';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { UserContext } from 'src/contexts/UserContext';
 import UserInfoFromAPI from 'src/components/UserInfoFromAPI';
-import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 
 const QRScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -25,10 +25,17 @@ const QRScreen = ({ navigation }) => {
       <QRView>
         <QRCode size={256} value={userInput} />
       </QRView>
+      {/* <FullRowTouchableOpacity
+        onPress={() => navigation.push('Home')}
+        background={palette.pastelRed}>
+        <StyledText size={20} color={palette.white}>
+          스스로 체온 기록하기
+        </StyledText>
+      </FullRowTouchableOpacity> */}
       <FullRowTouchableOpacity
         onPress={() => navigation.push('Home')}
         background={palette.hakgyoYellow}>
-        <StyledText>뒤로가기</StyledText>
+        <StyledText size={20}>뒤로가기</StyledText>
       </FullRowTouchableOpacity>
     </QRScreenWrapper>
   ) : (
