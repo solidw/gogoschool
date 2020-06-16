@@ -35,3 +35,4 @@
 
 - location permission
 - font
+- firebase
