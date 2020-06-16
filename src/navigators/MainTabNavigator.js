@@ -52,7 +52,7 @@ const MainTabNavigator = () => {
           },
         }}
         initialRouteName={'홈'}>
-        <Tab.Screen name="동선" component={MapScreen} />
+        {/* <Tab.Screen name="동선" component={MapScreen} /> */}
         <Tab.Screen name="등교일" component={CalendarScreen} />
         <Tab.Screen name="홈" component={HomeStackNavigator} />
         <Tab.Screen name="알림장" component={SNSScreen} />
