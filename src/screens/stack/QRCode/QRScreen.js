@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Text, TextInput, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 import StyledText from 'src/components/StyledText';
@@ -44,12 +44,12 @@ const QRScreen = ({ navigation }) => {
         onRead={onReadEvent}
         cameraStyle={{ width: '100%', height: '50%' }}
         bottomContent={
-          <TouchableOpacity>
+          <View>
             <StyledText>만약, 스캔이 잘 되지 않는다면</StyledText>
             <StyledText>
               하단의 홈을 누르고 다시 QR코드를 스캔해주세요.
             </StyledText>
-          </TouchableOpacity>
+          </View>
         }
       />
       <FullRowTouchableOpacity
