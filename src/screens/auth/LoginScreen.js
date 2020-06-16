@@ -20,9 +20,10 @@ const LoginScreen = ({ navigation }) => {
   const auth = useContext(AuthContext);
   const user = useContext(UserContext);
   const [data, setData] = useState({
+    isStudent: '',
     local: '대구',
-    name: '고태완',
-    code: '111111',
+    name: '강경준',
+    code: 'THNR28',
   });
   const hcheckURL = `${hcheckMatchURL[data.local]}/stv_cvd_co00_011.do?pName=${
     data.name
@@ -62,37 +63,38 @@ const LoginScreen = ({ navigation }) => {
       </BodyView>
       <FullRowTouchableOpacity
         onPress={() => {
-          // auth.dispatch({ type: SIGN_IN, token: 'dummy' });
-          // user.loginWith('teacher');
-          navigation.push('Register', {
-            isStudent: false,
-            local: data.local,
-            name: data.name,
-            code: data.code,
-          });
-          // axios
-          //   .post(hcheckURL)
-          //   .then(res => {
-          //     const resultCode = res.data.resultSVO.rtnRsltCode;
-          //     console.log(resultCode);
-          //     if (resultCode === 'QSTN_USR_ERROR') {
-          //       Alert.alert(
-          //         '인증 실패',
-          //         `지역, ${'이름'} 혹은 ${'인증번호'}가 올바르지 않거나 서버와 연결할 수 없습니다.`,
-          //         [{ text: '확인', onPress: () => console.log('OK Pressed') }],
-          //         { cancelable: false },
-          //       );
-          //     }
-          //     if (resultCode === 'TCHER_SUCCESS') {
-          //       auth.dispatch({ type: SIGN_IN, token: 'dummy' });
-          //       user.loginWith('teacher');
-          //     }
-          //     if (resultCode === 'SUCCESS') {
-          //       auth.dispatch({ type: SIGN_IN, token: 'dummy' });
-          //       user.loginWith('student');
-          //     }
-          //   })
-          //   .catch(e => console.log(e));
+          axios
+            .post(hcheckURL)
+            .then(res => {
+              const resultCode = res.data.resultSVO.rtnRsltCode;
+              console.log(resultCode);
+              if (resultCode === 'QSTN_USR_ERROR') {
+                Alert.alert(
+                  '인증 실패',
+                  `지역, ${'이름'} 혹은 ${'인증번호'}가 올바르지 않거나 서버와 연결할 수 없습니다.`,
+                  [{ text: '확인', onPress: () => console.log('OK Pressed') }],
+                  { cancelable: false },
+                );
+                return;
+              }
+
+              if (resultCode === 'TCHER_SUCCESS') {
+                navigation.push('Register', {
+                  isStudent: false,
+                  local: data.local,
+                  name: data.name,
+                  code: data.code,
+                });
+              } else if (resultCode === 'SUCCESS') {
+                navigation.push('Register', {
+                  isStudent: true,
+                  local: data.local,
+                  name: data.name,
+                  code: data.code,
+                });
+              }
+            })
+            .catch(e => console.log(e));
         }}
         background={palette.hakgyoYellow}>
         <StyledText size={20}>시작하기</StyledText>
