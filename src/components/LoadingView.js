@@ -19,6 +19,7 @@ const LoadingView = () => {
 
 const LoadingViewWrapper = styled.View`
   flex: 1;
+  background: ${palette.white};
   justify-content: center;
   align-items: center;
 `;
