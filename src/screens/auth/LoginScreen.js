@@ -1,11 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Alert } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 
-import { AuthContext } from 'src/contexts/AuthContext';
-import { UserContext } from 'src/contexts/UserContext';
-import { SIGN_IN } from '../../contexts/reducers';
 import axios from 'axios';
 
 import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
@@ -17,8 +14,6 @@ import StyledTextInput from 'src/components/StyledTextInput';
 import { hcheckMatchURL } from 'src/lib/offices';
 
 const LoginScreen = ({ navigation }) => {
-  const auth = useContext(AuthContext);
-  const user = useContext(UserContext);
   const [data, setData] = useState({
     isStudent: '',
     local: '대구',
@@ -37,7 +32,7 @@ const LoginScreen = ({ navigation }) => {
       </HeaderView>
       <BodyView>
         <StyledText margin={10} size={20}>
-          지역선택
+          지역을 선택해주세요.
         </StyledText>
         <Locals
           local={data.local}
@@ -46,6 +41,7 @@ const LoginScreen = ({ navigation }) => {
         <RowView>
           <RowText size={20}>이름</RowText>
           <RowTextInput
+            placeholder={'이름'}
             value={data.name}
             onChangeText={text => setData({ ...data, name: text })}
           />
@@ -53,6 +49,7 @@ const LoginScreen = ({ navigation }) => {
         <RowView>
           <RowText size={20}>인증번호</RowText>
           <RowTextInput
+            placeholder={'인증번호'}
             value={data.code}
             onChangeText={text => {
               const capitalText = text.toUpperCase();
@@ -94,7 +91,15 @@ const LoginScreen = ({ navigation }) => {
                 });
               }
             })
-            .catch(e => console.log(e));
+            .catch(e => {
+              Alert.alert(
+                '네트워크 에러',
+                `지역, ${'이름'} 혹은 ${'인증번호'}가 올바르지 않거나 서버와 연결할 수 없습니다.`,
+                [{ text: '확인', onPress: () => console.log('OK Pressed') }],
+                { cancelable: false },
+              );
+              console.log(e);
+            });
         }}
         background={palette.hakgyoYellow}>
         <StyledText size={20}>시작하기</StyledText>

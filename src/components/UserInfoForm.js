@@ -14,6 +14,7 @@ const UserInfoForm = ({ isStudent, value, setValue }) => {
           우리 학교
         </RowText>
         <RowTextInput
+          placeholder="학교명"
           way="right"
           value={value.school}
           onChangeText={text => setValue({ ...value, school: text })}
@@ -24,6 +25,7 @@ const UserInfoForm = ({ isStudent, value, setValue }) => {
           학년
         </RowText>
         <RowTextInput
+          placeholder="학년"
           way="right"
           value={value.grade}
           onChangeText={text => setValue({ ...value, grade: text })}
@@ -34,6 +36,7 @@ const UserInfoForm = ({ isStudent, value, setValue }) => {
           반
         </RowText>
         <RowTextInput
+          placeholder="반"
           way="right"
           value={value.classNo}
           onChangeText={text => setValue({ ...value, classNo: text })}
@@ -42,9 +45,10 @@ const UserInfoForm = ({ isStudent, value, setValue }) => {
       {isStudent ? (
         <RowView>
           <RowText size={20} way="left">
-            학급 번호
+            번호
           </RowText>
           <RowTextInput
+            placeholder="학급 번호"
             way="right"
             value={value.number}
             onChangeText={text => setValue({ ...value, number: text })}
