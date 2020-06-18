@@ -75,13 +75,15 @@ const AfterScan = ({ route, navigation }) => {
   return (
     <AfterScanWrapper>
       <TopView>
-        <CenteredText size={30}>
+        <StyledText center size={30}>
           학생 정보 {isLoading && '를 불러오는 중입니다.'}
-        </CenteredText>
+        </StyledText>
       </TopView>
       <UserInfoFromAPI userInfo={studentInfo} />
       <TemperatureViewWrapper>
-        <CenteredText size={35}>체온 기록하기</CenteredText>
+        <StyledText center size={35}>
+          체온 기록하기
+        </StyledText>
       </TemperatureViewWrapper>
       <TemperatureView>
         <FullRowTouchableOpacity
@@ -132,10 +134,6 @@ const TemperatureView = styled.View`
   justify-content: space-between;
   align-items: center;
   margin-horizontal: 15px;
-`;
-
-const CenteredText = styled(StyledText)`
-  text-align: center;
 `;
 
 export default AfterScan;

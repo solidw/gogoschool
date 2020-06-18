@@ -5,6 +5,8 @@ const StyledText = styled.Text`
   ${({ color }) => color && `color: ${color}`};
   ${({ padding }) => padding && `padding: ${padding}px`};
   ${({ margin }) => margin && `margin: ${margin}px`};
+  ${({ center }) => center && 'text-align: center'};
+
   font-family: 'baskin-robbins-R';
 `;
 
