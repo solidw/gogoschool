@@ -47,7 +47,6 @@ const CalendarScreen = () => {
 
   useEffect(() => {
     AsyncStorage.getItem('calendarDate').then(calendarDate => {
-      console.log(calendarDate);
       setDates(JSON.parse(calendarDate));
     });
   }, []);
@@ -81,7 +80,6 @@ const CalendarScreen = () => {
         markedDates={datesObj}
         markingType={'period'}
         onDayPress={day => {
-          console.log(dates.indexOf(day.dateString));
           if (dates.indexOf(day.dateString) === -1) {
             setDates([...dates, day.dateString]);
           } else {

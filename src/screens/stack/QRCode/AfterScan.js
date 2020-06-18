@@ -5,8 +5,6 @@ import palette from 'src/lib/palette';
 import StyledText from 'src/components/StyledText';
 import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 import { UserContext } from 'src/contexts/UserContext';
-import Axios from 'axios';
-import serverURL from 'src/lib/serverURL';
 import { getUserInfoByCode } from 'src/apis/user';
 import { PostStudentTemperature } from '../../../apis/user';
 import UserInfoFromAPI from '../../../components/UserInfoFromAPI';
