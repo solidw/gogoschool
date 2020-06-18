@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 import StyledText from 'src/components/StyledText';
@@ -27,23 +27,27 @@ const StudentMiddleView = ({ addPercentage }) => {
   return (
     <TodoView>
       <TodoItem
+        index={1}
         item={'자가진단'}
-        addTenProgress={addPercentage}
+        addPercentage={addPercentage}
         iconSource={Check}
       />
       <TodoItem
+        index={2}
         item={'손씻기'}
-        addTenProgress={addPercentage}
+        addPercentage={addPercentage}
         iconSource={Wash}
       />
       <TodoItem
+        index={3}
         item={'마스크'}
-        addTenProgress={addPercentage}
+        addPercentage={addPercentage}
         iconSource={Mask}
       />
       <TodoItem
+        index={4}
         item={'물/수저'}
-        addTenProgress={addPercentage}
+        addPercentage={addPercentage}
         iconSource={Water}
       />
     </TodoView>
@@ -60,9 +64,7 @@ const TeacherMiddleView = ({ studentList }) => {
               size={40}
               source={student.self_check ? CheckDoneStudent : CheckNotStudent}
             />
-            <StyledText style={{ textAlign: 'center' }}>
-              {student.id}
-            </StyledText>
+            <StyledText center>{student.id}</StyledText>
           </View>
         ))}
       </CheckTouchableOpacity>
