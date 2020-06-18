@@ -22,9 +22,9 @@ const RegisterScreen = ({ route }) => {
   const [registerData, setRegisterData] = useState({
     isStudent: isStudent,
     school: '송일초등학교',
-    grade: '1',
-    classNo: '1',
-    number: '1',
+    grade: '3',
+    classNo: '2',
+    number: '15',
     local: local,
     name: name,
     code: code,
@@ -64,9 +64,9 @@ const RegisterScreen = ({ route }) => {
       </HeaderView>
       <BodyView>
         <SimpleInfoView>
-          <StyledText>{local}</StyledText>
-          <StyledText>{name}</StyledText>
-          <StyledText>{code}</StyledText>
+          <StyledText size={20}>{local}</StyledText>
+          <StyledText size={20}>{name}</StyledText>
+          <StyledText size={20}>{code}</StyledText>
         </SimpleInfoView>
         <UserInfoForm
           isStudent={isStudent}
@@ -96,6 +96,7 @@ const HeaderView = styled.View`
 const SimpleInfoView = styled.View`
   flex-direction: row;
   justify-content: space-around;
+  padding-vertical: 10px;
 `;
 const BodyView = styled.View`
   flex: 1;
