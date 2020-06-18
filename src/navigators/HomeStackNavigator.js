@@ -9,9 +9,7 @@ import AfterScan from 'src/screens/stack/QRCode/AfterScan';
 import SelfCheckScreen from 'src/screens/stack/SelfCheckScreen';
 import QuizScreen from 'src/screens/stack/QuizScreen';
 import ChatbotScreen from 'src/screens/stack/ChatbotScreen';
-import ManualScreen from 'src/screens/stack/ManualScreen';
-
-import SafetyScreen from 'src/screens/stack/SafetyScreen';
+import EmergencyScreen from 'src/screens/stack/EmergencyScreen';
 
 import { UserContext } from 'src/contexts/UserContext';
 
@@ -47,7 +45,7 @@ const HomeStackNavigator = () => {
       />
       <Stack.Screen
         name="Fourth"
-        component={isStudent ? QuizScreen : ManualScreen}
+        component={isStudent ? QuizScreen : EmergencyScreen}
       />
       <Stack.Screen name="Chatbot" component={ChatbotScreen} />
       <Stack.Screen name="AfterScan" component={AfterScan} />
