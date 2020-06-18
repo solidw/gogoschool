@@ -29,7 +29,7 @@ const fullDate = generateFullDate();
 
 const CalendarScreen = () => {
   const [dates, setDates] = useState([]);
-  const [datesObj, setDatesObj] = useState([]);
+  const [datesObj, setDatesObj] = useState({});
 
   const onClickOdd = () => {
     const filtered = fullDate.filter(
@@ -46,6 +46,13 @@ const CalendarScreen = () => {
   };
 
   useEffect(() => {
+    AsyncStorage.getItem('calendarDate').then(calendarDate => {
+      console.log(calendarDate);
+      setDates(JSON.parse(calendarDate));
+    });
+  }, []);
+
+  useEffect(() => {
     setDatesObj(
       dates.reduce((acc, cur) => {
         return {
@@ -59,7 +66,7 @@ const CalendarScreen = () => {
         };
       }, {}),
     );
-    AsyncStorage.setItem('calendarDate');
+    AsyncStorage.setItem('calendarDate', JSON.stringify(dates));
   }, [dates]);
   return (
     <CalendarScreenWrapper>
@@ -74,7 +81,16 @@ const CalendarScreen = () => {
         markedDates={datesObj}
         markingType={'period'}
         onDayPress={day => {
-          setDates([...dates, day.dateString]);
+          console.log(dates.indexOf(day.dateString));
+          if (dates.indexOf(day.dateString) === -1) {
+            setDates([...dates, day.dateString]);
+          } else {
+            setDates(
+              dates.filter(
+                (_, index) => dates.indexOf(day.dateString) !== index,
+              ),
+            );
+          }
         }}
       />
       <ButtonView>
@@ -88,6 +104,11 @@ const CalendarScreen = () => {
           onPress={() => onClickEven()}>
           <StyledText>짝수 등교 (0, 2, 4, 6, 8)</StyledText>
         </FullRowTouchableOpacity>
+        <FullRowTouchableOpacity
+          background={palette.pastelRed}
+          onPress={() => setDates([])}>
+          <StyledText>초기화</StyledText>
+        </FullRowTouchableOpacity>
       </ButtonView>
     </CalendarScreenWrapper>
   );
@@ -100,7 +121,7 @@ const CalendarScreenWrapper = styled.View`
 
 const ButtonView = styled.View`
   padding-vertical: 20px;
-  flex-direction: row;
   justify-content: center;
+  align-items: center;
 `;
 export default CalendarScreen;
