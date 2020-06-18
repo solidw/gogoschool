@@ -1,8 +1,5 @@
-// 임시
-import React, { useState, createContext, useReducer } from 'react';
+import React, { createContext, useReducer } from 'react';
 import { authReducer } from './reducers';
-
-export const AuthContext = createContext();
 
 const authDefaultValue = {
   isLoading: true,
@@ -10,6 +7,7 @@ const authDefaultValue = {
   userToken: null,
 };
 
+export const AuthContext = createContext();
 const AuthContextProvider = ({ children }) => {
   const [authState, dispatch] = useReducer(authReducer, authDefaultValue);
 

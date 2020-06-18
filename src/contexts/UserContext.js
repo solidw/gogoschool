@@ -1,10 +1,11 @@
 import React, { useState, createContext } from 'react';
-
-export const UserContext = createContext();
 import AsyncStorage from '@react-native-community/async-storage';
+
 const userDefaultValue = {
   isStudent: true,
 };
+
+export const UserContext = createContext();
 const UserContextProvider = ({ children }) => {
   const userExample = {
     studentExample: {
