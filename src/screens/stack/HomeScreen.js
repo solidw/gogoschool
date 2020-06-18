@@ -5,6 +5,7 @@ import palette from 'src/lib/palette';
 import AnimatedProgressWheel from 'react-native-progress-wheel';
 
 import { UserContext } from 'src/contexts/UserContext';
+import { MissionContext } from 'src/contexts/MissionContext';
 
 import HomeMiddleView from 'src/components/home/HomeMiddleView';
 import HomeFooterView from 'src/components/home/HomeFooterView';
@@ -17,11 +18,13 @@ import StudentLogin from 'src/lib/assets/student_login.png';
 import LogoLongLong from 'src/lib/assets/logo_long_long.png';
 import Chatbot from 'src/lib/assets/chatbot.png';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ route, navigation }) => {
   const { user, toggleUser } = useContext(UserContext);
-  const { total, checked, student_list } = dummyStudentExample;
-  const [wheelProgress, setWheelProgress] = useState(0);
+  const { missionState } = useContext(MissionContext);
 
+  const { total, checked, student_list } = dummyStudentExample;
+  const studentProgress = (100 / missionState.length) * missionState.isComplete;
+  const [wheelProgress, setWheelProgress] = useState(0);
   const today = new Date();
   const todayDate = today.getDate();
   const todayMonth = today.getMonth() + 1;
@@ -31,9 +34,16 @@ const HomeScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    setWheelProgress(user.isStudent ? 0 : checked);
-  }, [checked, user.isStudent]);
+    if (user.isStudent) {
+      setWheelProgress(studentProgress);
+    }
+  }, [studentProgress, user.isStudent]);
 
+  useEffect(() => {
+    if (!user.isStudent) {
+      setWheelProgress(checked);
+    }
+  }, [checked, user.isStudent]);
   return (
     <HomeScreenWrapper>
       <HeaderView isStudent={user.isStudent}>
@@ -109,7 +119,6 @@ const HeaderView = styled.View`
 const BodyView = styled.View`
   padding: 15px 10px;
   flex-grow: 1;
-  ${'' /* background-color: ${palette.hakgyoGreen}; */}
 `;
 
 const UserInfoView = styled.View`
@@ -120,7 +129,6 @@ const UserInfoView = styled.View`
 
 const ProgressView = styled.View`
   flex: 1;
-  ${'' /* flex-direction: row; */}
   justify-content: space-around;
   align-items: center;
   margin-horizontal: 20px;
@@ -131,14 +139,5 @@ const RowTouchableOpacity = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
 `;
-const ProgressText = styled(StyledText)`
-  position: absolute;
-  right: 10%;
-  font-size: 20px;
-`;
 
-const Profile = styled(Icon)`
-  width: 50%;
-  height: 50%;
-`;
 export default HomeScreen;

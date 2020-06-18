@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Image } from 'react-native';
+import React, { useEffect, useContext } from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -18,14 +17,48 @@ import Home from 'src/lib/assets/home.png';
 import Notice from 'src/lib/assets/notice.png';
 import MyPage from 'src/lib/assets/user.png';
 
+import AsyncStorage from '@react-native-community/async-storage';
+import { getFormatDate } from 'src/lib/Date';
+import {
+  defaultMissionValue,
+  MissionContext,
+} from 'src/contexts/MissionContext';
+
 const Tab = createBottomTabNavigator();
 
 const MainTabNavigator = () => {
+  const { missionState, setMissionState } = useContext(MissionContext);
+
+  useEffect(() => {
+    const getMissions = () => {
+      if (missionState.isLoaded === false) {
+        const today = new Date();
+        AsyncStorage.getItem('missions').then(missions => {
+          const parsedMissions = JSON.parse(missions);
+          console.log(`length: ${missionState.date.length}`);
+          if (parsedMissions.date === getFormatDate(today)) {
+            //같은 날은 그냥 불러오기
+            setMissionState({
+              ...parsedMissions,
+              isLoaded: true,
+            });
+          } else {
+            // 다른 날은 날짜 정해주고 기본값 불러오기
+            setMissionState({
+              ...defaultMissionValue,
+              isLoaded: true,
+            });
+          }
+        });
+      }
+    };
+    getMissions();
+  }, [missionState.date, missionState.isLoaded, setMissionState]);
   return (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color }) => {
+          tabBarIcon: () => {
             let iconName;
             if (route.name === '홈') {
               iconName = Home;
