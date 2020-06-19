@@ -15,8 +15,8 @@ const AppWrapper = () => {
   const { setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const asyncGetUserInfo = async () => {
-      await AsyncStorage.getItem('userInfo')
+    const asyncGetUserInfo = () => {
+      AsyncStorage.getItem('userInfo')
         .then(value => {
           if (value !== null) {
             setUser(JSON.parse(value));
