@@ -1,32 +1,28 @@
 import apiClient from './apiClient';
 
-export const getUserInfoByCode = code => {
+export const getUserInfoByCode = async code => {
   let statusCode = -1;
   let dataToReturn = {};
-  apiClient
-    .get(`/user/student/${code}`)
-    .then(res => {
-      if (res.data != null) {
-        const data = res.data[0];
-        statusCode = res.status;
-        dataToReturn = {
-          school: data.schoolName,
-          grade: data.studentGrade,
-          classNo: data.studentClass,
-          number: data.studentNumber,
-          name: data.name,
-        };
-      }
-    })
-    .catch(e => {
-      console.log(JSON.stringify(e, null, 4));
-      statusCode = e.response;
-    });
+  try {
+    const res = await apiClient.get(`/user/student/${code}`);
+    const data = res.data[0];
+    statusCode = res.status;
+    dataToReturn = {
+      school: data.schoolName,
+      grade: data.studentGrade,
+      classNo: data.studentClass,
+      number: data.studentNumber,
+      name: data.name,
+    };
+  } catch (err) {
+    console.log(JSON.stringify(err));
+    statusCode = err.response;
+  }
 
   return [statusCode, dataToReturn];
 };
 
-export const PostRegisterData = ({
+export const postRegisterData = async ({
   isStudent,
   name,
   code,
@@ -46,25 +42,50 @@ export const PostRegisterData = ({
   };
 
   console.log(formToRegister);
-  // apiClient.post(`/auth/login/${isStudent ? 'student' : 'teacher'}`,
-  // {
-
-  // });
+  try {
+    await apiClient.post(
+      `/auth/login/${isStudent ? 'student' : 'teacher'}`,
+      formToRegister,
+    );
+  } catch (err) {
+    console.log(`@postRegisterData: ${err}`);
+  }
 };
 
-export const PostStudentTemperature = ({ code, student, temperature }) => {
+export const postStudentTemperature = async ({
+  code,
+  studentCode,
+  temperature,
+}) => {
   let statusCode = -1;
-  let dataToReturn = {};
-  apiClient
-    .post('/temperature', {
+
+  try {
+    const data = await apiClient.post('/temperature', {
       code: code,
-      student: student,
+      student: studentCode,
       temperature: temperature,
-    })
-    .then(data => (dataToReturn = data))
-    .catch(e => {
-      console.log(JSON.stringify(e, null, 4));
-      statusCode = e.status;
     });
-  return [statusCode, dataToReturn];
+    statusCode = data.status;
+  } catch (err) {
+    console.log(JSON.stringify(err, null, 4));
+    statusCode = err.status;
+  }
+
+  return statusCode;
+};
+
+export const postSelfCheckSubmit = async ({ code }) => {
+  let statusCode = -1;
+  try {
+    const data = await apiClient.post('/selfcheck', {
+      code: code,
+      selfcheck: 1,
+    });
+    statusCode = data.status;
+    console.log(`@postSelfCheckSubmit Success: ${statusCode}`);
+  } catch (err) {
+    console.log(`@postSelfCheckSubmit Error: ${JSON.stringify(err, null, 2)}`);
+    statusCode = err.status;
+  }
+  return statusCode;
 };
