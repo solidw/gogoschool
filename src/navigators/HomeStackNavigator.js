@@ -41,6 +41,7 @@ const HomeStackNavigator = () => {
           isStudent: isStudent,
           name: user.name,
           code: user.code,
+          directLink: user.directLink,
         }}
       />
       <Stack.Screen

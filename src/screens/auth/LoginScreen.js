@@ -63,6 +63,7 @@ const LoginScreen = ({ navigation }) => {
           axios
             .post(hcheckURL)
             .then(res => {
+              const directLink = res.data.resultSVO.qstnCrtfcNoEncpt;
               const resultCode = res.data.resultSVO.rtnRsltCode;
               console.log(resultCode);
               if (resultCode === 'QSTN_USR_ERROR') {
@@ -81,6 +82,7 @@ const LoginScreen = ({ navigation }) => {
                   local: data.local,
                   name: data.name,
                   code: data.code,
+                  directLink: directLink,
                 });
               } else if (resultCode === 'SUCCESS') {
                 navigation.push('Register', {
@@ -88,6 +90,7 @@ const LoginScreen = ({ navigation }) => {
                   local: data.local,
                   name: data.name,
                   code: data.code,
+                  directLink: directLink,
                 });
               }
             })
