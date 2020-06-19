@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ListView } from 'react-native';
 import styled from 'styled-components';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -33,19 +33,17 @@ const RegisterScreen = ({ route }) => {
 
   const [schoolList, setSchoolList] = useState([]);
   useEffect(() => {
-    console.log(registerData);
-
     const asyncGetSchoolList = async () => {
-      const [status, data] = await getSchoolList();
+      const [status, data] = await getSchoolList(local);
       setSchoolList(data);
     };
-    // asyncGetSchoolList();
-  }, [registerData]);
+    asyncGetSchoolList();
+  }, [local]);
 
   const onPressStart = async () => {
     const token = await messaging().getToken();
     setRegisterData({ ...registerData, token: token });
-
+    console.log(token);
     auth.dispatch({
       type: SIGN_IN,
       token: isStudent ? 'student' : 'teacher',
@@ -72,6 +70,7 @@ const RegisterScreen = ({ route }) => {
           isStudent={isStudent}
           value={registerData}
           setValue={setRegisterData}
+          schoolList={schoolList}
         />
       </BodyView>
       <FullRowTouchableOpacity

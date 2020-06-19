@@ -5,8 +5,7 @@ import palette from 'src/lib/palette';
 
 import StyledText from 'src/components/StyledText';
 import StyledTextInput from 'src/components/StyledTextInput';
-
-const UserInfoForm = ({ isStudent, value, setValue }) => {
+const UserInfoForm = ({ isStudent, value, setValue, schoolList }) => {
   return (
     <UserInfoFormWrapper>
       <RowView>
