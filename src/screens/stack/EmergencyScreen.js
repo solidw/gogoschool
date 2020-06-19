@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
