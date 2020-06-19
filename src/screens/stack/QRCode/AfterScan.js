@@ -5,9 +5,8 @@ import palette from 'src/lib/palette';
 import StyledText from 'src/components/StyledText';
 import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 import { UserContext } from 'src/contexts/UserContext';
-import { getUserInfoByCode } from 'src/apis/user';
-import { PostStudentTemperature } from '../../../apis/user';
-import UserInfoFromAPI from '../../../components/UserInfoFromAPI';
+import { getUserInfoByCode, PostStudentTemperature } from 'src/apis/user';
+import UserInfoFromAPI from 'src/components/UserInfoFromAPI';
 
 const ParsefixedTemperature = value => {
   return parseFloat(parseFloat(value).toFixed(1));
