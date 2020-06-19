@@ -1,6 +1,6 @@
 ## How to Run
 
-1. `git clone https://github.com/solidw/gogohakgyo`
+1. `git clone https://github.com/solidw/gogoschool`
 2. `npm install`
 3. set Android Virtual Device or Actual Device
 4. How to set Android Virtual Device: [Here](https://recipes4dev.tistory.com/145)
