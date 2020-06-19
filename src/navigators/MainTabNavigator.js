@@ -4,10 +4,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import MapScreen from 'src/screens/tab/MapScreen';
-import CalendarScreen from 'src/screens/tab/CalendarScreen';
 import SNSScreen from 'src/screens/tab/SNSScreen';
+
+import CalendarScreen from 'src/screens/tab/CalendarScreen';
 import HomeStackNavigator from 'src/navigators/HomeStackNavigator';
 import MyPageScreen from 'src/screens/tab/MyPageScreen';
+import NoticeScreen from 'src/screens/tab/NoticeScreen';
 
 import Icon from 'src/components/Icon';
 
@@ -33,27 +35,36 @@ const MainTabNavigator = () => {
     const getMissions = () => {
       if (missionState.isLoaded === false) {
         const today = new Date();
-        AsyncStorage.getItem('missions').then(missions => {
-          const parsedMissions = JSON.parse(missions);
-          console.log(`length: ${missionState.date.length}`);
-          if (parsedMissions.date === getFormatDate(today)) {
-            //같은 날은 그냥 불러오기
-            setMissionState({
-              ...parsedMissions,
-              isLoaded: true,
-            });
-          } else {
-            // 다른 날은 날짜 정해주고 기본값 불러오기
+        AsyncStorage.getItem('missions')
+          .then(missions => {
+            const parsedMissions = JSON.parse(missions);
+            if (parsedMissions.date === getFormatDate(today)) {
+              //같은 날은 그냥 불러오기
+              setMissionState({
+                ...parsedMissions,
+                isLoaded: true,
+              });
+            } else {
+              // 다른 날은 날짜 정해주고 기본값 불러오기
+              setMissionState({
+                ...defaultMissionValue,
+                date: getFormatDate(today),
+                isLoaded: true,
+              });
+            }
+          })
+          .catch(() => {
             setMissionState({
               ...defaultMissionValue,
+              date: getFormatDate(today),
               isLoaded: true,
             });
-          }
-        });
+          });
       }
     };
     getMissions();
   }, [missionState.date, missionState.isLoaded, setMissionState]);
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -88,7 +99,7 @@ const MainTabNavigator = () => {
         {/* <Tab.Screen name="동선" component={MapScreen} /> */}
         <Tab.Screen name="등교일" component={CalendarScreen} />
         <Tab.Screen name="홈" component={HomeStackNavigator} />
-        <Tab.Screen name="알림장" component={SNSScreen} />
+        <Tab.Screen name="알림장" component={NoticeScreen} />
         <Tab.Screen name="마이페이지" component={MyPageScreen} />
       </Tab.Navigator>
     </NavigationContainer>
