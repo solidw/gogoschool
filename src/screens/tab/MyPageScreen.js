@@ -8,11 +8,11 @@ import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 import ProfileIcon from 'src/lib/assets/profile-icon.png';
 import { UserContext } from 'src/contexts/UserContext';
 import { AuthContext } from 'src/contexts/AuthContext';
-import { SIGN_OUT } from '../../contexts/reducers';
+import { SIGN_OUT } from 'src/contexts/reducers';
 
 const MyPageScreen = () => {
   const { user } = useContext(UserContext);
-  const { authState, dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
 
   const alertLogout = () => {
     Alert.alert(
