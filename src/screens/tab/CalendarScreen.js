@@ -46,9 +46,16 @@ const CalendarScreen = () => {
   };
 
   useEffect(() => {
-    AsyncStorage.getItem('calendarDate').then(calendarDate => {
-      setDates(JSON.parse(calendarDate));
-    });
+    const getCalendarDate = async () => {
+      await AsyncStorage.getItem('calendarDate').then(calendarDate => {
+        setDates(JSON.parse(calendarDate));
+      });
+    };
+    try {
+      getCalendarDate();
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   useEffect(() => {
