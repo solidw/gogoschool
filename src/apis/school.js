@@ -1,15 +1,16 @@
 import apiClient from './apiClient';
-import offices, { matchInitialEachOffices } from 'src/lib/offices';
+import { matchInitialEachOffices } from 'src/lib/offices';
 
-export const getSchoolList = local => {
+export const getSchoolList = async local => {
   let statusCode = -1;
   let dataToReturn = [];
   const convertedLocal = matchInitialEachOffices[local];
-  apiClient
-    .get(`/school/${convertedLocal}`)
-    .then(res => {
-      dataToReturn = res.data;
-    })
-    .catch(e => console.log(e));
+  try {
+    const res = await apiClient.get(`/school/${convertedLocal}`);
+    dataToReturn = res.data;
+  } catch (err) {
+    console.log(err);
+    statusCode = 400;
+  }
   return [statusCode, dataToReturn];
 };

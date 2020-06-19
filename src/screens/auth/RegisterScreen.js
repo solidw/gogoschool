@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, ListView } from 'react-native';
+import { View, Text, ListView, Alert } from 'react-native';
 import styled from 'styled-components';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -11,6 +11,7 @@ import { UserContext } from 'src/contexts/UserContext';
 import { SIGN_IN } from '../../contexts/reducers';
 
 import { getSchoolList } from 'src/apis/school';
+import { postRegisterData } from 'src/apis/user';
 import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 import StyledText from 'src/components/StyledText';
 import UserInfoForm from 'src/components/UserInfoForm';
@@ -18,16 +19,18 @@ import UserInfoForm from 'src/components/UserInfoForm';
 const RegisterScreen = ({ route }) => {
   const auth = useContext(AuthContext);
   const user = useContext(UserContext);
-  const { isStudent, local, name, code } = route.params;
+  const { isStudent, local, name, code, directLink } = route.params;
   const [registerData, setRegisterData] = useState({
     isStudent: isStudent,
     school: '송일초등학교',
+    schoolCode: 0,
     grade: '3',
     classNo: '2',
     number: '15',
     local: local,
     name: name,
     code: code,
+    directLink: directLink,
     token: '',
   });
 
@@ -40,17 +43,49 @@ const RegisterScreen = ({ route }) => {
     asyncGetSchoolList();
   }, [local]);
 
+  const getSchoolCode = async school => {
+    const correctSchoolData = schoolList.filter(
+      schoolObj => schoolObj.schoolName === school,
+    );
+    if (correctSchoolData.length === 0) {
+      return 0;
+    } else {
+      const schoolId = correctSchoolData[0].id;
+      console.log(schoolId);
+      return schoolId;
+    }
+  };
+
   const onPressStart = async () => {
     const token = await messaging().getToken();
-    setRegisterData({ ...registerData, token: token });
-    console.log(token);
-    auth.dispatch({
-      type: SIGN_IN,
-      token: isStudent ? 'student' : 'teacher',
-    });
-    user.setUser(registerData);
+    const schoolId = await getSchoolCode(registerData.school);
+    if (schoolId === 0) {
+      Alert.alert(
+        '학교명 확인',
+        '학교명을 다시 확인해주세요. "우리 학교 자동완성"을 누르거나 새로 입력해주세요.',
+        [
+          {
+            text: '확인',
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false },
+      );
+      return false;
+    } else {
+      await postRegisterData({
+        ...registerData,
+        schoolCode: schoolId,
+        token: token,
+      });
+      auth.dispatch({
+        type: SIGN_IN,
+        token: isStudent ? 'student' : 'teacher',
+      });
 
-    AsyncStorage.setItem('userInfo', JSON.stringify(registerData));
+      user.setUser(registerData);
+      AsyncStorage.setItem('userInfo', JSON.stringify(registerData));
+    }
   };
 
   return (

@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 
 import StyledText from 'src/components/StyledText';
 import StyledTextInput from 'src/components/StyledTextInput';
-const UserInfoForm = ({ isStudent, value, setValue, schoolList }) => {
+import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
+
+const UserInfoForm = ({ isStudent, value, setValue, schoolList = [] }) => {
+  const [filteredSchool, setFilteredSchool] = useState('');
+
+  useEffect(() => {
+    const filtered = schoolList.filter(data =>
+      data.schoolName.includes(value.school),
+    );
+    if (filtered.length !== 0) {
+      setFilteredSchool(filtered[0].schoolName);
+    }
+  }, [schoolList, value.school]);
+
   return (
     <UserInfoFormWrapper>
       <RowView>
@@ -18,6 +31,16 @@ const UserInfoForm = ({ isStudent, value, setValue, schoolList }) => {
           value={value.school}
           onChangeText={text => setValue({ ...value, school: text })}
         />
+      </RowView>
+      <RowView>
+        <FullRowTouchableOpacity
+          onPress={() => {
+            setValue({ ...value, school: filteredSchool });
+          }}
+          background={palette.lightGray}>
+          <StyledText>우리 학교 자동완성</StyledText>
+        </FullRowTouchableOpacity>
+        <StyledText>{filteredSchool}</StyledText>
       </RowView>
       <RowView>
         <RowText size={20} way="left">
@@ -75,11 +98,11 @@ const RowText = styled(StyledText)`
 `;
 
 const RowTextInput = styled(StyledTextInput)`
+  flex: 1;
   flex-basis: ${({ way }) => (way === 'left' ? '30%' : '50%')};
   text-align: ${({ way }) => (way === 'left' ? 'right' : 'center')};
-  font-size: 20px;
+  font-size: 15px;
   margin-vertical: 5px;
-  font-family: 'baskin-robbins-R';
 `;
 
 export default UserInfoForm;
