@@ -19,18 +19,12 @@ const App = () => {
     return unsubscribe;
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = messaging().setBackgroundMessageHandler(
-      async remoteMessage => {
-        console.log(
-          'Background: Message handled in the background!',
-          remoteMessage,
-        );
-      },
+  messaging().setBackgroundMessageHandler(async remoteMessage => {
+    console.log(
+      'Background: Message handled in the background!',
+      remoteMessage,
     );
-
-    return unsubscribe;
-  }, []);
+  });
 
   return (
     <AuthContextProvider>
