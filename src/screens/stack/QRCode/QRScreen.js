@@ -13,7 +13,6 @@ import UserInfoFromAPI from 'src/components/UserInfoFromAPI';
 const QRScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
   const { isStudent } = user;
-  const [userInput, setUserInput] = useState('');
 
   const onReadEvent = ({ data }) => {
     navigation.push('AfterScan', { userCode: data });
@@ -23,7 +22,7 @@ const QRScreen = ({ navigation }) => {
     <QRScreenWrapper>
       <UserInfoFromAPI userInfo={user} />
       <QRView>
-        <QRCode size={256} value={userInput} />
+        <QRCode size={256} value={user.code} />
       </QRView>
       {/* <FullRowTouchableOpacity
         onPress={() => navigation.push('Home')}

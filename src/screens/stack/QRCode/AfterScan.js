@@ -5,8 +5,10 @@ import palette from 'src/lib/palette';
 import StyledText from 'src/components/StyledText';
 import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 import { UserContext } from 'src/contexts/UserContext';
-import { getUserInfoByCode, PostStudentTemperature } from 'src/apis/user';
+import { getUserInfoByCode, postStudentTemperature } from 'src/apis/user';
 import UserInfoFromAPI from 'src/components/UserInfoFromAPI';
+import ErrorScreen from 'src/screens/stack/QRCode/ErrorScreen';
+import AbsoluteIndicator from 'src/components/AbsoluteIndicator';
 
 const ParsefixedTemperature = value => {
   return parseFloat(parseFloat(value).toFixed(1));
@@ -15,7 +17,9 @@ const ParsefixedTemperature = value => {
 const AfterScan = ({ route, navigation }) => {
   const { userCode } = route.params;
   const { user } = useContext(UserContext);
+  const [isFailed, setFailed] = useState(false);
   const [isLoading, setLoading] = useState(true);
+
   const [temperature, setTemperature] = useState(36.5);
   const [studentInfo, setStudentInfo] = useState({
     school: '',
@@ -28,21 +32,22 @@ const AfterScan = ({ route, navigation }) => {
   useEffect(() => {
     const asyncGetUserInfoByCode = async () => {
       const [status, _data] = await getUserInfoByCode(userCode);
-      console.log(status, _data);
+      console.log(_data);
       if (status === 200) {
         setStudentInfo(_data);
+        setLoading(false);
       } else {
-        console.log(status);
+        console.log('Failed! catch');
+        setFailed(true);
       }
     };
     asyncGetUserInfoByCode();
-    setLoading(false);
-  }, [userCode]);
+  }, [isLoading, userCode]);
 
   const onSubmitTemperature = async () => {
-    const [status, _data] = await PostStudentTemperature({
-      code: 111111,
-      student: 1,
+    const status = await postStudentTemperature({
+      code: user.code,
+      studentCode: userCode,
       temperature: temperature,
     });
     console.log(status);
@@ -69,42 +74,51 @@ const AfterScan = ({ route, navigation }) => {
       { cancelable: false },
     );
   };
-  return (
+
+  return isFailed ? (
+    <ErrorScreen />
+  ) : (
     <AfterScanWrapper>
-      <TopView>
-        <StyledText center size={30}>
-          학생 정보 {isLoading && '를 불러오는 중입니다.'}
-        </StyledText>
-      </TopView>
-      <UserInfoFromAPI userInfo={studentInfo} />
-      <TemperatureViewWrapper>
-        <StyledText center size={35}>
-          체온 기록하기
-        </StyledText>
-      </TemperatureViewWrapper>
-      <TemperatureView>
-        <FullRowTouchableOpacity
-          onPress={() =>
-            setTemperature(ParsefixedTemperature(temperature - 0.1))
-          }
-          background={palette.pastelBlue}>
-          <StyledText size={20}>-0.1</StyledText>
-        </FullRowTouchableOpacity>
-        <StyledText size={40}>{`${temperature} 도`}</StyledText>
-        <FullRowTouchableOpacity
-          onPress={() =>
-            setTemperature(ParsefixedTemperature(temperature + 0.1))
-          }
-          background={palette.pastelRed}>
-          <StyledText size={20}>+0.1</StyledText>
-        </FullRowTouchableOpacity>
-      </TemperatureView>
-      <FullRowTouchableOpacity
-        onPress={onTriggerAlert}
-        background={palette.blackBoard}>
-        <StyledText size={30}>제출</StyledText>
-      </FullRowTouchableOpacity>
-      <Text>{userCode}</Text>
+      {isLoading ? (
+        <AbsoluteIndicator />
+      ) : (
+        <>
+          <TopView>
+            <StyledText center size={30}>
+              학생 정보 {isLoading && '를 불러오는 중입니다.'}
+            </StyledText>
+          </TopView>
+          <UserInfoFromAPI userInfo={studentInfo} />
+          <TemperatureViewWrapper>
+            <StyledText center size={35}>
+              체온 기록하기
+            </StyledText>
+          </TemperatureViewWrapper>
+          <TemperatureView>
+            <FullRowTouchableOpacity
+              onPress={() =>
+                setTemperature(ParsefixedTemperature(temperature - 0.1))
+              }
+              background={palette.pastelBlue}>
+              <StyledText size={20}>-0.1</StyledText>
+            </FullRowTouchableOpacity>
+            <StyledText size={40}>{`${temperature} 도`}</StyledText>
+            <FullRowTouchableOpacity
+              onPress={() =>
+                setTemperature(ParsefixedTemperature(temperature + 0.1))
+              }
+              background={palette.pastelRed}>
+              <StyledText size={20}>+0.1</StyledText>
+            </FullRowTouchableOpacity>
+          </TemperatureView>
+          <FullRowTouchableOpacity
+            onPress={onTriggerAlert}
+            background={palette.blackBoard}>
+            <StyledText size={30}>제출</StyledText>
+          </FullRowTouchableOpacity>
+          <Text>{userCode}</Text>
+        </>
+      )}
     </AfterScanWrapper>
   );
 };
