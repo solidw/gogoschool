@@ -1,4 +1,3 @@
-import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 
