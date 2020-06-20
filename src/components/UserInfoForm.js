@@ -37,7 +37,8 @@ const UserInfoForm = ({ isStudent, value, setValue, schoolList = [] }) => {
           onPress={() => {
             setValue({ ...value, school: filteredSchool });
           }}
-          background={palette.lightGray}>
+          background={palette.lightGray}
+          disabled={schoolList.length === 0}>
           <StyledText>우리 학교 자동완성</StyledText>
         </FullRowTouchableOpacity>
         <StyledText>{filteredSchool}</StyledText>
