@@ -89,3 +89,18 @@ export const postSelfCheckSubmit = async ({ code }) => {
   }
   return statusCode;
 };
+
+export const putAcceptStudent = async ({ teacherCode, studentCode }) => {
+  let statusCode = -1;
+  try {
+    const data = await apiClient.put(`/students/${studentCode}`, {
+      code: teacherCode,
+    });
+    statusCode = data.status;
+    console.log(`@putAcceptStudent Success: ${statusCode}`);
+  } catch (err) {
+    console.log(`@putAcceptStudent Error: ${JSON.stringify(err, null, 2)}`);
+    statusCode = err.status;
+  }
+  return statusCode;
+};
