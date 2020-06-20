@@ -3,9 +3,6 @@ import React, { useEffect, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import MapScreen from 'src/screens/tab/MapScreen';
-import SNSScreen from 'src/screens/tab/SNSScreen';
-
 import CalendarScreen from 'src/screens/tab/CalendarScreen';
 import HomeStackNavigator from 'src/navigators/HomeStackNavigator';
 import MyPageScreen from 'src/screens/tab/MyPageScreen';
@@ -25,12 +22,15 @@ import {
   defaultMissionValue,
   MissionContext,
 } from 'src/contexts/MissionContext';
+import { UserContext } from 'src/contexts/UserContext';
+import { NoticeContext } from 'src/contexts/NoticeContext';
 
 const Tab = createBottomTabNavigator();
 
 const MainTabNavigator = () => {
   const { missionState, setMissionState } = useContext(MissionContext);
-
+  const { notices, setNotices } = useContext(NoticeContext);
+  const { user } = useContext(UserContext);
   useEffect(() => {
     const getMissions = () => {
       if (missionState.isLoaded === false) {
@@ -62,9 +62,27 @@ const MainTabNavigator = () => {
           });
       }
     };
-    getMissions();
-  }, [missionState.date, missionState.isLoaded, setMissionState]);
+    user.isStudent && getMissions();
+  }, [
+    missionState.date,
+    missionState.isLoaded,
+    setMissionState,
+    user.isStudent,
+  ]);
 
+  useEffect(() => {
+    if (user.isStudent === false) {
+      if (notices.isLoaded === false) {
+        AsyncStorage.getItem('notices').then(notice => {
+          const parsedNotice = JSON.parse(notice);
+          console.log(
+            `@MainTabNavigator/UseEffect:\n Success GetItem ${notice}`,
+          );
+          setNotices({ isLoaded: true, noticeList: parsedNotice });
+        });
+      }
+    }
+  });
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -96,10 +114,18 @@ const MainTabNavigator = () => {
           },
         }}
         initialRouteName={'홈'}>
-        {/* <Tab.Screen name="동선" component={MapScreen} /> */}
-        <Tab.Screen name="등교일" component={CalendarScreen} />
+        {user.isStudent ? (
+          <Tab.Screen name="등교일" component={CalendarScreen} />
+        ) : (
+          <Tab.Screen
+            name="알림장"
+            component={NoticeScreen}
+            initialParams={{ user: user }}
+          />
+        )}
+
         <Tab.Screen name="홈" component={HomeStackNavigator} />
-        <Tab.Screen name="알림장" component={NoticeScreen} />
+
         <Tab.Screen name="마이페이지" component={MyPageScreen} />
       </Tab.Navigator>
     </NavigationContainer>
