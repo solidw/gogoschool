@@ -6,6 +6,7 @@ import AnimatedProgressWheel from 'react-native-progress-wheel';
 
 import { UserContext } from 'src/contexts/UserContext';
 import { MissionContext } from 'src/contexts/MissionContext';
+import { NoticeContext } from 'src/contexts/NoticeContext';
 
 import HomeMiddleView from 'src/components/home/HomeMiddleView';
 import HomeFooterView from 'src/components/home/HomeFooterView';
@@ -32,7 +33,7 @@ const HomeScreen = ({ route, navigation }) => {
   const today = new Date();
   const todayDate = today.getDate();
   const todayMonth = today.getMonth() + 1;
-
+  const { notices } = useContext(NoticeContext);
   const addPercentage = () => {
     setWheelProgress(wheelProgress < 100 ? wheelProgress + 25 : 0);
   };
@@ -64,7 +65,7 @@ const HomeScreen = ({ route, navigation }) => {
     };
 
     asyncGetSelfcheckInfo();
-  }, [user.code, user.isStudent]);
+  }, [user.code, user.isStudent, notices]);
 
   const moveToStudentDetail = () => {
     navigation.push('MyStudentDetail', { selfcheckInfo: selfcheckInfo });
