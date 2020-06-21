@@ -15,25 +15,40 @@ const SelfCheckScreen = ({ route }) => {
   const { isStudent, name, code, directLink } = route.params;
   const webViewRef = useRef();
   const [isChecked, setChecked] = useState(false);
+
+  const zoomJsCode = `
+    const meta = document.createElement('meta'); 
+    meta.setAttribute('content', 'width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0');
+    meta.setAttribute('name', 'viewport');
+    document.getElementsByTagName('head')[0].appendChild(meta)
+    `;
+
   const studentJsCode = `
-  setTimeout(() => {
-    document.getElementById("btnConfirm").addEventListener("click", function () {
-      window.ReactNativeWebView.postMessage("Done!");
-    });
-    true;
-  }, 100)
+    setTimeout(() => {
+      document.getElementById("btnConfirm").addEventListener("click", function () {
+        window.ReactNativeWebView.postMessage("Done!");
+      });
+      true;
+    }, 100)
   `;
 
   const teacherJsCode = `
-      document.getElementById('srchGrade').value = 4;
-      const classCode = document.getElementById('srchClassCode');
-      classCode.value = classCode[1].value;
-      document.getElementById('btnDtlSearch').click();
-    `;
+    document.getElementById('pName').value="${name}";
+    document.getElementById('qstnCrtfcNo').value="${code}";
+    document.getElementById('btnConfirm').click();
+    document.getElementById('srchGrade').value = 4;
+    const classCode = document.getElementById('srchClassCode');
+    classCode.value = classCode[1].value;
+    document.getElementById('btnDtlSearch').click();
+  `;
 
   return (
     <CustomWebView
-      uri={`https://eduro.dge.go.kr/stv_cvd_co00_000.do?k=${directLink}`}
+      uri={
+        isStudent
+          ? `https://eduro.dge.go.kr/stv_cvd_co00_000.do?k=${directLink}`
+          : 'https://eduro.dge.go.kr/stv_cvd_co00_010.do'
+      }
       javaScriptEnabledAndroid={true}
       ref={webViewRef}
       injectedJavaScript={isStudent ? studentJsCode : teacherJsCode}
@@ -42,7 +57,7 @@ const SelfCheckScreen = ({ route }) => {
       onMessage={e => {
         console.log(e.nativeEvent.data);
         if (e.nativeEvent.data === 'Done!') {
-          console.log('Success');
+          console.log('Done! submit');
           postSelfCheckSubmit({ code: code });
         }
       }}
@@ -62,7 +77,9 @@ const CustomWebView = forwardRef(
           injectedJavaScript={injectedJavaScript}
           javaScriptEnabledAndroid={true}
           ref={ref}
+          scalesPageToFit={false}
           onMessage={onMessage}
+          scrollEnabled
         />
         {visible && <AbsoluteIndicator size="large" />}
       </CustomWebViewWrapper>
