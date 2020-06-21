@@ -12,10 +12,6 @@ const NoticeContextProvider = ({ children }) => {
     ],
   });
 
-  useEffect(() => {
-    console.log(`Changed: ${JSON.stringify(notices)}`);
-  }, [notices]);
-
   const addNotice = noticeData => {
     const newNoticeList = [
       ...notices.noticeList,

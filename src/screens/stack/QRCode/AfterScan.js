@@ -37,7 +37,6 @@ const AfterScan = ({ route, navigation }) => {
         setStudentInfo(_data);
         setLoading(false);
       } else {
-        console.log('Failed! catch');
         setFailed(true);
       }
     };
@@ -50,7 +49,7 @@ const AfterScan = ({ route, navigation }) => {
       studentCode: userCode,
       temperature: temperature,
     });
-    console.log(status);
+    console.log(`@onSubmitTemperature: ${status}`);
   };
 
   const onTriggerAlert = () => {
