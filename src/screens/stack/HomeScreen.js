@@ -22,6 +22,8 @@ import { getStudentDoesSelfcheckOrNot } from 'src/apis/user';
 const HomeScreen = ({ route, navigation }) => {
   const { user, toggleUser } = useContext(UserContext);
   const { missionState } = useContext(MissionContext);
+  const { notices } = useContext(NoticeContext);
+
   const [selfcheckInfo, setSelfcheckInfo] = useState({
     total: 1,
     checked: 0,
@@ -33,7 +35,7 @@ const HomeScreen = ({ route, navigation }) => {
   const today = new Date();
   const todayDate = today.getDate();
   const todayMonth = today.getMonth() + 1;
-  const { notices } = useContext(NoticeContext);
+
   const addPercentage = () => {
     setWheelProgress(wheelProgress < 100 ? wheelProgress + 25 : 0);
   };
@@ -45,30 +47,34 @@ const HomeScreen = ({ route, navigation }) => {
     }
   }, [studentProgress, user.isStudent]);
 
-  useEffect(() => {
-    const asyncGetSelfcheckInfo = async () => {
+  const asyncGetSelfcheckInfo = useCallback(async () => {
+    if (user.isStudent === false) {
       console.log('@asyncGetSelfcheckInfo: ');
-      if (user.isStudent === false) {
-        const [status, data] = await getStudentDoesSelfcheckOrNot({
-          teacherCode: user.code,
+      const [status, data] = await getStudentDoesSelfcheckOrNot({
+        teacherCode: user.code,
+      });
+      if (status === 200) {
+        setWheelProgress(data.checked);
+        setSelfcheckInfo({
+          total: data.total,
+          checked: data.checked,
+          studentList: data.studentList,
         });
-        if (status === 200) {
-          setWheelProgress(data.checked);
-          setSelfcheckInfo({
-            total: data.total,
-            checked: data.checked,
-            studentList: data.studentList,
-          });
-          setInfoLoaded(true);
-        }
+        setInfoLoaded(true);
       }
-    };
+    }
+  }, [user.code, user.isStudent]);
 
+  useEffect(() => {
     asyncGetSelfcheckInfo();
-  }, [user.code, user.isStudent, notices]);
+  }, [user.code, user.isStudent, notices, asyncGetSelfcheckInfo]);
 
   const moveToStudentDetail = () => {
     navigation.push('MyStudentDetail', { selfcheckInfo: selfcheckInfo });
+  };
+
+  const refreshSelfcheckStatus = () => {
+    asyncGetSelfcheckInfo();
   };
 
   return (
@@ -132,6 +138,7 @@ const HomeScreen = ({ route, navigation }) => {
           addPercentage={addPercentage}
           studentList={user.isStudent === false && selfcheckInfo.studentList}
           moveToStudentDetail={moveToStudentDetail}
+          refreshSelfcheckStatus={refreshSelfcheckStatus}
         />
         <HomeFooterView isStudent={user.isStudent} navigation={navigation} />
       </BodyView>

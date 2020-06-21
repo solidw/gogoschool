@@ -20,6 +20,7 @@ const HomeMiddleView = ({
   addPercentage,
   studentList = [],
   moveToStudentDetail,
+  refreshSelfcheckStatus,
 }) => {
   return isStudent ? (
     <StudentMiddleView addPercentage={addPercentage} />
@@ -27,6 +28,7 @@ const HomeMiddleView = ({
     <TeacherMiddleView
       moveToStudentDetail={moveToStudentDetail}
       studentList={studentList}
+      refreshSelfcheckStatus={refreshSelfcheckStatus}
     />
   );
 };
@@ -62,13 +64,17 @@ const StudentMiddleView = ({ addPercentage }) => {
   );
 };
 
-const TeacherMiddleView = ({ studentList, moveToStudentDetail }) => {
+const TeacherMiddleView = ({
+  studentList,
+  moveToStudentDetail,
+  refreshSelfcheckStatus,
+}) => {
   return (
     <CheckView>
       <StyledText size={20} center margin={10}>
-        우리반 학생 자가진단 현황
+        우리반 학생 자가진단 현황(클릭하여 새로고침)
       </StyledText>
-      <CheckTouchableOpacity>
+      <CheckTouchableOpacity onPress={refreshSelfcheckStatus}>
         {studentList.map(student => (
           <View key={student.stCode}>
             <Icon
@@ -97,7 +103,7 @@ const TodoView = styled.View`
 const CheckView = styled.View`
   flex: 1;
 `;
-const CheckTouchableOpacity = styled.View`
+const CheckTouchableOpacity = styled.TouchableOpacity`
   flex: 1;
   flex-direction: row;
   padding-horizontal: 15px;
