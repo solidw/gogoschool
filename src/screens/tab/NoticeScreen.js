@@ -26,21 +26,25 @@ const NoticeScreen = ({ route }) => {
       <NoticesView>
         {notices.noticeList.map((notice, index) => (
           <NoticeRow key={index}>
-            <StyledText size={15}>{`${notice.number}번 ${
-              notice.name
-            } 학생을 승인하시겠습니까?`}</StyledText>
-            <NoticeTouchableOpacity
+            <NoticeStyledText center size={15}>
+              <StyledText color={palette.warningRed}>
+                {notice.number}번{' '}
+              </StyledText>
+              <StyledText color={palette.hakgyoBlue}>{notice.name}</StyledText>
+              {' 학생을 승인하시겠습니까?'}
+            </NoticeStyledText>
+            <FullRowTouchableOpacity
               onPress={() => onClickAccept(notice)}
               padding={20}
               background={palette.blackBoard}>
               <StyledText>승인</StyledText>
-            </NoticeTouchableOpacity>
-            <NoticeTouchableOpacity
+            </FullRowTouchableOpacity>
+            <FullRowTouchableOpacity
               onPress={() => onClickDeny(notice)}
               padding={20}
               background={palette.lightGray}>
               <StyledText>거절</StyledText>
-            </NoticeTouchableOpacity>
+            </FullRowTouchableOpacity>
           </NoticeRow>
         ))}
       </NoticesView>
@@ -87,7 +91,7 @@ const NoticeRow = styled.View`
   align-items: center;
 `;
 
-const NoticeTouchableOpacity = styled(FullRowTouchableOpacity)`
-  padding-horizontal: 20px;
+const NoticeStyledText = styled(StyledText)`
+  flex-basis: 50%;
 `;
 export default NoticeScreen;
