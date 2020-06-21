@@ -15,11 +15,19 @@ import Water from 'src/lib/assets/water.png';
 import CheckDoneStudent from 'src/lib/assets/student_check_done.png';
 import CheckNotStudent from 'src/lib/assets/student_check_not.png';
 
-const HomeMiddleView = ({ isStudent, addPercentage, studentList = [] }) => {
+const HomeMiddleView = ({
+  isStudent,
+  addPercentage,
+  studentList = [],
+  moveToStudentDetail,
+}) => {
   return isStudent ? (
     <StudentMiddleView addPercentage={addPercentage} />
   ) : (
-    <TeacherMiddleView studentList={studentList} />
+    <TeacherMiddleView
+      moveToStudentDetail={moveToStudentDetail}
+      studentList={studentList}
+    />
   );
 };
 
@@ -54,9 +62,12 @@ const StudentMiddleView = ({ addPercentage }) => {
   );
 };
 
-const TeacherMiddleView = ({ studentList }) => {
+const TeacherMiddleView = ({ studentList, moveToStudentDetail }) => {
   return (
     <CheckView>
+      <StyledText size={20} center margin={10}>
+        우리반 학생 자가진단 현황
+      </StyledText>
       <CheckTouchableOpacity>
         {studentList.map(student => (
           <View key={student.stCode}>
@@ -86,7 +97,7 @@ const TodoView = styled.View`
 const CheckView = styled.View`
   flex: 1;
 `;
-const CheckTouchableOpacity = styled.TouchableOpacity`
+const CheckTouchableOpacity = styled.View`
   flex: 1;
   flex-direction: row;
   padding-horizontal: 15px;

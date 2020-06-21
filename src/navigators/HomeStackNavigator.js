@@ -10,6 +10,7 @@ import SelfCheckScreen from 'src/screens/stack/SelfCheckScreen';
 import QuizScreen from 'src/screens/stack/QuizScreen';
 import ChatbotScreen from 'src/screens/stack/ChatbotScreen';
 import EmergencyScreen from 'src/screens/stack/EmergencyScreen';
+import MyStudentDetailScreen from 'src/screens/stack/MyStudentDetailScreen';
 
 import { UserContext } from 'src/contexts/UserContext';
 
@@ -50,6 +51,7 @@ const HomeStackNavigator = () => {
       />
       <Stack.Screen name="Chatbot" component={ChatbotScreen} />
       <Stack.Screen name="AfterScan" component={AfterScan} />
+      <Stack.Screen name="MyStudentDetail" component={MyStudentDetailScreen} />
     </Stack.Navigator>
   );
 };

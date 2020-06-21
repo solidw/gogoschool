@@ -46,7 +46,7 @@ const HomeScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     const asyncGetSelfcheckInfo = async () => {
-      console.log('$asyncGetSelfcheckInfo: ');
+      console.log('@asyncGetSelfcheckInfo: ');
       if (user.isStudent === false) {
         const [status, data] = await getStudentDoesSelfcheckOrNot({
           teacherCode: user.code,
@@ -65,6 +65,10 @@ const HomeScreen = ({ route, navigation }) => {
 
     asyncGetSelfcheckInfo();
   }, [user.code, user.isStudent]);
+
+  const moveToStudentDetail = () => {
+    navigation.push('MyStudentDetail', { selfcheckInfo: selfcheckInfo });
+  };
 
   return (
     <HomeScreenWrapper>
@@ -126,6 +130,7 @@ const HomeScreen = ({ route, navigation }) => {
           isStudent={user.isStudent}
           addPercentage={addPercentage}
           studentList={user.isStudent === false && selfcheckInfo.studentList}
+          moveToStudentDetail={moveToStudentDetail}
         />
         <HomeFooterView isStudent={user.isStudent} navigation={navigation} />
       </BodyView>
