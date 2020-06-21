@@ -15,7 +15,7 @@ import Water from 'src/lib/assets/water.png';
 import CheckDoneStudent from 'src/lib/assets/student_check_done.png';
 import CheckNotStudent from 'src/lib/assets/student_check_not.png';
 
-const HomeMiddleView = ({ isStudent, addPercentage, studentList }) => {
+const HomeMiddleView = ({ isStudent, addPercentage, studentList = [] }) => {
   return isStudent ? (
     <StudentMiddleView addPercentage={addPercentage} />
   ) : (
@@ -59,12 +59,14 @@ const TeacherMiddleView = ({ studentList }) => {
     <CheckView>
       <CheckTouchableOpacity>
         {studentList.map(student => (
-          <View key={student.id}>
+          <View key={student.stCode}>
             <Icon
               size={40}
-              source={student.self_check ? CheckDoneStudent : CheckNotStudent}
+              source={
+                student.selfCheck === '1' ? CheckDoneStudent : CheckNotStudent
+              }
             />
-            <StyledText center>{student.id}</StyledText>
+            <StyledText center>{student.studentNumber}</StyledText>
           </View>
         ))}
       </CheckTouchableOpacity>

@@ -12,17 +12,21 @@ import HomeFooterView from 'src/components/home/HomeFooterView';
 import Icon from 'src/components/Icon';
 import StyledText from 'src/components/StyledText';
 
-import dummyStudentExample from 'src/lib/dummyStudentExample';
 import TeacherLogin from 'src/lib/assets/teacher_login.png';
 import StudentLogin from 'src/lib/assets/student_login.png';
 import LogoLongLong from 'src/lib/assets/logo_long_long.png';
 import Chatbot from 'src/lib/assets/chatbot.png';
+import { getStudentDoesSelfcheckOrNot } from 'src/apis/user';
 
 const HomeScreen = ({ route, navigation }) => {
   const { user, toggleUser } = useContext(UserContext);
   const { missionState } = useContext(MissionContext);
-
-  const { total, checked, student_list } = dummyStudentExample;
+  const [selfcheckInfo, setSelfcheckInfo] = useState({
+    total: 1,
+    checked: 0,
+    studentList: [],
+  });
+  const [infoLoaded, setInfoLoaded] = useState(false);
   const studentProgress = (100 / missionState.length) * missionState.isComplete;
   const [wheelProgress, setWheelProgress] = useState(0);
   const today = new Date();
@@ -36,14 +40,32 @@ const HomeScreen = ({ route, navigation }) => {
   useEffect(() => {
     if (user.isStudent) {
       setWheelProgress(studentProgress);
+      setInfoLoaded(true);
     }
   }, [studentProgress, user.isStudent]);
 
   useEffect(() => {
-    if (!user.isStudent) {
-      setWheelProgress(checked);
-    }
-  }, [checked, user.isStudent]);
+    const asyncGetSelfcheckInfo = async () => {
+      console.log('$asyncGetSelfcheckInfo: ');
+      if (user.isStudent === false) {
+        const [status, data] = await getStudentDoesSelfcheckOrNot({
+          teacherCode: user.code,
+        });
+        if (status === 200) {
+          setWheelProgress(data.checked);
+          setSelfcheckInfo({
+            total: data.total,
+            checked: data.checked,
+            studentList: data.studentList,
+          });
+          setInfoLoaded(true);
+        }
+      }
+    };
+
+    asyncGetSelfcheckInfo();
+  }, [user.code, user.isStudent]);
+
   return (
     <HomeScreenWrapper>
       <HeaderView isStudent={user.isStudent}>
@@ -71,29 +93,39 @@ const HomeScreen = ({ route, navigation }) => {
           </StyledText>
         </UserInfoView>
         <ProgressView>
-          {/* <Profile source={User} /> */}
-
-          <View style={{ transform: [{ rotate: '-90deg' }] }}>
-            <AnimatedProgressWheel
-              size={100}
-              width={15}
-              color={user.isStudent ? palette.hakgyoYellow : palette.blackBoard}
-              backgroundColor={palette.lightGray}
-              progress={
-                user.isStudent ? wheelProgress : wheelProgress * (100 / total)
-              }
-              animateFromValue={0}
-              duration={3000}
-            />
-          </View>
-          <StyledText size={30}>
-            {user.isStudent ? wheelProgress + '%' : `${checked} / ${total}`}
-          </StyledText>
+          {infoLoaded === false ? (
+            <StyledText>정보를 불러오는 중입니다.</StyledText>
+          ) : (
+            <>
+              <View style={{ transform: [{ rotate: '-90deg' }] }}>
+                <AnimatedProgressWheel
+                  size={100}
+                  width={15}
+                  color={
+                    user.isStudent ? palette.hakgyoYellow : palette.blackBoard
+                  }
+                  backgroundColor={palette.lightGray}
+                  progress={
+                    user.isStudent
+                      ? wheelProgress
+                      : wheelProgress * (100 / selfcheckInfo.total)
+                  }
+                  animateFromValue={0}
+                  duration={3000}
+                />
+              </View>
+              <StyledText size={30}>
+                {user.isStudent
+                  ? wheelProgress + '%'
+                  : `${selfcheckInfo.checked} / ${selfcheckInfo.total}`}
+              </StyledText>
+            </>
+          )}
         </ProgressView>
         <HomeMiddleView
           isStudent={user.isStudent}
           addPercentage={addPercentage}
-          studentList={student_list}
+          studentList={user.isStudent === false && selfcheckInfo.studentList}
         />
         <HomeFooterView isStudent={user.isStudent} navigation={navigation} />
       </BodyView>

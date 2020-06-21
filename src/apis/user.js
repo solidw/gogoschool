@@ -104,3 +104,29 @@ export const putAcceptStudent = async ({ teacherCode, studentCode }) => {
   }
   return statusCode;
 };
+
+export const getStudentDoesSelfcheckOrNot = async ({ teacherCode }) => {
+  let statusCode = -1;
+  let dataToReturn = {};
+  try {
+    const res = await apiClient.get(`/selfcheck/${teacherCode}`);
+    console.log(teacherCode);
+    statusCode = res.status;
+    const data = res.data;
+    console.log(data);
+    dataToReturn = {
+      total: data.total,
+      checked: data.checked,
+      notChcked: data.not_checked,
+      studentList: data.student_list,
+    };
+    console.log(`@getStudentDoesSelfcheckOrNot Success: ${statusCode}`);
+  } catch (err) {
+    console.log(
+      `@getStudentDoesSelfcheckOrNot Error: ${JSON.stringify(err, null, 2)}`,
+    );
+    statusCode = err.status;
+  }
+
+  return [statusCode, dataToReturn];
+};
