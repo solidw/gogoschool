@@ -59,7 +59,6 @@ const palette = {
   white: hexToRgb('#ffffff'),
   black: hexToRgb('#000000'),
   green: hexToRgb('#00B050'),
-  gray: hexToRgb('#FFFCCC'),
 
   lightGreen: hexToRgb('#AEDC7D'),
   lightGray: hexToRgb('#d3d3d3'),
