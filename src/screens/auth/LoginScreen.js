@@ -15,7 +15,6 @@ import { hcheckMatchURL } from 'src/lib/offices';
 
 const LoginScreen = ({ navigation }) => {
   const [data, setData] = useState({
-    isStudent: '',
     local: '대구',
     name: '강경준',
     code: 'THNR28',
@@ -24,7 +23,6 @@ const LoginScreen = ({ navigation }) => {
     data.name
   }&qstnCrtfcNo=${data.code}`;
 
-  useEffect(() => {});
   return (
     <LoginScreenWrapper>
       <HeaderView>
