@@ -32,7 +32,6 @@ const AfterScan = ({ route, navigation }) => {
   useEffect(() => {
     const asyncGetUserInfoByCode = async () => {
       const [status, _data] = await getUserInfoByCode(userCode);
-      console.log(_data);
       if (status === 200) {
         setStudentInfo(_data);
         setLoading(false);

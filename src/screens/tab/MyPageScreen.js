@@ -21,7 +21,6 @@ const MyPageScreen = () => {
       [
         {
           text: '취소',
-          onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
         {

@@ -41,7 +41,6 @@ export const postRegisterData = async ({
     ...(isStudent ? { number: number } : { token: token }),
   };
 
-  console.log(formToRegister);
   try {
     await apiClient.post(
       `/auth/login/${isStudent ? 'student' : 'teacher'}`,
@@ -110,10 +109,8 @@ export const getStudentDoesSelfcheckOrNot = async ({ teacherCode }) => {
   let dataToReturn = {};
   try {
     const res = await apiClient.get(`/selfcheck/${teacherCode}`);
-    console.log(teacherCode);
     statusCode = res.status;
     const data = res.data;
-    console.log(data);
     dataToReturn = {
       total: data.total,
       checked: data.checked,

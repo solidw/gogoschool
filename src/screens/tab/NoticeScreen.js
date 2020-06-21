@@ -51,10 +51,6 @@ const NoticeScreen = ({ route }) => {
     );
   }, [notices, removeNotice, user.code]);
 
-  useEffect(() => {
-    console.log(notices);
-  });
-
   return (
     <NoticeScreenWrapper>
       <HeaderView>
