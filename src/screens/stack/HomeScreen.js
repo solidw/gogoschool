@@ -142,6 +142,7 @@ const HomeScreen = ({ route, navigation }) => {
           studentList={user.isStudent === false && selfcheckInfo.studentList}
           moveToStudentDetail={moveToStudentDetail}
           refreshSelfcheckStatus={refreshSelfcheckStatus}
+          infoLoaded={infoLoaded}
         />
         <HomeFooterView isStudent={user.isStudent} navigation={navigation} />
       </BodyView>

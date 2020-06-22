@@ -21,6 +21,7 @@ const HomeMiddleView = ({
   studentList = [],
   moveToStudentDetail,
   refreshSelfcheckStatus,
+  infoLoaded,
 }) => {
   return isStudent ? (
     <StudentMiddleView addPercentage={addPercentage} />
@@ -29,6 +30,7 @@ const HomeMiddleView = ({
       moveToStudentDetail={moveToStudentDetail}
       studentList={studentList}
       refreshSelfcheckStatus={refreshSelfcheckStatus}
+      infoLoaded={infoLoaded}
     />
   );
 };
@@ -68,13 +70,14 @@ const TeacherMiddleView = ({
   studentList,
   moveToStudentDetail,
   refreshSelfcheckStatus,
+  infoLoaded,
 }) => {
   return (
     <CheckView>
       <StyledText size={20} center margin={10}>
         우리반 학생 자가진단 현황(클릭하여 새로고침)
       </StyledText>
-      {studentList.length === 0 ? (
+      {infoLoaded && studentList.length === 0 ? (
         <StyledText size={17} center>
           아직 등록된 학생이 없어 불러올 수 없습니다.
         </StyledText>
