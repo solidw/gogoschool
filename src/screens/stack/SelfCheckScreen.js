@@ -14,7 +14,6 @@ import { postSelfCheckSubmit } from 'src/apis/user';
 const SelfCheckScreen = ({ route }) => {
   const { isStudent, name, code, directLink } = route.params;
   const webViewRef = useRef();
-  const [isChecked, setChecked] = useState(false);
 
   const zoomJsCode = `
     const meta = document.createElement('meta'); 
