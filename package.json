@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && rm -rf ./android/app/src/main/res/drawable-*/ && rm -rf ./android/app/src/main/res/raw/",
+    "release": "yarn build && cd ./android && ./gradlew assembleRelease"
   },
   "dependencies": {
     "@react-native-community/art": "^1.2.0",
