@@ -5,10 +5,10 @@ import palette from 'src/lib/palette';
 import StyledText from 'src/components/StyledText';
 import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 
-import TeacherManual from 'src/lib/manual/teacher_manual.jpg';
-import BeforeOnSchool from 'src/lib/manual/emergency_before_on_school.jpg';
-import OnSchool from 'src/lib/manual/emergency_on_school.jpg';
-import OnEducaion from 'src/lib/manual/emergency_on_education.jpg';
+import TeacherManual from 'src/lib/manual/teacher_manual.png';
+import BeforeOnSchool from 'src/lib/manual/emergency_before_on_school.png';
+import OnSchool from 'src/lib/manual/emergency_on_school.png';
+import OnEducaion from 'src/lib/manual/emergency_on_education.png';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
