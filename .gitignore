@@ -63,4 +63,6 @@ buck-out/
 
 # android build
 /android/app/src/main/assets/index.android.bundle
-/android/app/src/main/res/
+/android/app/src/main/res/drawble
+/android/app/src/main/res/mipmap-*
+/android/app/src/release/
