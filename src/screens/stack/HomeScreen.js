@@ -83,13 +83,13 @@ const HomeScreen = ({ route, navigation }) => {
   return (
     <HomeScreenWrapper>
       <HeaderView isStudent={user.isStudent}>
-        <RowTouchableOpacity onPress={() => toggleUser()}>
+        <RowView>
           <Icon
             size={60}
             source={user.isStudent ? StudentLogin : TeacherLogin}
           />
           <StyledText>{user.isStudent ? '학생' : '교사'}</StyledText>
-        </RowTouchableOpacity>
+        </RowView>
         <Icon size={120} source={LogoLongLong} />
         <TouchableOpacity onPress={() => navigation.push('Chatbot')}>
           <Icon size={60} source={Chatbot} />
@@ -184,7 +184,7 @@ const ProgressView = styled.View`
   margin-vertical: 10px;
 `;
 
-const RowTouchableOpacity = styled.TouchableOpacity`
+const RowView = styled.View`
   flex-direction: row;
   align-items: center;
 `;
