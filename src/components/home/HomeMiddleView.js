@@ -74,19 +74,25 @@ const TeacherMiddleView = ({
       <StyledText size={20} center margin={10}>
         우리반 학생 자가진단 현황(클릭하여 새로고침)
       </StyledText>
-      <CheckTouchableOpacity onPress={refreshSelfcheckStatus}>
-        {studentList.map(student => (
-          <View key={student.stCode}>
-            <Icon
-              size={40}
-              source={
-                student.selfCheck === '1' ? CheckDoneStudent : CheckNotStudent
-              }
-            />
-            <StyledText center>{student.studentNumber}</StyledText>
-          </View>
-        ))}
-      </CheckTouchableOpacity>
+      {studentList.length === 0 ? (
+        <StyledText size={17} center>
+          아직 등록된 학생이 없어 불러올 수 없습니다.
+        </StyledText>
+      ) : (
+        <CheckTouchableOpacity onPress={refreshSelfcheckStatus}>
+          {studentList.map(student => (
+            <View key={student.stCode}>
+              <Icon
+                size={40}
+                source={
+                  student.selfCheck === '1' ? CheckDoneStudent : CheckNotStudent
+                }
+              />
+              <StyledText center>{student.name}</StyledText>
+            </View>
+          ))}
+        </CheckTouchableOpacity>
+      )}
     </CheckView>
   );
 };
