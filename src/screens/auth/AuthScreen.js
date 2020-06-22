@@ -17,7 +17,7 @@ const AuthScreen = ({ navigation }) => {
         onPress={() => {
           navigation.push('Login');
         }}
-        background={palette.blackBoard}>
+        background={palette.hakgyoYellow}>
         <StyledText size={20}>시작하기</StyledText>
       </FullRowTouchableOpacity>
     </AuthScreenWrapper>
