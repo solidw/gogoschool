@@ -32,6 +32,7 @@ export const postRegisterData = async ({
   number,
   token = '',
 }) => {
+  let statusCode = -1;
   const formToRegister = {
     name: name,
     code: code,
@@ -47,8 +48,11 @@ export const postRegisterData = async ({
       formToRegister,
     );
   } catch (err) {
-    console.log(`@postRegisterData: ${err}`);
+    if (err.message === 'Request failed with status code 404') {
+      statusCode = 404;
+    }
   }
+  return statusCode;
 };
 
 export const postStudentTemperature = async ({
@@ -67,7 +71,9 @@ export const postStudentTemperature = async ({
     statusCode = data.status;
   } catch (err) {
     console.log(JSON.stringify(err, null, 4));
-    statusCode = err.status;
+    if (err.message === 'Request failed with status code 404') {
+      statusCode = 404;
+    }
   }
 
   return statusCode;
@@ -84,7 +90,9 @@ export const postSelfCheckSubmit = async ({ code }) => {
     console.log(`@postSelfCheckSubmit Success: ${statusCode}`);
   } catch (err) {
     console.log(`@postSelfCheckSubmit Error: ${JSON.stringify(err, null, 2)}`);
-    statusCode = err.status;
+    if (err.message === 'Request failed with status code 404') {
+      statusCode = 404;
+    }
   }
   return statusCode;
 };
@@ -99,7 +107,9 @@ export const putAcceptStudent = async ({ teacherCode, studentCode }) => {
     console.log(`@putAcceptStudent Success: ${statusCode}`);
   } catch (err) {
     console.log(`@putAcceptStudent Error: ${JSON.stringify(err, null, 2)}`);
-    statusCode = err.status;
+    if (err.message === 'Request failed with status code 404') {
+      statusCode = 404;
+    }
   }
   return statusCode;
 };
@@ -122,7 +132,9 @@ export const getStudentDoesSelfcheckOrNot = async ({ teacherCode }) => {
     console.log(
       `@getStudentDoesSelfcheckOrNot Error: ${JSON.stringify(err, null, 2)}`,
     );
-    statusCode = err.status;
+    if (err.message === 'Request failed with status code 404') {
+      statusCode = 404;
+    }
   }
 
   return [statusCode, dataToReturn];

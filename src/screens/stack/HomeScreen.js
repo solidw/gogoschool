@@ -61,6 +61,9 @@ const HomeScreen = ({ route, navigation }) => {
           studentList: data.studentList,
         });
         setInfoLoaded(true);
+      } else if (status === 404) {
+        setWheelProgress(0);
+        setInfoLoaded(true);
       }
     }
   }, [user.code, user.isStudent]);
