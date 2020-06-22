@@ -63,7 +63,7 @@ const NoticeScreen = ({ route }) => {
     </NoticeScreenWrapper>
   );
 };
-const NoticeScreenWrapper = styled.View`
+const NoticeScreenWrapper = styled.ScrollView`
   flex: 1;
   background: ${palette.white};
 `;

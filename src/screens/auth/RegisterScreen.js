@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, ListView, Alert } from 'react-native';
+import { Alert, KeyboardAvoidingView } from 'react-native';
 import styled from 'styled-components';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -22,11 +22,11 @@ const RegisterScreen = ({ route }) => {
   const { isStudent, local, name, code, directLink } = route.params;
   const [registerData, setRegisterData] = useState({
     isStudent: isStudent,
-    school: '송일초등학교',
+    school: '',
     schoolCode: 0,
-    grade: '3',
-    classNo: '2',
-    number: '15',
+    grade: '',
+    classNo: '',
+    number: '',
     local: local,
     name: name,
     code: code,
@@ -78,18 +78,18 @@ const RegisterScreen = ({ route }) => {
         schoolCode: schoolId,
         token: token,
       });
+      user.setUser(registerData);
       auth.dispatch({
         type: SIGN_IN,
         token: isStudent ? 'student' : 'teacher',
       });
 
-      user.setUser(registerData);
       AsyncStorage.setItem('userInfo', JSON.stringify(registerData));
     }
   };
 
   return (
-    <RegisterScreenWrapper>
+    <RegisterScreenWrapper contentContainerStyle={{ flexGrow: 1 }}>
       <HeaderView isStudent={isStudent}>
         <StyledText size={30}>{`정보입력_${
           isStudent ? '학생' : '교사'
@@ -116,7 +116,7 @@ const RegisterScreen = ({ route }) => {
     </RegisterScreenWrapper>
   );
 };
-const RegisterScreenWrapper = styled.View`
+const RegisterScreenWrapper = styled.ScrollView`
   flex: 1;
   background-color: ${palette.white};
 `;

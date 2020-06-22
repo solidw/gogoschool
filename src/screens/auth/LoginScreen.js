@@ -15,16 +15,16 @@ import { hcheckMatchURL } from 'src/lib/offices';
 
 const LoginScreen = ({ navigation }) => {
   const [data, setData] = useState({
-    local: '대구',
-    name: '강경준',
-    code: 'THNR28',
+    local: '',
+    name: '',
+    code: '',
   });
   const hcheckURL = `${hcheckMatchURL[data.local]}/stv_cvd_co00_011.do?pName=${
     data.name
   }&qstnCrtfcNo=${data.code}`;
 
   return (
-    <LoginScreenWrapper>
+    <LoginScreenWrapper contentContainerStyle={{ flexGrow: 1 }}>
       <HeaderView>
         <StyledText size={30}>시작하기</StyledText>
       </HeaderView>
