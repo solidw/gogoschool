@@ -74,7 +74,7 @@ const AfterScan = ({ route, navigation }) => {
   };
 
   return isFailed ? (
-    <ErrorScreen />
+    <ErrorScreen navigation={navigation} />
   ) : (
     <AfterScanWrapper>
       {isLoading ? (
