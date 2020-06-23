@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import styled from 'styled-components';
 import AbsoluteIndicator from 'src/components/AbsoluteIndicator';
