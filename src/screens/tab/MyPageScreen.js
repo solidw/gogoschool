@@ -53,10 +53,12 @@ const MyPageScreen = () => {
           <RowText way={'left'}>반</RowText>
           <RowText way={'right'}>{user.classNo}</RowText>
         </RowView>
-        <RowView>
-          <RowText way={'left'}>번호</RowText>
-          <RowText way={'right'}>{user.number}</RowText>
-        </RowView>
+        {user.isStudent && (
+          <RowView>
+            <RowText way={'left'}>번호</RowText>
+            <RowText way={'right'}>{user.number}</RowText>
+          </RowView>
+        )}
         <RowView>
           <RowText way={'left'}>이름</RowText>
           <RowText way={'right'}>{user.name}</RowText>
