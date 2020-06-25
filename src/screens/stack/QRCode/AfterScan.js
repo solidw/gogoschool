@@ -114,7 +114,6 @@ const AfterScan = ({ route, navigation }) => {
             background={palette.blackBoard}>
             <StyledText size={30}>제출</StyledText>
           </FullRowTouchableOpacity>
-          <Text>{userCode}</Text>
         </>
       )}
     </AfterScanWrapper>
