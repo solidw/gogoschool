@@ -53,7 +53,6 @@ const HomeScreen = ({ navigation }) => {
       const [status, data] = await getStudentDoesSelfcheckOrNot({
         teacherCode: user.code,
       });
-      console.log('done?');
       if (status === 200) {
         setWheelProgress(data.checked);
         setSelfcheckInfo({
