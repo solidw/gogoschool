@@ -52,7 +52,7 @@ const QRScreen = ({ navigation }) => {
         }
       />
       <FullRowTouchableOpacity
-        onPress={() => navigation.push('Home')}
+        onPress={() => navigation.goBack(1)}
         background={palette.blackBoard}>
         <StyledText>뒤로가기</StyledText>
       </FullRowTouchableOpacity>
