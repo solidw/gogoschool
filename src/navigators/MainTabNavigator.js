@@ -15,6 +15,7 @@ import Calendar from 'src/lib/assets/calendar.png';
 import Home from 'src/lib/assets/home.png';
 import Notice from 'src/lib/assets/notice.png';
 import MyPage from 'src/lib/assets/user.png';
+import Temperature from 'src/lib/assets/temperature.png';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import { getFormatDate } from 'src/lib/Date';
@@ -92,6 +93,8 @@ const MainTabNavigator = () => {
               iconName = GPS;
             } else if (route.name === '등교일') {
               iconName = Calendar;
+            } else if (route.name === '날짜별 체온기록') {
+              iconName = Temperature;
             } else if (route.name === '알림장') {
               iconName = Notice;
             } else if (route.name === '마이페이지') {
@@ -111,18 +114,20 @@ const MainTabNavigator = () => {
           },
         }}
         initialRouteName={'홈'}>
-        {user.isStudent ? (
-          <Tab.Screen name="등교일" component={CalendarScreen} />
-        ) : (
+        <Tab.Screen
+          name={user.isStudent ? '등교일' : '날짜별 체온기록'}
+          component={CalendarScreen}
+          initialParams={{ user: user }}
+        />
+
+        <Tab.Screen name="홈" component={HomeStackNavigator} />
+        {user.isStudent === false && (
           <Tab.Screen
             name="알림장"
             component={NoticeScreen}
             initialParams={{ user: user }}
           />
         )}
-
-        <Tab.Screen name="홈" component={HomeStackNavigator} />
-
         <Tab.Screen name="마이페이지" component={MyPageScreen} />
       </Tab.Navigator>
     </NavigationContainer>
