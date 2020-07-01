@@ -1,56 +1,63 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import palette from 'src/lib/palette';
 import { localeKR } from 'src/lib/calendarLocale';
-
 import StyledText from 'src/components/StyledText';
-import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
+import { getDailyTemperature } from 'src/apis/user.js';
+import { getFormatDate } from 'src/lib/Date';
 
 LocaleConfig.locales.kr = localeKR;
 LocaleConfig.defaultLocale = 'kr';
 
-const dummyTemperatureList = [
-  {
-    number: 1,
-    name: '고태완',
-    temperatureData: [
-      { time: '09:00', temperature: 36.5 },
-      { time: '12:00', temperature: 36.3 },
-      { time: '16:00', temperature: 36.7 },
-    ],
-  },
-  {
-    number: 2,
-    name: '강경준',
-    temperatureData: [
-      { time: '09:02', temperature: 36.1 },
-      { time: '12:05', temperature: 36.2 },
-      { time: '16:03', temperature: 36.3 },
-    ],
-  },
-  {
-    number: 3,
-    name: '엄주홍',
-    temperatureData: [
-      { time: '09:04', temperature: 36.4 },
-      { time: '12:10', temperature: 36.7 },
-      { time: '16:12', temperature: 36.4 },
-    ],
-  },
-  {
-    number: 4,
-    name: '신민철',
-    temperatureData: [
-      { time: '09:13', temperature: 36.1 },
-      { time: '12:20', temperature: 36.2 },
-      { time: '16:32', temperature: 36.4 },
-    ],
-  },
-];
+const CalendarScreen = ({ user, navigation }) => {
+  const teacherCode = user.code;
+  const todayString = getFormatDate(new Date());
+  const [selected, setSelected] = useState(todayString);
+  const [isFailed, setFailed] = useState(true);
 
-const CalendarScreen = () => {
-  const [selected, setSelected] = useState();
+  const [temperatureData, setTemperatureData] = useState();
+
+  const asyncGetStudentTemperatureData = useCallback(async () => {
+    const [status, data] = await getDailyTemperature({
+      teacherCode: teacherCode,
+      date: selected,
+    });
+    if (status === 200) {
+      setTemperatureData(data);
+      setFailed(false);
+    } else {
+      setFailed(true);
+    }
+  }, [selected, teacherCode]);
+
+  useEffect(() => {
+    asyncGetStudentTemperatureData();
+  }, [asyncGetStudentTemperatureData]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      asyncGetStudentTemperatureData();
+    });
+    return unsubscribe;
+  }, [asyncGetStudentTemperatureData, navigation]);
+
+  const renderTemperatureList = () => (
+    <TemperatureList>
+      {temperatureData.map(obj =>
+        obj.TemperatureData.map((data, index) => (
+          <TemperatureListItem key={index}>
+            <TemperatureText>{index === 0 ? obj.number : ''}</TemperatureText>
+            <TemperatureText>{index === 0 ? obj.name : ''}</TemperatureText>
+            <TemperatureText>
+              {data.time.split(':')[0] + '시 ' + data.time.split(':')[1] + '분'}
+            </TemperatureText>
+            <TemperatureText>{data.temperature}도</TemperatureText>
+          </TemperatureListItem>
+        )),
+      )}
+    </TemperatureList>
+  );
 
   return (
     <CalendarScreenWrapper>
@@ -77,23 +84,17 @@ const CalendarScreen = () => {
           console.log(day.dateString);
         }}
       />
-      <TemperatureList>
-        {dummyTemperatureList.map(obj =>
-          obj.temperatureData.map((data, index) => (
-            <TemperatureListItem key={index}>
-              <TemperatureText>{index === 0 ? obj.number : ''}</TemperatureText>
-              <TemperatureText>{index === 0 ? obj.name : ''}</TemperatureText>
-              <TemperatureText>
-                {data.time.split(':')[0] +
-                  '시 ' +
-                  data.time.split(':')[1] +
-                  '분'}
-              </TemperatureText>
-              <TemperatureText>{data.temperature}도</TemperatureText>
-            </TemperatureListItem>
-          )),
-        )}
-      </TemperatureList>
+      {isFailed ? (
+        <StyledText center margin={10} size={15}>
+          체온 기록 정보를 불러오는데에 실패했습니다.
+        </StyledText>
+      ) : temperatureData.length === 0 ? (
+        <StyledText center margin={10} size={15}>
+          {selected} 에 기록된 정보가 없습니다.
+        </StyledText>
+      ) : (
+        renderTemperatureList()
+      )}
     </CalendarScreenWrapper>
   );
 };
