@@ -19,8 +19,8 @@ import LogoLongLong from 'src/lib/assets/logo_long_long.png';
 import Chatbot from 'src/lib/assets/chatbot.png';
 import { getStudentDoesSelfcheckOrNot } from 'src/apis/user';
 
-const HomeScreen = ({ route, navigation }) => {
-  const { user, toggleUser } = useContext(UserContext);
+const HomeScreen = ({ navigation }) => {
+  const { user } = useContext(UserContext);
   const { missionState } = useContext(MissionContext);
   const { notices } = useContext(NoticeContext);
 
@@ -53,6 +53,7 @@ const HomeScreen = ({ route, navigation }) => {
       const [status, data] = await getStudentDoesSelfcheckOrNot({
         teacherCode: user.code,
       });
+      console.log('done?');
       if (status === 200) {
         setWheelProgress(data.checked);
         setSelfcheckInfo({
@@ -70,7 +71,7 @@ const HomeScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     asyncGetSelfcheckInfo();
-  }, [user.code, user.isStudent, notices, asyncGetSelfcheckInfo]);
+  }, [asyncGetSelfcheckInfo]);
 
   const moveToStudentDetail = () => {
     navigation.push('MyStudentDetail', { selfcheckInfo: selfcheckInfo });
