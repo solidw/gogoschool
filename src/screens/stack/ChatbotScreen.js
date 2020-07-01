@@ -1,14 +1,30 @@
 import React from 'react';
-import CustomWebView from 'src/components/CustomWebView';
+import styled from 'styled-components';
+import palette from 'src/lib/palette';
+import Warning from 'src/lib/assets/alert.png';
+import Icon from 'src/components/Icon';
+import StyledText from 'src/components/StyledText';
+import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 
-const ChatbotScreen = () => {
+const ChatbotScreen = ({ navigation }) => {
   return (
-    <CustomWebView
-      uri={
-        'https://web-chat.global.assistant.watson.cloud.ibm.com/preview.html?region=au-syd&integrationID=8818d2bb-fb89-428f-8d61-5f50c5450760&serviceInstanceID=a2b14b30-6336-4e77-9242-8553842f3f5d'
-      }
-    />
+    <ChatbotScreenWrapper>
+      <Icon source={Warning} />
+      <StyledText>챗봇 기능은 현재 공사중입니다.</StyledText>
+      <FullRowTouchableOpacity
+        onPress={() => navigation.goBack()}
+        background={palette.blackBoard}>
+        <StyledText>돌아가기</StyledText>
+      </FullRowTouchableOpacity>
+    </ChatbotScreenWrapper>
   );
 };
+
+const ChatbotScreenWrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+`;
 
 export default ChatbotScreen;
