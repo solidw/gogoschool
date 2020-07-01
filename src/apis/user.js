@@ -1,5 +1,5 @@
 import apiClient from './apiClient';
-import axios from 'axios';
+import { getFormatDate } from 'src//lib/Date';
 
 export const getUserInfoByCode = async code => {
   let statusCode = -1;
@@ -120,11 +120,9 @@ export const getStudentDoesSelfcheckOrNot = async ({ teacherCode }) => {
   let statusCode = -1;
   let dataToReturn = {};
   try {
-    console.log(teacherCode);
     const res = await apiClient.get(`/selfcheck/${teacherCode}`);
     statusCode = res.status;
     const data = res.data;
-    console.log(res);
     dataToReturn = {
       total: data.total,
       checked: data.checked,
@@ -139,6 +137,28 @@ export const getStudentDoesSelfcheckOrNot = async ({ teacherCode }) => {
     if (err.message === 'Request failed with status code 404') {
       statusCode = 404;
     }
+  }
+
+  return [statusCode, dataToReturn];
+};
+
+export const getDailyTemperature = async ({
+  teacherCode,
+  date = getFormatDate(new Date()),
+}) => {
+  let statusCode = -1;
+  let dataToReturn = {};
+  try {
+    const res = await apiClient.get(
+      `/temperature/?code=${teacherCode}&date=${date}`,
+    );
+    dataToReturn = res.data;
+    statusCode = res.status;
+    console.log('@getDailyTemperature Success:');
+  } catch (err) {
+    console.log('@getDailyTemperature error');
+    console.log(JSON.stringify(err));
+    statusCode = 404;
   }
 
   return [statusCode, dataToReturn];
