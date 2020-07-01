@@ -1,9 +1,11 @@
 import apiClient from './apiClient';
+import axios from 'axios';
 
 export const getUserInfoByCode = async code => {
   let statusCode = -1;
   let dataToReturn = {};
   try {
+    console.log('@getUserInfoByCode hited');
     const res = await apiClient.get(`/user/student/${code}`);
     const data = res.data[0];
     statusCode = res.status;
@@ -118,9 +120,11 @@ export const getStudentDoesSelfcheckOrNot = async ({ teacherCode }) => {
   let statusCode = -1;
   let dataToReturn = {};
   try {
+    console.log(teacherCode);
     const res = await apiClient.get(`/selfcheck/${teacherCode}`);
     statusCode = res.status;
     const data = res.data;
+    console.log(res);
     dataToReturn = {
       total: data.total,
       checked: data.checked,
