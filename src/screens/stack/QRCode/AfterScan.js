@@ -40,7 +40,7 @@ const AfterScan = ({ route, navigation }) => {
       }
     };
     asyncGetUserInfoByCode();
-  }, [isLoading, userCode]);
+  }, [userCode]);
 
   const onSubmitTemperature = async () => {
     const status = await postStudentTemperature({
