@@ -1,3 +1,3 @@
-const serverURL = 'http://34.64.156.118:1880';
+const serverURL = 'https://gogoschool-storage.au-syd.mybluemix.net';
 
 export default serverURL;
