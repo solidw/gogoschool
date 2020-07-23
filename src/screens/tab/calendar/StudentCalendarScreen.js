@@ -15,6 +15,7 @@ LocaleConfig.defaultLocale = 'kr';
 const now = new Date();
 
 const generateFullDate = () => {
+  console.log('generateFullDate: !');
   const maxDate = getMaxDate(now.getMonth() + 1);
   const templateDate =
     now.getFullYear() + '-' + (now.getMonth() + 1 + '').padStart(2, '0') + '-';
@@ -25,6 +26,7 @@ const generateFullDate = () => {
 
   return arrays;
 };
+
 const fullDate = generateFullDate();
 
 const CalendarScreen = () => {

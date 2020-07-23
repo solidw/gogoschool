@@ -22,7 +22,7 @@ const LoginScreen = ({ navigation }) => {
   const hcheckURL = `${hcheckMatchURL[data.local]}/stv_cvd_co00_011.do?pName=${
     data.name
   }&qstnCrtfcNo=${data.code}`;
-
+  console.log(data.code);
   return (
     <LoginScreenWrapper contentContainerStyle={{ flexGrow: 1 }}>
       <HeaderView>
@@ -49,9 +49,12 @@ const LoginScreen = ({ navigation }) => {
           <RowTextInput
             placeholder={'인증번호'}
             value={data.code}
+            autoCapitalize="characters"
             onChangeText={text => {
-              const capitalText = text.toUpperCase();
-              setData({ ...data, code: capitalText });
+              setData({ ...data, code: text });
+            }}
+            onBlur={() => {
+              setData({ ...data, code: data.code.toUpperCase() });
             }}
           />
         </RowView>
