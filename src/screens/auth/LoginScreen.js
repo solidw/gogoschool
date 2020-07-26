@@ -22,7 +22,7 @@ const LoginScreen = ({ navigation }) => {
   const hcheckURL = `${hcheckMatchURL[data.local]}/stv_cvd_co00_011.do?pName=${
     data.name
   }&qstnCrtfcNo=${data.code}`;
-  console.log(data.code);
+
   return (
     <LoginScreenWrapper contentContainerStyle={{ flexGrow: 1 }}>
       <HeaderView>

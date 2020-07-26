@@ -51,7 +51,6 @@ const RegisterScreen = ({ route }) => {
       return 0;
     } else {
       const schoolId = correctSchoolData[0].id;
-      console.log(schoolId);
       return schoolId;
     }
   };
