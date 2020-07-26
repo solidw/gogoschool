@@ -117,7 +117,8 @@ const MainTabNavigator = () => {
             fontFamily: 'baskin-robbins-R',
           },
         }}
-        initialRouteName={'홈'}>
+        initialRouteName={'홈'}
+        backBehavior="none">
         <Tab.Screen
           name={user.isStudent ? '등교일' : '날짜별 체온기록'}
           component={CalendarScreen}
