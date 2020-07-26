@@ -50,7 +50,11 @@ const CalendarScreen = () => {
   useEffect(() => {
     const getCalendarDate = async () => {
       await AsyncStorage.getItem('calendarDate').then(calendarDate => {
-        setDates(JSON.parse(calendarDate));
+        if (null) {
+          setDates([]);
+        } else {
+          setDates(JSON.parse(calendarDate));
+        }
       });
     };
     try {
@@ -76,6 +80,7 @@ const CalendarScreen = () => {
     );
     AsyncStorage.setItem('calendarDate', JSON.stringify(dates));
   }, [dates]);
+
   return (
     <CalendarScreenWrapper>
       <Calendar

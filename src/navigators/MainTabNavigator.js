@@ -76,7 +76,11 @@ const MainTabNavigator = () => {
       if (notices.isLoaded === false) {
         AsyncStorage.getItem('notices').then(notice => {
           const parsedNotice = JSON.parse(notice);
-          setNotices({ isLoaded: true, noticeList: parsedNotice });
+          if (notice === null) {
+            setNotices({ isLoaded: true, noticeList: [] });
+          } else {
+            setNotices({ isLoaded: true, noticeList: parsedNotice });
+          }
         });
       }
     }
