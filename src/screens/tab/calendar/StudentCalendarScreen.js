@@ -65,20 +65,22 @@ const CalendarScreen = () => {
   }, []);
 
   useEffect(() => {
-    setDatesObj(
-      dates.reduce((acc, cur) => {
-        return {
-          ...acc,
-          [cur]: {
-            startingDay: true,
-            endingDay: true,
-            color: 'green',
-            textColor: 'white',
-          },
-        };
-      }, {}),
-    );
-    AsyncStorage.setItem('calendarDate', JSON.stringify(dates));
+    if (dates) {
+      setDatesObj(
+        dates.reduce((acc, cur) => {
+          return {
+            ...acc,
+            [cur]: {
+              startingDay: true,
+              endingDay: true,
+              color: 'green',
+              textColor: 'white',
+            },
+          };
+        }, {}),
+      );
+      AsyncStorage.setItem('calendarDate', JSON.stringify(dates));
+    }
   }, [dates]);
 
   return (
