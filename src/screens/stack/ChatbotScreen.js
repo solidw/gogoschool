@@ -12,7 +12,7 @@ const ChatbotScreen = ({ navigation }) => {
       <Icon source={Warning} />
       <StyledText>챗봇 기능은 현재 공사중입니다.</StyledText>
       <FullRowTouchableOpacity
-        onPress={() => navigation.goBack()}
+        onPress={() => navigation.popToTop()}
         background={palette.blackBoard}>
         <StyledText>돌아가기</StyledText>
       </FullRowTouchableOpacity>

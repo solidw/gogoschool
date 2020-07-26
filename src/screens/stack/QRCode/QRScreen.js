@@ -32,7 +32,7 @@ const QRScreen = ({ navigation }) => {
         </StyledText>
       </FullRowTouchableOpacity> */}
       <FullRowTouchableOpacity
-        onPress={() => navigation.push('Home')}
+        onPress={() => navigation.pop()}
         background={palette.hakgyoYellow}>
         <StyledText size={20}>뒤로가기</StyledText>
       </FullRowTouchableOpacity>
@@ -52,7 +52,7 @@ const QRScreen = ({ navigation }) => {
         }
       />
       <FullRowTouchableOpacity
-        onPress={() => navigation.goBack(1)}
+        onPress={() => navigation.pop()}
         background={palette.blackBoard}>
         <StyledText>뒤로가기</StyledText>
       </FullRowTouchableOpacity>

@@ -14,7 +14,7 @@ const ErrorScreen = ({ navigation }) => {
       <Icon source={Warning} />
       <StyledText center>데이터를 불러오는데 실패하였습니다.</StyledText>
       <FullRowTouchableOpacity
-        onPress={() => navigation.goBack()}
+        onPress={() => navigation.pop()}
         background={palette.blackBoard}>
         <StyledText>돌아가기</StyledText>
       </FullRowTouchableOpacity>
