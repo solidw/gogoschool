@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react';
+import React, { useContext, useCallback } from 'react';
 import styled from 'styled-components';
 import StyledText from 'src/components/StyledText';
 import palette from 'src/lib/palette';
