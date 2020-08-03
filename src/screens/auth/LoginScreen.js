@@ -23,6 +23,52 @@ const LoginScreen = ({ navigation }) => {
     data.name
   }&qstnCrtfcNo=${data.code}`;
 
+  const handleSubmit = () => {
+    axios
+      .post(hcheckURL)
+      .then(res => {
+        const directLink = res.data.resultSVO.qstnCrtfcNoEncpt;
+        const resultCode = res.data.resultSVO.rtnRsltCode;
+        console.log(resultCode);
+        if (resultCode === 'QSTN_USR_ERROR') {
+          Alert.alert(
+            '인증 실패',
+            `지역, ${'이름'} 혹은 ${'인증번호'}가 올바르지 않거나 서버와 연결할 수 없습니다.`,
+            [{ text: '확인', onPress: () => console.log('OK Pressed') }],
+            { cancelable: false },
+          );
+          return;
+        }
+
+        if (resultCode === 'TCHER_SUCCESS') {
+          navigation.push('Register', {
+            isStudent: false,
+            local: data.local,
+            name: data.name,
+            code: data.code,
+            directLink: directLink,
+          });
+        } else if (resultCode === 'SUCCESS') {
+          navigation.push('Register', {
+            isStudent: true,
+            local: data.local,
+            name: data.name,
+            code: data.code,
+            directLink: directLink,
+          });
+        }
+      })
+      .catch(e => {
+        Alert.alert(
+          '네트워크 에러',
+          `지역, ${'이름'} 혹은 ${'인증번호'}가 올바르지 않거나 서버와 연결할 수 없습니다.`,
+          [{ text: '확인', onPress: () => console.log('OK Pressed') }],
+          { cancelable: false },
+        );
+        console.log(e);
+      });
+  };
+
   return (
     <LoginScreenWrapper contentContainerStyle={{ flexGrow: 1 }}>
       <HeaderView>
@@ -45,7 +91,7 @@ const LoginScreen = ({ navigation }) => {
           />
         </RowView>
         <RowView>
-          <RowText size={20}>인증번호</RowText>
+          <RowText size={20}>NEIS 인증번호</RowText>
           <RowTextInput
             placeholder={'인증번호'}
             value={data.code}
@@ -60,51 +106,7 @@ const LoginScreen = ({ navigation }) => {
         </RowView>
       </BodyView>
       <FullRowTouchableOpacity
-        onPress={() => {
-          axios
-            .post(hcheckURL)
-            .then(res => {
-              const directLink = res.data.resultSVO.qstnCrtfcNoEncpt;
-              const resultCode = res.data.resultSVO.rtnRsltCode;
-              console.log(resultCode);
-              if (resultCode === 'QSTN_USR_ERROR') {
-                Alert.alert(
-                  '인증 실패',
-                  `지역, ${'이름'} 혹은 ${'인증번호'}가 올바르지 않거나 서버와 연결할 수 없습니다.`,
-                  [{ text: '확인', onPress: () => console.log('OK Pressed') }],
-                  { cancelable: false },
-                );
-                return;
-              }
-
-              if (resultCode === 'TCHER_SUCCESS') {
-                navigation.push('Register', {
-                  isStudent: false,
-                  local: data.local,
-                  name: data.name,
-                  code: data.code,
-                  directLink: directLink,
-                });
-              } else if (resultCode === 'SUCCESS') {
-                navigation.push('Register', {
-                  isStudent: true,
-                  local: data.local,
-                  name: data.name,
-                  code: data.code,
-                  directLink: directLink,
-                });
-              }
-            })
-            .catch(e => {
-              Alert.alert(
-                '네트워크 에러',
-                `지역, ${'이름'} 혹은 ${'인증번호'}가 올바르지 않거나 서버와 연결할 수 없습니다.`,
-                [{ text: '확인', onPress: () => console.log('OK Pressed') }],
-                { cancelable: false },
-              );
-              console.log(e);
-            });
-        }}
+        onPress={handleSubmit}
         background={palette.hakgyoYellow}>
         <StyledText size={20}>시작하기</StyledText>
       </FullRowTouchableOpacity>
