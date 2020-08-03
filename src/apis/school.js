@@ -9,8 +9,8 @@ export const getSchoolList = async local => {
     const res = await apiClient.get(`/school/${convertedLocal}`);
     dataToReturn = res.data;
   } catch (err) {
-    console.log(err);
-    statusCode = 400;
+    console.log(`getSChoolList: ${err}`);
+    statusCode = err.toString().split('code ')[1];
   }
   return [statusCode, dataToReturn];
 };
