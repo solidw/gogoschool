@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { View, Text } from 'react-native';
 import styled from 'styled-components';
 import StyledText from 'src/components/StyledText';
 import palette from 'src/lib/palette';
@@ -7,6 +6,7 @@ import { putAcceptStudent } from 'src/apis/user';
 import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 
 import { NoticeContext } from 'src/contexts/NoticeContext';
+
 const NoticeScreen = ({ route }) => {
   const { notices, removeNotice } = useContext(NoticeContext);
   const { user } = route.params;
@@ -22,6 +22,7 @@ const NoticeScreen = ({ route }) => {
       console.log(`@renderNotice/onClickDeny: ${JSON.stringify(notice)}`);
       removeNotice(notice);
     };
+
     return (
       <NoticesView>
         {notices.noticeList.map((notice, index) => (
