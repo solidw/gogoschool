@@ -108,7 +108,7 @@ const RegisterScreen = ({ route }) => {
         />
       </BodyView>
       <FullRowTouchableOpacity
-        onPress={() => onPressStart()}
+        onPress={onPressStart}
         background={isStudent ? palette.hakgyoYellow : palette.blackBoard}>
         <StyledText size={20}>시작하기</StyledText>
       </FullRowTouchableOpacity>
