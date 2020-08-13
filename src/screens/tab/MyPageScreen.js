@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 import Icon from 'src/components/Icon';
@@ -121,12 +121,12 @@ const RowText = styled(StyledText)`
     props.way === 'left' ? palette.hakgyoGreen : 'transparent'}; */}
 `;
 
-const RowButton = styled.TouchableOpacity`
-  flex-basis: ${props => (props.way === 'left' ? '30%' : '50%')};
-  text-align: ${props => (props.way === 'left' ? 'right' : 'center')};
+// const RowButton = styled.TouchableOpacity`
+//   flex-basis: ${props => (props.way === 'left' ? '30%' : '50%')};
+//   text-align: ${props => (props.way === 'left' ? 'right' : 'center')};
 
-  ${'' /* background-color: ${props =>
-    props.way === 'left' ? palette.hakgyoGreen : 'transparent'}; */}
-`;
+//   ${'' /* background-color: ${props =>
+//     props.way === 'left' ? palette.hakgyoGreen : 'transparent'}; */}
+// `;
 
 export default MyPageScreen;

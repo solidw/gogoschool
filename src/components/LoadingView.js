@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import React from 'react';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 import AbsoluteIndicator from 'src/components/AbsoluteIndicator';

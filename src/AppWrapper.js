@@ -16,7 +16,7 @@ import { RESTORE_TOKEN } from 'src/contexts/reducers';
 const AppWrapper = () => {
   const { authState, dispatch } = useContext(AuthContext);
   const { user, setUser } = useContext(UserContext);
-  const { notices, addNotice } = useContext(NoticeContext);
+  const { addNotice } = useContext(NoticeContext);
 
   useEffect(() => {
     const asyncGetUserInfo = () => {
@@ -47,7 +47,7 @@ const AppWrapper = () => {
       });
       return unsubscribe;
     }
-  }, [addNotice, user.isStudent]);
+  }, [addNotice, user, user.isStudent]);
 
   if (authState.isLoading) {
     return <LoadingView />;

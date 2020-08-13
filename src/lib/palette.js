@@ -34,7 +34,7 @@ function hexToRgb(hexType) {
   var value = hex.match(/[a-f\d]/gi);
 
   // 헥사값이 세자리일 경우, 여섯자리로.
-  if (value.length == 3) {
+  if (value.length === 3) {
     hex = value[0] + value[0] + value[1] + value[1] + value[2] + value[2];
   }
 

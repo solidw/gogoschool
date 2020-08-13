@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 import Icon from 'src/components/Icon';

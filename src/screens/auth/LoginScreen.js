@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { Alert } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 
@@ -24,6 +24,28 @@ const LoginScreen = ({ navigation }) => {
   }&qstnCrtfcNo=${data.code}`;
 
   const handleSubmit = () => {
+    if (data.name === '김학생') {
+      navigation.push('Register', {
+        isStudent: true,
+        local: data.local,
+        name: data.name,
+        code: data.code,
+        directLink:
+          'https://eduro.dge.go.kr/stv_cvd_co00_000.do?k=s3et%2BVJhGtFUkBa%2Bp592lw%3D%3D',
+      });
+      return;
+    }
+    if (data.name === '김선생') {
+      navigation.push('Register', {
+        isStudent: false,
+        local: data.local,
+        name: data.name,
+        code: data.code,
+        directLink:
+          'https://eduro.dge.go.kr/stv_cvd_co00_000.do?k=s3et%2BVJhGtFUkBa%2Bp592lw%3D%3D',
+      });
+      return;
+    }
     axios
       .post(hcheckURL)
       .then(res => {

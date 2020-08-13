@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components';
-import palette from 'src/lib/palette';
 import StyledText from 'src/components/StyledText';
 
 import TodoItem from 'src/components/home/TodoItem';
@@ -74,9 +73,11 @@ const TeacherMiddleView = ({
 }) => {
   return (
     <CheckView>
-      <StyledText size={20} center margin={10}>
-        우리반 학생 자가진단 현황(클릭하여 새로고침)
-      </StyledText>
+      <TextTouchableOpacity onPress={refreshSelfcheckStatus}>
+        <StyledText size={20} center margin={10}>
+          우리반 학생 자가진단 현황(클릭하여 새로고침)
+        </StyledText>
+      </TextTouchableOpacity>
       {infoLoaded && studentList.length === 0 ? (
         <StyledText size={17} center>
           아직 등록된 학생이 없어 불러올 수 없습니다.
@@ -112,6 +113,7 @@ const TodoView = styled.View`
 const CheckView = styled.View`
   flex: 1;
 `;
+
 const CheckTouchableOpacity = styled.TouchableOpacity`
   flex: 1;
   flex-direction: row;
@@ -119,5 +121,7 @@ const CheckTouchableOpacity = styled.TouchableOpacity`
   flex-wrap: wrap;
   justify-content: center;
 `;
+
+const TextTouchableOpacity = styled.TouchableOpacity``;
 
 export default HomeMiddleView;

@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import palette from 'src/lib/palette';
 import AnimatedProgressWheel from 'react-native-progress-wheel';
 
 import { UserContext } from 'src/contexts/UserContext';
 import { MissionContext } from 'src/contexts/MissionContext';
-import { NoticeContext } from 'src/contexts/NoticeContext';
 
 import HomeMiddleView from 'src/components/home/HomeMiddleView';
 import HomeFooterView from 'src/components/home/HomeFooterView';
@@ -22,7 +21,6 @@ import { getStudentDoesSelfcheckOrNot } from 'src/apis/user';
 const HomeScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
   const { missionState } = useContext(MissionContext);
-  const { notices } = useContext(NoticeContext);
 
   const [selfcheckInfo, setSelfcheckInfo] = useState({
     total: 1,

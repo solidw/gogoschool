@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Alert, KeyboardAvoidingView } from 'react-native';
+import { Alert } from 'react-native';
 import styled from 'styled-components';
 
 import AsyncStorage from '@react-native-community/async-storage';

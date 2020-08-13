@@ -1,11 +1,4 @@
-import React, {
-  useContext,
-  useRef,
-  forwardRef,
-  useState,
-  useEffect,
-} from 'react';
-import { UserContext } from 'src/contexts/UserContext';
+import React, { useRef, forwardRef, useState } from 'react';
 import styled from 'styled-components';
 import { WebView } from 'react-native-webview';
 import AbsoluteIndicator from 'src/components/AbsoluteIndicator';
@@ -15,12 +8,12 @@ const SelfCheckScreen = ({ route }) => {
   const { isStudent, name, code, directLink } = route.params;
   const webViewRef = useRef();
 
-  const zoomJsCode = `
-    const meta = document.createElement('meta'); 
-    meta.setAttribute('content', 'width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0');
-    meta.setAttribute('name', 'viewport');
-    document.getElementsByTagName('head')[0].appendChild(meta)
-    `;
+  // const zoomJsCode = `
+  //   const meta = document.createElement('meta');
+  //   meta.setAttribute('content', 'width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0');
+  //   meta.setAttribute('name', 'viewport');
+  //   document.getElementsByTagName('head')[0].appendChild(meta)
+  //   `;
 
   const studentJsCode = `
     setTimeout(() => {
