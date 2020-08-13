@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useEffect } from 'react';
 import messaging from '@react-native-firebase/messaging';
 import UserContextProvider from 'src/contexts/UserContext';
 import AuthContextProvider from 'src/contexts/AuthContext';
@@ -8,12 +8,17 @@ import MissionContextProvider from 'src/contexts/MissionContext';
 import AppWrapper from 'src/AppWrapper';
 
 const App = () => {
-  messaging().setBackgroundMessageHandler(async remoteMessage => {
-    console.log(
-      'Background: Message handled in the background!',
-      remoteMessage,
+  useEffect(() => {
+    const subscribe = messaging().setBackgroundMessageHandler(
+      async remoteMessage => {
+        console.log(
+          'Background: Message handled in the background!',
+          remoteMessage,
+        );
+      },
     );
-  });
+    return subscribe;
+  }, []);
 
   return (
     <AuthContextProvider>
