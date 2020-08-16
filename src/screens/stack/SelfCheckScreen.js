@@ -47,9 +47,7 @@ const SelfCheckScreen = ({ route }) => {
       scalesPageToFit={false}
       scrollEnabled
       onMessage={e => {
-        console.log(e.nativeEvent.data);
         if (e.nativeEvent.data === 'Done!') {
-          console.log('Done! submit');
           postSelfCheckSubmit({ code: code });
         }
       }}

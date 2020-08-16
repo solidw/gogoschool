@@ -7,7 +7,6 @@ import Warning from 'src/lib/assets/alert.png';
 import FullRowTouchableOpacity from 'src/components/FullRowTouchableOpacity';
 
 const ErrorScreen = ({ navigation }) => {
-  console.log(navigation);
   return (
     <ErrorScreenWrapper>
       <Icon source={Warning} />

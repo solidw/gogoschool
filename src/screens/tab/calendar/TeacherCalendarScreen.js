@@ -81,7 +81,6 @@ const CalendarScreen = ({ user, navigation }) => {
         }}
         onDayPress={day => {
           setSelected(day.dateString);
-          console.log(day.dateString);
         }}
       />
       {isFailed ? (
