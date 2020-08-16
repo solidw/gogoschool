@@ -5,8 +5,6 @@ import palette from 'src/lib/palette';
 import StyledText from 'src/components/StyledText';
 
 const MyStudentDetailScreen = ({ route }) => {
-  const { selfcheckInfo } = route.params;
-  console.log(selfcheckInfo);
   return (
     <MyStudentDetailScreenWrapper>
       <HeaderView>
