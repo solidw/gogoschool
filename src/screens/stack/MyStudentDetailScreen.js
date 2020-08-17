@@ -10,9 +10,6 @@ const MyStudentDetailScreen = ({ route }) => {
       <HeaderView>
         <StyledText>학생 자가진단 여부 </StyledText>
       </HeaderView>
-      <RowView>
-        <StyledText>asdf</StyledText>
-      </RowView>
       <Text>MyStudentDetailScreenScreen</Text>
     </MyStudentDetailScreenWrapper>
   );
