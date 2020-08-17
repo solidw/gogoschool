@@ -51,7 +51,6 @@ const LoginScreen = ({ navigation }) => {
       .then(res => {
         const directLink = res.data.resultSVO.qstnCrtfcNoEncpt;
         const resultCode = res.data.resultSVO.rtnRsltCode;
-        console.log(resultCode);
         if (resultCode === 'QSTN_USR_ERROR') {
           Alert.alert(
             '인증 실패',
