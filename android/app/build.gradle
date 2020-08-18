@@ -136,7 +136,7 @@ android {
         minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
         missingDimensionStrategy 'react-native-camera', 'general'
         manifestPlaceholders = [googleMapApiKey:googleMapApiKey]
     }
@@ -183,17 +183,29 @@ android {
     }
 
     // applicationVariants are e.g. debug, release
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            // For each separate APK per architecture, set a unique version code as described here:
-            // https://developer.android.com/studio/build/configure-apk-splits.html
-            def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
-            def abi = output.getFilter(OutputFile.ABI)
-            if (abi != null) {  // null for the universal-debug, universal-release variants
-                output.versionCodeOverride =
-                        versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
-            }
+    // applicationVariants.all { variant ->
+    //     variant.outputs.each { output ->
+    //         // For each separate APK per architecture, set a unique version code as described here:
+    //         // https://developer.android.com/studio/build/configure-apk-splits.html
+    //         def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
+    //         def abi = output.getFilter(OutputFile.ABI)
+    //         if (abi != null) {  // null for the universal-debug, universal-release variants
+    //             output.versionCodeOverride =
+    //                     versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
+    //         }
 
+    //     }
+    // }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { 
+            def date = new Date();
+            def formattedDate = date.format("yy.MM.dd");
+            def buildType = variant.buildType.name;
+            def versionCode = variant.versionCode;
+            def versionName = variant.versionName;
+
+            def newApkName = "[${formattedDate}]_gogoschool_${buildType}_v${versionName}";
+            outputFileName = "${newApkName}.apk";
         }
     }
 }
