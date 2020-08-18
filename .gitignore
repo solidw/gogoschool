@@ -66,3 +66,5 @@ buck-out/
 /android/app/src/main/res/drawble
 /android/app/src/main/res/mipmap-*
 /android/app/src/release/
+
+/desktop.ini
