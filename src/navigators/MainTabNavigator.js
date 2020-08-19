@@ -99,7 +99,7 @@ const MainTabNavigator = () => {
               iconName = Calendar;
             } else if (route.name === '날짜별 체온기록') {
               iconName = Temperature;
-            } else if (route.name === '알림장') {
+            } else if (route.name === '알림') {
               iconName = Notice;
             } else if (route.name === '마이페이지') {
               iconName = MyPage;
@@ -128,7 +128,7 @@ const MainTabNavigator = () => {
         <Tab.Screen name="홈" component={HomeStackNavigator} />
         {user.isStudent === false && (
           <Tab.Screen
-            name="알림장"
+            name="알림"
             component={NoticeScreen}
             initialParams={{ user: user }}
           />
