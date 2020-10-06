@@ -69,4 +69,4 @@ buck-out/
 
 /desktop.ini
 
-/android/app/google-services.json
+android/app/google-services.json
