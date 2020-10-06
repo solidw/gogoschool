@@ -68,3 +68,5 @@ buck-out/
 /android/app/src/release/
 
 /desktop.ini
+
+/android/app/google-services.json
