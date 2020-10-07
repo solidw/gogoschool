@@ -1,3 +1,26 @@
+# GOGOSCHOOL - 학교가자
+> IBM 2020 Call for Code Korea Hackathon
+
+![gogoschool-banner](https://github.com/solidw/gogoschool/blob/master/screenshots/gogoschool-banner.png)
+
+## Screenshots
+
+### For Student
+<p float="left">
+	<img src="https://github.com/solidw/gogoschool/blob/master/screenshots/student-1.jpg" width="200" />
+	<img src="https://github.com/solidw/gogoschool/blob/master/screenshots/student-2.jpg" width="200" />
+	<img src="https://github.com/solidw/gogoschool/blob/master/screenshots/student-3.jpg" width="200" />
+	<img src="https://github.com/solidw/gogoschool/blob/master/screenshots/student-4.jpg" width="200" />
+</p>
+
+### For Teacher
+<p float="left">
+	<img src="https://github.com/solidw/gogoschool/blob/master/screenshots/teacher-1.jpg" width="200" />
+	<img src="https://github.com/solidw/gogoschool/blob/master/screenshots/teacher-2.jpg" width="200" />
+	<img src="https://github.com/solidw/gogoschool/blob/master/screenshots/teacher-3.jpg" width="200" />
+	<img src="https://github.com/solidw/gogoschool/blob/master/screenshots/teacher-4.jpg" width="200" />
+</p>
+
 ## How to Run
 
 1. `git clone https://github.com/solidw/gogoschool`
@@ -28,8 +51,6 @@
 ### build
 
 > npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
-
-
 
 ### The list of todo for ios (Android First Dev)
 
