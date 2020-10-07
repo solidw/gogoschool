@@ -75,6 +75,8 @@
 
 > npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
 
+## iOS App isn't provide yet
+
 ### The list of todo for ios (Android First Dev)
 
 - location permission
