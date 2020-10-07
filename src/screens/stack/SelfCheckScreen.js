@@ -8,13 +8,6 @@ const SelfCheckScreen = ({ route }) => {
   const { isStudent, name, code, directLink } = route.params;
   const webViewRef = useRef();
 
-  // const zoomJsCode = `
-  //   const meta = document.createElement('meta');
-  //   meta.setAttribute('content', 'width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0');
-  //   meta.setAttribute('name', 'viewport');
-  //   document.getElementsByTagName('head')[0].appendChild(meta)
-  //   `;
-
   const studentJsCode = `
     setTimeout(() => {
       document.getElementById("btnConfirm").addEventListener("click", function () {
