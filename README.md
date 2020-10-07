@@ -21,6 +21,29 @@
 	<img src="https://github.com/solidw/gogoschool/blob/master/screenshots/teacher-4.jpg" width="200" />
 </p>
 
+## Feature
+
+### Student
+- Todo list in the morning before go to school
+  - Do self-check
+	- Do wash-hand
+	- Do take mask
+	- Do take spoon and chopsticks
+- Manage body temperature check with QR code
+- Link for online-class '학교가자'
+- Automation process self-check on public confidenced site named "나이스 자가진단 서비스"
+- Quick quiz for COVID-19
+- Check when student's go to school day(In the COVID-19 period, most of student go to school on even/odd days student by student.)
+
+### teacher
+- Check how many student did self-check in own class
+- Manage body temperature check with QR code
+- Link for online-class '학교가자'
+- Link for "나이스 자가진단 서비스" to check student self-check status on public confidenced site
+- Argent manual when student got COVID-19 Infection
+- Show record of temperature measurements by date for all students in own class
+- Screen to determine the authenticity of a new student when he or she is registered.
+
 ## How to Run
 
 1. `git clone https://github.com/solidw/gogoschool`
