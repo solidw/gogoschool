@@ -1,6 +1,9 @@
 # GOGOSCHOOL - 학교가자
 > IBM 2020 Call for Code Korea Hackathon
 
+## Call for code Korea 2020 NEWS
+[한국 IBM 사장상 수상](https://www.mimint.co.kr/bbs/view.asp?strBoardID=media&bbstype=S1N12&bidx=2570148&sdate=&page=1&pageblock=1)
+
 ![gogoschool-banner](https://github.com/solidw/gogoschool/blob/master/screenshots/gogoschool-banner.png)
 
 ## Screenshots
